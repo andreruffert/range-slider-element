@@ -23,6 +23,39 @@
       <range-slider max="50"></range-slider>
     </div>
 
+    <div>
+      <range-slider step="10"></range-slider>
+    </div>
+
+    <div>
+      <range-slider min="-20" max="0"></range-slider>
+    </div>
+
+    <div>
+      <range-slider min="0" max="1" step="0.1"></range-slider>
+    </div>
+
+    <div>
+      <range-slider min="200" max="1000" step="100"></range-slider>
+    </div>
+
+
     <script src="../index.js"></script>
+    <script>
+      const elements = document.querySelectorAll('range-slider');
+
+      elements.forEach(element => {
+        element.insertAdjacentHTML('afterend', `
+          <output>${element.value}</output>
+        `);
+      });
+
+      document.addEventListener('input', e => {
+        const input = e.target;
+        const output = input.nextElementSibling;
+        output.textContent = input.value;
+      });
+
+    </script>
   </body>
 </html>
