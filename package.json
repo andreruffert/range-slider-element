@@ -1,0 +1,21 @@
+{
+  "name": "range-input-element",
+  "version": "1.0.0-beta.1",
+  "description": "",
+  "source": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "parcel build index.js",
+    "dev": "parcel examples/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "parcel-bundler": "^1.12.3"
+  }
+}
