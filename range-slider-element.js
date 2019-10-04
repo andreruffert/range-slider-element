@@ -1,7 +1,7 @@
 import * as style from './styles.css';
 
 const UPDATE_EVENTS = ['input', 'change'];
-const REFLECTED_ATTRIBUTES = ['min', 'max', 'step', 'value', 'disabled'];
+const REFLECTED_ATTRIBUTES = ['min', 'max', 'step', 'value', 'disabled', 'value-precision'];
 
 class RangeSliderElement extends HTMLElement {
   constructor() {
@@ -25,12 +25,14 @@ class RangeSliderElement extends HTMLElement {
   get max() { return this.getAttribute('max') || '100'; }
   get step() { return this.getAttribute('step') || '1'; }
   get value() { return this.getAttribute('value') || this._defaultValue; }
+  get disabled() { return this.getAttribute('disabled') || false }
   get valuePrecision() { return this.getAttribute('label-precision') || ''; }
 
   set min(min) { this.setAttribute('min', min); }
   set max(max) { this.setAttribute('max', max); }
   set step(step) { this.setAttribute('step', step); }
   set value(value) { this.setAttribute('value', value); }
+  set disabled(disabled) { this.setAttribute('disabled', disabled); }
   set valuePrecision(precision) { this.setAttribute('label-precision', precision); }
 
   connectedCallback() {
@@ -61,13 +63,16 @@ class RangeSliderElement extends HTMLElement {
   }
 
   _startHandler = e => {
-    this.setPointerCapture(e.pointerId);
-    this.addEventListener('pointermove', this._moveHandler, false);
     this.classList.add('touch-active');
 
-    console.log(e);
-    if (e.target.matches('.thumb')) return;
-    this._reflectValue(e);
+    // Click and drag
+    this.setPointerCapture(e.pointerId);
+    this.addEventListener('pointermove', this._moveHandler, false);
+
+    // Click jump
+    if (!e.target.matches('.thumb')) {
+      this._reflectValue(e);
+    }
   }
 
   _moveHandler = e => {
@@ -76,9 +81,9 @@ class RangeSliderElement extends HTMLElement {
   }
 
   _endHandler = e => {
+    this.classList.remove('touch-active');
     this.releasePointerCapture(e.pointerId);
     this.removeEventListener('pointermove', this._moveHandler, false);
-    this.classList.remove('touch-active');
 
     // TODO: check if value changed
     this.dispatchEvent(new Event('change', { bubbles: true }));
@@ -88,19 +93,28 @@ class RangeSliderElement extends HTMLElement {
     const min = Number(this.min);
     const max = Number(this.max);
     const step = Number(this.step);
-    const oldValue = Number(this.value);
+    const oldValue = this.value;
     const valuePrecision = Number(this.valuePrecision) || getPrescision(this.step) || 0;
     const fullWidth = event.target.offsetWidth;
-    const offsetX = event.offsetX;
-    const stepInPixels = (max > 0) ? fullWidth / max : fullWidth / min;
-    const tmpValue = Math.min(Math.max(offsetX / stepInPixels, min), max);
-    const nearestValue = Math.ceil(tmpValue / step) * step; // Rounding in steps
-    const newValue = valuePrecision
-      ? nearestValue.toFixed(valuePrecision)
-      : Math.round(nearestValue).toString()
-    ;
+    const offsetX = Math.min(Math.max(event.offsetX, 0), fullWidth);
+    const percentComplete = offsetX / fullWidth;
 
-    console.log({ fullWidth, offsetX, stepInPixels, oldValue, newValue});
+    // TODO: RTL support
+    // if (this.adapter_.isRTL()) {
+    //   percentComplete = 1 - percentComplete;
+    // }
+
+    // Fit the percentage complete between the range [min,max]
+    // by remapping from [0, 1] to [min, min+(max-min)].
+    const computedValue = min + percentComplete * (max - min);
+
+    // Rounding in steps
+    const nearestValue = Math.round(computedValue / step) * step;
+
+    // Value precision
+    const newValue = valuePrecision ? nearestValue.toFixed(valuePrecision) : Math.round(nearestValue).toString();
+
+    console.log({ fullWidth, offsetX, oldValue, computedValue, newValue});
 
     if (oldValue !== newValue) {
       this.value = newValue;
@@ -108,11 +122,19 @@ class RangeSliderElement extends HTMLElement {
     }
   }
 
+  _stepUp(amount = this.step) {
+    this.value += amount;
+  }
+
+  _stepDown(amount = this.step) {
+    this.value -= amount;
+  }
+
   _update() {
     const min = Number(this.min);
     const max = Number(this.max);
     const value = Number(this.value);
-    const percent = (max > 0) ? (100 * (value - min)) / (max - min) : (100 * (value - max)) / (min - max);
+    const percent = (100 * (value - min)) / (max - min);
 
     if (this._valueDisplay) {
       this._valueDisplay.textContent = value;

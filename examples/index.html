@@ -28,7 +28,7 @@
     </div>
 
     <div>
-      <range-slider min="-20" max="0"></range-slider>
+      <range-slider min="-10" max="10"></range-slider>
     </div>
 
     <div>
@@ -37,6 +37,10 @@
 
     <div>
       <range-slider min="200" max="1000" step="100"></range-slider>
+    </div>
+
+    <div>
+      <input type="range">
     </div>
 
 
@@ -53,7 +57,9 @@
       document.addEventListener('input', e => {
         const input = e.target;
         const output = input.nextElementSibling;
-        output.textContent = input.value;
+        if (output) {
+          output.textContent = input.value;
+        }
       });
 
     </script>

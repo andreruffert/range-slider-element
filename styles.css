@@ -2,7 +2,8 @@ range-slider {
   position: relative;
   display: flex;
   height: 24px;
-  width: 130px;
+  width: 100%;
+  min-width: 130px;
   margin: 2px;
   overflow: visible;
 
@@ -16,7 +17,7 @@ range-slider[disabled] {
 }
 
 range-slider::before {
-  --height: 3px;
+  --height: 5px;
 
   content: "";
   display: block;
@@ -24,19 +25,18 @@ range-slider::before {
   top: calc(50% - var(--height) / 2);
   left: 0;
   width: 100%;
-  height: 3px;
+  height: var(--height);
   border-radius: 1px;
-  box-shadow: 0 -.5px 0 rgba(0,0,0,0.3), inset 0 .5px 0 rgba(255,255,255,0.2), 0 .5px 0 rgba(255,255,255,0.3);
-  background: linear-gradient(#FF0080, #FF0080) 0/ var(--value-percent, 0%) 100% no-repeat #eee;
+  /* box-shadow: 0 -.5px 0 rgba(0,0,0,0.3), inset 0 .5px 0 rgba(255,255,255,0.2), 0 .5px 0 rgba(255,255,255,0.3); */
+  background: linear-gradient(#6221ea, #6221ea) 0/ var(--value-percent, 0%) 100% no-repeat #c6afe5;
 }
 
 .thumb {
-  pointer-events: none;
   position: absolute;
   bottom: 6px;
   left: var(--value-percent, 0%);
   margin-left: -6px;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><circle cx="5" cy="5" r="1" fill="currentColor" /></svg>') center no-repeat #FF0080;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><circle cx="5" cy="5" r="1" fill="currentColor" /></svg>') center no-repeat #6221ea;
   border-radius: 50%;
   width: 12px;
   height: 12px;
