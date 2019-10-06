@@ -47,8 +47,12 @@
       document.addEventListener('input', e => {
         const input = e.target;
         const output = input.nextElementSibling;
+        const valueDisplay = input.querySelector('.value-display');
         if (output) {
           output.textContent = input.value;
+        }
+        if (valueDisplay) {
+          valueDisplay.textContent = input.value;
         }
       });
 
