@@ -19,6 +19,7 @@ class RangeSliderElement extends HTMLElement {
   constructor() {
     super();
     this._ignoreChange = false;
+    this._isRTL = this.getAttribute('dir') === 'rtl';
 
     // Aria attributes
     this.setAttribute('tabindex', '0');
@@ -76,8 +77,9 @@ class RangeSliderElement extends HTMLElement {
   }
 
   _startHandler = e => {
-    this.classList.add('touch-active');
     this.focus();
+    this.classList.add('touch-active');
+
     // Click and drag
     this.setPointerCapture(e.pointerId);
     this.addEventListener('pointermove', this._moveHandler, false);
@@ -93,7 +95,6 @@ class RangeSliderElement extends HTMLElement {
   }
 
   _endHandler = e => {
-    // alert(e.type);
     this.classList.remove('touch-active');
     this.releasePointerCapture(e.pointerId);
     this.removeEventListener('pointermove', this._moveHandler, false);
@@ -118,31 +119,21 @@ class RangeSliderElement extends HTMLElement {
   }
 
   _reflectValue = event => {
+    const isRTL = Boolean(this._isRTL);
     const min = Number(this.min);
     const max = Number(this.max);
-    const step = Number(this.step);
     const oldValue = this.value;
-    const valuePrecision = Number(this.valuePrecision) || getPrescision(this.step) || 0;
     const fullWidth = event.target.offsetWidth;
     const offsetX = Math.min(Math.max(event.offsetX, 0), fullWidth);
-    const percentComplete = offsetX / fullWidth;
-
-    // TODO: RTL support
-    // if (this.adapter_.isRTL()) {
-    //   percentComplete = 1 - percentComplete;
-    // }
+    const percent = offsetX / fullWidth;
+    const percentComplete = isRTL ? 1 - percent : percent;
 
     // Fit the percentage complete between the range [min,max]
     // by remapping from [0, 1] to [min, min+(max-min)].
     const computedValue = min + percentComplete * (max - min);
 
-    // Rounding in steps
-    const nearestValue = Math.round(computedValue / step) * step;
-
-    // Value precision
-    const newValue = valuePrecision ? nearestValue.toFixed(valuePrecision) : Math.round(nearestValue).toString();
-
-    // console.log({ fullWidth, offsetX, oldValue, computedValue, newValue});
+    // Constrain value
+    const newValue = this._constrainValue(computedValue);
 
     if (oldValue !== newValue) {
       this.value = newValue;
@@ -153,19 +144,29 @@ class RangeSliderElement extends HTMLElement {
   _constrainValue(value) {
     const min = Number(this.min);
     const max = Number(this.max);
-    return Math.min(Math.max(value, min), max);
+    const step = Number(this.step);
+    const valuePrecision = Number(this.valuePrecision) || getPrescision(this.step) || 0;
+
+    // min, max constrain
+    const saveValue = Math.min(Math.max(value, min), max);
+
+    // Rounding in steps
+    const nearestValue = Math.round(saveValue / step) * step;
+
+    // Value precision
+    const newValue = valuePrecision ? nearestValue.toFixed(valuePrecision) : Math.round(nearestValue).toString();
+
+    return newValue;
   }
 
   _update() {
+    const isRTL = Boolean(this._isRTL);
     const min = Number(this.min);
     const max = Number(this.max);
     const value = Number(this.value);
     const percent = (100 * (value - min)) / (max - min);
-
-    console.log('update', { value });
-
-    this.style.setProperty('--value-percent', percent + '%');
-    this.style.setProperty('--value-width', '' + this.value.length);
+    const percentComplete = isRTL ? 100 - percent : percent;
+    this.style.setProperty('--value-percent', percentComplete + '%');
   }
 
   stepUp(amount = this.step) {

@@ -1,10 +1,11 @@
 range-slider {
   --element-height: 24px;
-  --track-height: 4px;
+  --track-height: 3px;
   --thumb-size: 16px;
 
   position: relative;
   display: flex;
+  align-items: center;
   height: var(--element-height);
   width: 100%;
   min-width: 130px;
@@ -27,9 +28,6 @@ range-slider[disabled] {
 range-slider::before {
   content: "";
   display: block;
-  position: absolute;
-  top: calc(50% - var(--track-height) / 2);
-  left: 0;
   width: 100%;
   height: var(--track-height);
   border-radius: calc(var(--track-height) / 2);

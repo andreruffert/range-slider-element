@@ -8,6 +8,7 @@
     "dist"
   ],
   "scripts": {
+    "prebuild": "rm -rf dist",
     "build": "parcel build index.js",
     "dev": "parcel examples/index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
