@@ -1,10 +1,11 @@
 range-slider {
-  --track-height: 5px;
-  --thumb-size: 12px;
+  --element-height: 24px;
+  --track-height: 4px;
+  --thumb-size: 16px;
 
   position: relative;
   display: flex;
-  height: 24px;
+  height: var(--element-height);
   width: 100%;
   min-width: 130px;
   margin: 2px;
@@ -38,16 +39,14 @@ range-slider::before {
 .thumb {
   pointer-events: none;
   position: absolute;
-  bottom: calc(var(--thumb-size) / 2);
+  bottom: calc(var(--element-height) / 2 - var(--thumb-size) / 2);
   left: var(--value-percent, 0%);
   margin-left: calc(var(--thumb-size) / 2 * -1);
   background: #6221ea;
   border-radius: 50%;
   width: var(--thumb-size);
   height: var(--thumb-size);
-
-  transition: all 200ms ease;
-  transition-property: transform;
+  transition: transform 200ms ease;
   will-change: transform;
 }
 
@@ -61,11 +60,11 @@ range-slider::before {
 }
 
 range-slider:focus .thumb {
-  box-shadow: 0 0 0 0.4em rgba(198, 175, 229,.4);
+  box-shadow: 0 0 0 0.3em rgba(98, 33, 234, .2);
 }
 
 range-slider.touch-active .thumb-wrapper .thumb {
-  box-shadow: 0 0 0 0.1em rgba(198, 175, 229,.4);
+  box-shadow: none;
   transform: scale(1.5);
 }
 
@@ -81,7 +80,7 @@ range-slider.touch-active .thumb-wrapper .thumb {
   position: absolute;
   box-sizing: border-box;
   left: var(--value-percent, 0%);
-  bottom: 6px;
+  bottom: calc(var(--element-height) / 2 - var(--thumb-size) / 2);
   width: 32px;
   height: 62px;
   text-align: center;
