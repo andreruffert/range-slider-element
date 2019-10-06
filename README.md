@@ -17,7 +17,7 @@ $ npm install range-slider-element
 ## Usage
 
 ```js
-import i18n from 'range-slider-element';
+import 'range-slider-element';
 ```
 
 ```html
