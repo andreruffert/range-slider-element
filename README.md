@@ -7,6 +7,9 @@
 Accessible range slider custom element with keyboard support.
 Follows the [ARIA best practices guide on sliders](https://www.w3.org/TR/wai-aria-practices/#slider).
 
+* No dependencies
+* Customizable styling
+* Keyboard accessible
 
 ## Install
 
