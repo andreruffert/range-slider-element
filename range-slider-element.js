@@ -103,16 +103,17 @@ class RangeSliderElement extends HTMLElement {
   }
 
   _keyCodeHandler = e => {
-    e.preventDefault();
     const code = e.code;
     const up = ['ArrowUp', 'ArrowRight'].includes(code);
     const down = ['ArrowDown', 'ArrowLeft'].includes(code);
 
     if (up) {
-      this._stepUp();
+      e.preventDefault();
+      this.stepUp();
     }
     else if (down) {
-      this._stepDown();
+      e.preventDefault();
+      this.stepDown();
     }
   }
 
