@@ -12,37 +12,27 @@
         flex-direction: column;
         min-height: 100vh;
       }
+
+      output {
+        margin-bottom: 30px;
+      }
     </style>
   </head>
   <body>
-    <div>
-      <range-slider></range-slider>
-    </div>
 
-    <div>
-      <range-slider max="50"></range-slider>
-    </div>
-
-    <div>
-      <range-slider step="10"></range-slider>
-    </div>
-
-    <div>
-      <range-slider min="-10" max="10"></range-slider>
-    </div>
-
-    <div>
-      <range-slider min="0" max="1" step="0.1"></range-slider>
-    </div>
-
-    <div>
-      <range-slider min="200" max="1000" step="100"></range-slider>
-    </div>
-
-    <div>
-      <input type="range">
-    </div>
-
+    <range-slider>
+      <div class="thumb-wrapper">
+        <div class="thumb"></div>
+        <div class="value-display"></div>
+      </div>
+    </range-slider>
+    <range-slider max="50"></range-slider>
+    <range-slider step="10"></range-slider>
+    <range-slider min="-10" max="10"></range-slider>
+    <range-slider min="0" max="1" step="0.1"></range-slider>
+    <range-slider min="200" max="1000" step="100"></range-slider>
+    <range-slider min="0.20" max="1.200" step="0.10" value-precision="2"></range-slider>
+    <input type="range" style="width: 100%">
 
     <script src="../index.js"></script>
     <script>
