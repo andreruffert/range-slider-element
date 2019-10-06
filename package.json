@@ -12,7 +12,7 @@
     "build": "parcel build index.js",
     "dev": "parcel examples/index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
