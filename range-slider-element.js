@@ -85,9 +85,7 @@ class RangeSliderElement extends HTMLElement {
     this.addEventListener('pointermove', this._moveHandler, false);
 
     // Click jump
-    if (!e.target.matches('.thumb')) {
-      this._reflectValue(e);
-    }
+    this._reflectValue(e);
   }
 
   _moveHandler = e => {
@@ -118,13 +116,13 @@ class RangeSliderElement extends HTMLElement {
     }
   }
 
-  _reflectValue = event => {
+  _reflectValue = e => {
     const isRTL = Boolean(this._isRTL);
     const min = Number(this.min);
     const max = Number(this.max);
     const oldValue = this.value;
-    const fullWidth = event.target.offsetWidth;
-    const offsetX = Math.min(Math.max(event.offsetX, 0), fullWidth);
+    const fullWidth = e.target.offsetWidth;
+    const offsetX = Math.min(Math.max(e.offsetX, 0), fullWidth);
     const percent = offsetX / fullWidth;
     const percentComplete = isRTL ? 1 - percent : percent;
 
