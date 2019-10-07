@@ -1,4 +1,4 @@
-import * as style from './styles.css';
+// import * as style from './styles.css';
 
 const UPDATE_EVENTS = ['input', 'change'];
 const REFLECTED_ATTRIBUTES = ['min', 'max', 'step', 'value', 'disabled', 'value-precision'];
