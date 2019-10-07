@@ -1,10 +1,10 @@
 # &lt;range-slider&gt; element
 
-> A custom element drop in replacement for the input type range element.   
+> A custom range slider element.
 
 [![npm version](https://img.shields.io/npm/v/range-slider-element.svg)](https://www.npmjs.com/package/range-slider-element)
 
-Accessible range slider custom element with keyboard support.
+Accessible range slider custom element with keyboard support.        
 Follows the [ARIA best practices guide on sliders](https://www.w3.org/TR/wai-aria-practices/#slider).
 
 * No dependencies
@@ -28,20 +28,18 @@ import 'range-slider-element';
 <range-slider min="0" max="100" step="1"></range-slider>
 ```
 
+### Events
 
-## Events
+* `input` - Pointer move, value updated. Bubbles.
+* `change` - Pointer up, value updated. Bubbles.
 
-### `input`
 
-The `input` event gets fired from the `<range-slider>` element when the value updates.
+## Browser support
 
-This event bubbles, and can be canceled.
+Browsers without native [custom element support][support] require a [polyfill][].
 
-```js
-document.addEventListener('input', event => {
-  event.preventDefault();
-});
-```
+[support]: https://caniuse.com/#feat=custom-elementsv1
+[polyfill]: https://github.com/webcomponents/custom-elements
 
 
 ## License

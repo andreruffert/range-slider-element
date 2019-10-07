@@ -1,7 +1,8 @@
 {
   "name": "range-slider-element",
   "version": "1.0.0-beta.3",
-  "description": "",
+  "description": "A custom range slider element",
+  "repository": "andreruffert/range-slider-element",
   "source": "index.js",
   "main": "dist/index.js",
   "files": [
