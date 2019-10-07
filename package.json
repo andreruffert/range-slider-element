@@ -12,12 +12,14 @@
     "prebuild": "rm -rf dist",
     "build": "parcel build index.js",
     "dev": "parcel examples/index.html",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress": "cypress",
+    "test": "cypress run",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "parcel-bundler": "^1.12.3"
+    "cypress": "^3.4.1",
+    "parcel-bundler": "^1.12.4"
   }
 }
