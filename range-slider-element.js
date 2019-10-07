@@ -20,13 +20,6 @@ class RangeSliderElement extends HTMLElement {
     super();
     this._ignoreChange = false;
     this._isRTL = this.getAttribute('dir') === 'rtl';
-
-    // Aria attributes
-    this.setAttribute('tabindex', '0');
-    this.setAttribute('role', 'slider');
-    setAriaAttribute(this, 'value', this.value);
-    setAriaAttribute(this, 'min', this.min);
-    setAriaAttribute(this, 'max', this.max);
   }
 
   static get observedAttributes() {
@@ -62,6 +55,13 @@ class RangeSliderElement extends HTMLElement {
     this.addEventListener('pointerup', this._endHandler, false);
     this.addEventListener('keydown', this._keyCodeHandler, false);
     this._update();
+
+    // Aria attributes
+    this.setAttribute('tabindex', '0');
+    this.setAttribute('role', 'slider');
+    setAriaAttribute(this, 'value', this.value);
+    setAriaAttribute(this, 'min', this.min);
+    setAriaAttribute(this, 'max', this.max);
   }
 
   disconnectedCallback() {
