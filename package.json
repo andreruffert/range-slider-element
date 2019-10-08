@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "prebuild": "rm -rf dist",
-    "build": "parcel build index.js",
+    "build": "parcel build index.js styles.css",
     "dev": "parcel examples/index.html",
     "cypress": "cypress",
     "test": "cypress run",
