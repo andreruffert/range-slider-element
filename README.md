@@ -1,6 +1,6 @@
 # &lt;range-slider&gt; element
 
-> A custom range slider element.
+> A customizable range slider element.
 
 [![CI status](https://github.com/andreruffert/range-slider-element/workflows/CI/badge.svg)](https://github.com/andreruffert/range-slider-element/actions?workflow=CI)
 [![npm version](https://img.shields.io/npm/v/range-slider-element.svg)](https://www.npmjs.com/package/range-slider-element)
