@@ -1,13 +1,12 @@
 {
   "name": "range-slider-element",
   "version": "1.0.0-beta.5",
-  "description": "A custom range slider element",
+  "description": "A customizable range slider element",
+  "license": "MIT",
   "repository": "andreruffert/range-slider-element",
+  "author": "André Ruffert",
   "source": "index.js",
   "main": "dist/index.js",
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "parcel build index.js styles.css",
@@ -16,6 +15,15 @@
     "test": "cypress run",
     "prepublishOnly": "npm run build"
   },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "range slider",
+    "custom elements",
+    "web components",
+    "ui"
+  ],
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
