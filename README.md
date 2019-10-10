@@ -12,6 +12,15 @@ Follows the [ARIA best practices guide on sliders](https://www.w3.org/TR/wai-ari
 * Customizable styling
 * Keyboard accessible
 
+<div align="center">
+  <br>
+  <br>
+  <img src="https://user-images.githubusercontent.com/464300/66577218-443e1400-eb79-11e9-9e66-a8b62bbc97ba.png" alt="range slider element preview example" width="300">
+  <br>
+  <br>
+</div>
+
+
 ## Install
 
 ```console
