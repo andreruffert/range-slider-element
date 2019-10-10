@@ -29,10 +29,26 @@ import 'range-slider-element';
 <range-slider min="0" max="100" step="1"></range-slider>
 ```
 
+
+### Styling
+
+Exposed CSS custom properties scoped within the `range-slider` element.
+
+* `--value-percent` - The current value in percentage, e.g. 50%
+
+```css
+range-slider {}
+range-slider .thumb-wrapper {}
+range-slider .thumb {}
+```
+
+
 ### Events
 
 * `input` - Pointer move, value updated. Bubbles.
 * `change` - Pointer up, value updated. Bubbles.
+
+
 
 
 ## Browser support
