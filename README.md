@@ -38,6 +38,15 @@ import 'range-slider-element';
 <range-slider min="0" max="100" step="1"></range-slider>
 ```
 
+### Attributes
+
+- `min` The minimum permitted value. The default is 0.
+- `max` The maximum permitted value. The default is 100.
+- `step` The stepping interval. The default is 1.
+- `value` The value. The default is `min + (max - min) / 2`.
+- [`dir`](dir) Directionality. The default is ltr.
+
+[dir]: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir
 
 ### Styling
 
