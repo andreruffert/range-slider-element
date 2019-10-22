@@ -40,11 +40,11 @@ import 'range-slider-element';
 
 ### Attributes
 
-- `min` The minimum permitted value. The default is 0.
-- `max` The maximum permitted value. The default is 100.
-- `step` The stepping interval. The default is 1.
-- `value` The value. The default is `min + (max - min) / 2`.
-- [`dir`](dir) Directionality. The default is ltr.
+* `min` The minimum permitted value. The default is 0.
+* `max` The maximum permitted value. The default is 100.
+* `step` The stepping interval. The default is 1.
+* `value` The value. The default is `min + (max - min) / 2`.
+* [`dir`][dir] Directionality. The default is ltr.
 
 [dir]: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir
 
@@ -65,8 +65,6 @@ range-slider .thumb {}
 
 * `input` - Pointer move, value updated. Bubbles.
 * `change` - Pointer up, value updated. Bubbles.
-
-
 
 
 ## Browser support
