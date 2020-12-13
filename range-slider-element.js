@@ -20,6 +20,7 @@ class RangeSliderElement extends HTMLElement {
     super();
     this._ignoreChange = false;
     this._isRTL = this.getAttribute('dir') === 'rtl';
+    this.defaultValue = this.getAttribute('value');
   }
 
   static get observedAttributes() {
