@@ -10,6 +10,7 @@ Follows the [ARIA best practices guide on sliders](https://www.w3.org/TR/wai-ari
 
 * No dependencies
 * Customizable styling
+* Touchscreen friendly
 * Keyboard accessible
 
 <div align="center">
