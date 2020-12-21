@@ -20,13 +20,14 @@ class RangeSliderElement extends HTMLElement {
     super();
     this._ignoreChange = false;
     this._isRTL = this.getAttribute('dir') === 'rtl';
+    this._defaultValue = this.value;
   }
 
   static get observedAttributes() {
     return REFLECTED_ATTRIBUTES;
   }
 
-  get _defaultValue() {
+  get _computedValue() {
     const min = Number(this.min);
     const max = Number(this.max);
     return String(max < min ? min : min + (max - min) / 2);
@@ -35,9 +36,10 @@ class RangeSliderElement extends HTMLElement {
   get min() { return this.getAttribute('min') || '0'; }
   get max() { return this.getAttribute('max') || '100'; }
   get step() { return this.getAttribute('step') || '1'; }
-  get value() { return this.getAttribute('value') || this._defaultValue; }
+  get value() { return this.getAttribute('value') || this._computedValue(); }
   get disabled() { return this.getAttribute('disabled') || false }
   get valuePrecision() { return this.getAttribute('value-precision') || ''; }
+  get defaultValue() { return this._defaultValue; }
 
   set min(min) { this.setAttribute('min', min); }
   set max(max) { this.setAttribute('max', max); }
@@ -45,6 +47,7 @@ class RangeSliderElement extends HTMLElement {
   set value(value) { this.setAttribute('value', value); }
   set disabled(disabled) { this.setAttribute('disabled', disabled); }
   set valuePrecision(precision) { this.setAttribute('value-precision', precision); }
+  set defaultValue(value) { this._defaultValue = value; }
 
   connectedCallback() {
     if (!this.firstChild) {
