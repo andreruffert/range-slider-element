@@ -36,7 +36,7 @@ class RangeSliderElement extends HTMLElement {
   get min() { return this.getAttribute('min') || '0'; }
   get max() { return this.getAttribute('max') || '100'; }
   get step() { return this.getAttribute('step') || '1'; }
-  get value() { return this.getAttribute('value') || this._computedValue(); }
+  get value() { return this.getAttribute('value') || this._computedValue; }
   get disabled() { return this.getAttribute('disabled') || false }
   get valuePrecision() { return this.getAttribute('value-precision') || ''; }
   get defaultValue() { return this._defaultValue; }
