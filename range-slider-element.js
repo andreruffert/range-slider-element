@@ -97,7 +97,9 @@ class RangeSliderElement extends HTMLElement {
 
   _endHandler = e => {
     this.classList.remove('touch-active');
-    this.releasePointerCapture(e.pointerId);
+    // NOTE: do not call `releasePointerCapture` explicitly because of:
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1556703
+    // this.releasePointerCapture(e.pointerId);
     this.removeEventListener('pointermove', this._moveHandler, false);
 
     // TODO: check if value changed
