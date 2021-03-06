@@ -3,8 +3,8 @@
 > A customizable range slider element.
 
 [![CI status](https://github.com/andreruffert/range-slider-element/workflows/CI/badge.svg)](https://github.com/andreruffert/range-slider-element/actions?workflow=CI)
-[![npm downloads](https://img.shields.io/npm/dm/range-slider-element?logo=npm)](https://www.npmjs.com/package/range-slider-element)
 [![npm version](https://img.shields.io/npm/v/range-slider-element.svg)](https://www.npmjs.com/package/range-slider-element)
+[![npm downloads](https://img.shields.io/npm/dm/range-slider-element?logo=npm)](https://www.npmjs.com/package/range-slider-element)
 
 Accessible range slider custom element with keyboard support.        
 Follows the [ARIA best practices guide on sliders](https://www.w3.org/TR/wai-aria-practices/#slider).
