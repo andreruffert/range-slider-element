@@ -9,7 +9,8 @@ const ARIA_ATTRIBUTES = {
   max: 'valuemax',
 };
 
-const TEMPLATE = `
+const TEMPLATE = document.createElement('template');
+TEMPLATE.innerHTML = `
   <div class="thumb-wrapper">
     <div class="thumb"></div>
   </div>
@@ -51,7 +52,7 @@ class RangeSliderElement extends HTMLElement {
 
   connectedCallback() {
     if (!this.firstChild) {
-      this.innerHTML = TEMPLATE;
+      this.append(TEMPLATE.content.cloneNode(true));
     }
 
     this.addEventListener('pointerdown', this._startHandler, false);
