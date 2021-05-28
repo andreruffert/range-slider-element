@@ -13,7 +13,8 @@
     "dev": "parcel examples/index.html",
     "cypress": "cypress",
     "test": "cypress run",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
   "files": [
     "dist"
@@ -27,6 +28,7 @@
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "conventional-changelog-cli": "^2.1.1",
     "cypress": "^7.0.1",
     "parcel-bundler": "^1.12.4"
   }
