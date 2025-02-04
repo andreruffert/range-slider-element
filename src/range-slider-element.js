@@ -1,5 +1,3 @@
-// import * as style from './styles.css';
-
 const UPDATE_EVENTS = ['input', 'change'];
 const REFLECTED_ATTRIBUTES = ['min', 'max', 'step', 'value', 'disabled', 'value-precision'];
 
@@ -11,9 +9,8 @@ const ARIA_ATTRIBUTES = {
 
 const TEMPLATE = document.createElement('template');
 TEMPLATE.innerHTML = `
-  <div class="thumb-wrapper">
-    <div class="thumb"></div>
-  </div>
+  <div data-track></div>
+  <div data-thumb></div>
 `;
 
 class RangeSliderElement extends HTMLElement {
@@ -22,6 +19,10 @@ class RangeSliderElement extends HTMLElement {
     this._ignoreChange = false;
     this._isRTL = this.getAttribute('dir') === 'rtl';
     this._defaultValue = this.value;
+
+    if (!this.firstChild) {
+      this.append(TEMPLATE.content.cloneNode(true));
+    }
   }
 
   static get observedAttributes() {
@@ -51,10 +52,6 @@ class RangeSliderElement extends HTMLElement {
   set defaultValue(value) { this._defaultValue = value; }
 
   connectedCallback() {
-    if (!this.firstChild) {
-      this.append(TEMPLATE.content.cloneNode(true));
-    }
-
     this.addEventListener('pointerdown', this._startHandler, false);
     this.addEventListener('pointerup', this._endHandler, false);
     this.addEventListener('keydown', this._keyCodeHandler, false);
@@ -81,14 +78,12 @@ class RangeSliderElement extends HTMLElement {
   }
 
   _startHandler = e => {
-    this.focus();
-    this.classList.add('touch-active');
-
     // Click and drag
     this.setPointerCapture(e.pointerId);
     this.addEventListener('pointermove', this._moveHandler, false);
 
-    // Click jump
+    // Click jump (ignore thumb clicks)
+    if (e.target?.dataset?.thumb !== undefined) return;
     this._reflectValue(e);
   }
 
@@ -97,7 +92,6 @@ class RangeSliderElement extends HTMLElement {
   }
 
   _endHandler = e => {
-    this.classList.remove('touch-active');
     this.releasePointerCapture(e.pointerId);
     this.removeEventListener('pointermove', this._moveHandler, false);
 
@@ -168,7 +162,7 @@ class RangeSliderElement extends HTMLElement {
     const value = Number(this.value);
     const percent = (100 * (value - min)) / (max - min);
     const percentComplete = isRTL ? 100 - percent : percent;
-    this.style.setProperty('--value-percent', percentComplete + '%');
+    this.style.setProperty('--value-percentage', `${percentComplete}%`);
   }
 
   stepUp(amount = this.step) {

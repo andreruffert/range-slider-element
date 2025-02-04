@@ -1,0 +1,54 @@
+range-slider {
+  --element-height: 24px;
+  --track-height: 6px;
+  --thumb-size: 16px;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: var(--thumb-size);
+  min-width: 130px;
+  margin: 2px;
+  outline: 0;
+
+  /* Make sure capture pointer events will work properly on touch devices */
+  touch-action: none;
+}
+
+range-slider:focus-visible {
+  outline: AccentColor auto 1px;
+}
+
+range-slider:active {
+  opacity: .8;
+}
+
+range-slider[disabled] {
+  filter: grayscale(1);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Track */
+range-slider [data-track] {
+  align-self: center;
+  flex: 1 1 0%;
+  height: var(--track-height);
+  border-radius: calc(var(--track-height));
+  background: linear-gradient(AccentColor, AccentColor) 0/ var(--value-percentage, 0%) 100% no-repeat ButtonFace;
+}
+
+/* Thumb */
+range-slider [data-thumb] {
+  background: AccentColor;
+  border-radius: 50%;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  position: absolute;
+  inset: 0 auto;
+  left: clamp(
+    0%,
+    calc(var(--value-percentage, 0%) + var(--thumb-size) / 2 * -1),
+    calc(100% - var(--thumb-size))
+  );
+}

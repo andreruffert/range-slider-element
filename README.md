@@ -1,6 +1,6 @@
 # &lt;range-slider&gt; element
 
-> A customizable range slider element.
+> A cross browser customizable range slider element.
 
 [![CI status](https://github.com/andreruffert/range-slider-element/workflows/CI/badge.svg)](https://github.com/andreruffert/range-slider-element/actions?workflow=CI)
 [![npm version](https://img.shields.io/npm/v/range-slider-element.svg)](https://www.npmjs.com/package/range-slider-element)
@@ -54,12 +54,14 @@ import 'range-slider-element';
 
 Exposed CSS custom properties scoped within the `range-slider` element.
 
-* `--value-percent` - The current value in percentage, e.g. 50%
+* `--value-percentage` - The current value in percentage, e.g. 50%
 
 ```css
 range-slider {}
-range-slider .thumb-wrapper {}
-range-slider .thumb {}
+range-slider:active {}
+range-slider:focus {}
+range-slider [data-track] {}
+range-slider [data-thumb] {}
 ```
 
 
