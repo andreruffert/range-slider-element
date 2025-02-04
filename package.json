@@ -12,6 +12,8 @@
     "build": "vite build ./src/index.js ./src/styles.css",
     "dev": "vite",
     "cypress": "cypress",
+    "check": "biome check --write",
+    "lint": "biome ci",
     "test": "cypress run",
     "prepublishOnly": "npm run build",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
@@ -26,6 +28,7 @@
     "ui"
   ],
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "conventional-changelog-cli": "^2.1.1",
     "cypress": "^9.6.0",
     "vite": "6.0.11"
