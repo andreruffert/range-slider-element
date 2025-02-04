@@ -32,5 +32,9 @@
     "conventional-changelog-cli": "^2.1.1",
     "cypress": "^9.6.0",
     "vite": "6.0.11"
+  },
+  "volta": {
+    "node": "22.13.1",
+    "npm": "11.1.0"
   }
 }
