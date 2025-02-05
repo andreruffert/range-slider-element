@@ -4,13 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>range-slider-element</title>
-
-
     <style>
       body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         font-size: 16px;
         display: flex;
+        gap: 4em;
         align-items: center;
         justify-content: center;
         flex-direction: column;
@@ -20,7 +19,13 @@
         padding: 1em;
       }
 
-      /* Demo sections */
+      main {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+      }
+
+      /* Example sections */
       section {
         display: flex;
         flex-direction: column;
@@ -30,7 +35,7 @@
         font-size: 1.2em;
       }
 
-      /* Default demo value output */
+      /* Default example value output */
       section output {
         font-weight: 600;
         margin-bottom: 30px;
@@ -41,7 +46,7 @@
         outline: 0;
 
         [data-track] {
-          background: linear-gradient(#6221ea, #6221ea) 0 / var(--value-percentage, 0%) 100% no-repeat #c6afe5;
+          background: linear-gradient(to right, #6221ea var(--value-percentage, 0%), #c6afe5 var(--value-percentage, 0%));
         }
 
         [data-thumb] {
@@ -67,6 +72,8 @@
       }
 
       .value-bubble {
+        --element-height: 24px;
+
         box-sizing: border-box;
         background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="62" fill="none"><path fill="currentColor" d="M27.3 27.3C25 29.6 17 35.8 17 43v3c0 3 2.5 5 3.2 5.8a6 6 0 1 1-8.5 0C12.6 51 15 49 15 46v-3c0-7.2-8-13.4-10.3-15.7A16 16 0 0 1 16 0a16 16 0 0 1 11.3 27.3z"/><circle cx="16" cy="56" r="1" fill="%235D509E"/></svg>') top center no-repeat;
         position: absolute;
@@ -100,48 +107,77 @@
     </style>
   </head>
   <body>
-    <h1>range-slider-element</h1>
+    <main>
+      <h1>range-slider-element</h1>
+      <section>
+        <h1>default attributes</h1>
+        <range-slider></range-slider>
+      </section>
 
-    <section>
-      <range-slider max="50"></range-slider>
-      <range-slider step="10"></range-slider>
-      <range-slider min="0" max="1" step="0.1"></range-slider>
-      <range-slider min="200" max="1000" step="100"></range-slider>
-    </section>
+      <section>
+        <h1>Negative attributes</h1>
+        <range-slider min="-10" max="0"></range-slider>
+      </section>
 
-    <section>
-      <h1><code>disabled</code></h1>
-      <range-slider value="10" disabled></range-slider>
-    </section>
+      <section>
+        <h1>Floating point boundaries</h1>
+        <range-slider min="10" max="11" step="0.1" value="10.2"></range-slider>
+      </section>
 
-    <section>
-      <h1><code>dir="rtl"</code></h1>
-      <range-slider min="-10" max="10" dir="rtl"></range-slider>
-    </section>
+      <section>
+        <h1><code>value-precision="2"</code></h1>
+        <range-slider min="0.20" max="1.200" step="0.10" value-precision="2"></range-slider>
+      </section>
 
-    <section>
-      <h1><code>value-precision</code></h1>
-      <range-slider min="0.20" max="1.200" step="0.10" value-precision="2"></range-slider>
-    </section>
+      <section>
+        <h1><code>dir="rtl"</code></h1>
+        <range-slider min="100" max="500" step="100" dir="rtl"></range-slider>
+      </section>
 
-    <section>
-      <h1>Custom styling</h1>
-      <range-slider data-style="example-1"></range-slider>
-    </section>
+      <section>
+        <h1><code><code>orientation="vertical"</code></code></h1>
+        <range-slider orientation="vertical"></range-slider>
+      </section>
 
-    <section>
-      <h1>Value bubble</h1>
-      <range-slider>
-        <div data-track></div>
-        <div data-thumb></div>
-        <output class="value-bubble"></output>
-      </range-slider>
-    </section>
+      <section>
+        <h1><code>disabled</code></h1>
+        <range-slider value="10" disabled></range-slider>
+      </section>
 
-    <section>
-      <h1><code>&lt;input type="range"&gt;</code></h1>
-      <input type="range">
-    </section>
+      <section>
+        <h1>Custom styling</h1>
+        <range-slider data-style="example-1"></range-slider>
+      </section>
+
+      <section>
+        <h1>Value bubble</h1>
+        <range-slider data-style="example-1">
+          <div data-track></div>
+          <div data-thumb></div>
+          <output class="value-bubble"></output>
+        </range-slider>
+      </section>
+
+      <section>
+        <h1>Form data support</h1>
+        <form>
+          <fieldset>
+            <input type="range" name="native-input">
+          </fieldset>
+          <fieldset>
+            <range-slider name="range-slider"></range-slider>
+          </fieldset>
+          <button type="submit">Submit</button>
+          <pre class="form-data"></pre>
+        </form>
+      </section>
+
+      <section>
+        <h1><code>&lt;input type="range"&gt;</code></h1>
+        <input type="range">
+        <input type="range" style="writing-mode: vertical-lr; direction: rtl; width: 16px;">
+      </section>
+    </main>
 
     <script type="module" src="/src/index.js"></script>
     <script>
@@ -158,13 +194,17 @@
         });
 
         // Update output values
-        document.addEventListener('input', event => {
+
+        const updateOutputValue = (event) => {
           const rangeElement = event.target;
           const outputElement = rangeElement.nextElementSibling.closest('output');
           if (!outputElement) return;
 
           outputElement.textContent = rangeElement.value;
-        });
+        };
+
+        document.addEventListener('input', updateOutputValue);
+        document.addEventListener('change', updateOutputValue);
 
         // Value bubble example
         const valueBubble = document.querySelector('.value-bubble');
@@ -174,8 +214,25 @@
           if (!valueBubbleRangeElement || !valueBubble) return;
 
           valueBubble.textContent = valueBubbleRangeElement.value;
-          valueBubbleRangeElement.style.setProperty('--value-width', '' + valueBubbleRangeElement.value.length);
+          valueBubbleRangeElement.style.setProperty('--value-width', String(valueBubbleRangeElement.value).length);
         });
+
+        // Form example
+        document.querySelector('form').onsubmit = (event) => {
+          event.preventDefault();
+
+          if ('FormDataEvent' in window) {
+            console.info('formdata event is supported')
+          }
+
+          if ('ElementInternals' in window && 'setFormValue' in window.ElementInternals.prototype) {
+            console.info('Form-associated custom elements are supported')
+          }
+
+          const formData = new FormData(event.target);
+          const formDataOutput = event.target.querySelector('.form-data');
+          formDataOutput.textContent = JSON.stringify(Object.fromEntries(formData), null, 2);
+        }
       }
     </script>
   </body>
