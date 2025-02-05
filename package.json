@@ -2,14 +2,21 @@
   "name": "range-slider-element",
   "version": "1.1.0",
   "description": "A customizable range slider element",
-  "license": "MIT",
-  "repository": "andreruffert/range-slider-element",
-  "author": "André Ruffert",
-  "source": "index.js",
-  "main": "dist/index.js",
+  "type": "module",
+  "files": ["dist"],
+  "main": "./dist/range-slider-element.umd.cjs",
+  "module": "./dist/range-slider-element.js",
+  "exports": {
+    ".": {
+      "import": "./dist/range-slider-element.js",
+      "require": "./dist/range-slider-element.umd.cjs"
+    },
+    "./style.css": "./dist/range-slider-element.css"
+  },
   "scripts": {
     "prebuild": "rm -rf dist",
-    "build": "vite build ./src/index.js ./src/styles.css",
+    "build": "vite build",
+    "build:docs": "vite build --outDir=docs",
     "dev": "vite",
     "cypress": "cypress",
     "check": "biome check --write",
@@ -18,9 +25,16 @@
     "prepublishOnly": "npm run build",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
-  "files": [
-    "dist"
-  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreruffert/range-slider-element.git"
+  },
+  "author": "André Ruffert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andreruffert/range-slider-element/issues"
+  },
+  "homepage": "https://github.com/andreruffert/range-slider-element#readme",
   "keywords": [
     "range slider",
     "custom elements",
