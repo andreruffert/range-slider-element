@@ -33,7 +33,11 @@ range-slider [data-track] {
   flex: 1 1 0%;
   height: var(--track-height);
   border-radius: calc(var(--track-height));
-  background: linear-gradient(AccentColor, AccentColor) 0/ var(--value-percentage, 0%) 100% no-repeat ButtonFace;
+  background: linear-gradient(to right, AccentColor var(--value-percentage, 0%), ButtonFace var(--value-percentage, 0%));
+}
+
+range-slider[dir="rtl"] [data-track] {
+  background: linear-gradient(to right, ButtonFace var(--value-percentage, 0%), AccentColor var(--value-percentage, 0%));
 }
 
 /* Thumb */
