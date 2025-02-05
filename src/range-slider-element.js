@@ -20,18 +20,17 @@ class RangeSliderElement extends HTMLElement {
 
   #internals;
   #value;
+  #isVertical;
+  #isRTL;
 
   constructor() {
     super();
     // Get access to the internal form control APIs
     this.#internals = this.attachInternals();
 
-    // Set initial value
-    this.value = this.getAttribute('value') || this._computedValue;
-
-    this._isVertical = this.getAttribute('orientation') === 'vertical';
-    this._isRTL = this._isVertical || this.getAttribute('dir') === 'rtl';
-    this._defaultValue = this.value;
+    this.value = this.getAttribute('value') || this.#getComputedValue();
+    this.#isVertical = this.getAttribute('orientation') === 'vertical';
+    this.#isRTL = this.#isVertical || this.getAttribute('dir') === 'rtl';
 
     // Enable focus
     !this.disabled && this.setAttribute('tabindex', '0');
@@ -62,27 +61,20 @@ class RangeSliderElement extends HTMLElement {
   checkValidity() { return this.#internals.checkValidity(); }
   reportValidity() {return this.#internals.reportValidity(); }
 
-  get _computedValue() {
-    const min = Number(this.min);
-    const max = Number(this.max);
-    return String(max < min ? min : min + (max - min) / 2);
-  }
-
   get min() { return this.getAttribute('min') || '0'; }
   get max() { return this.getAttribute('max') || '100'; }
   get step() { return this.getAttribute('step') || '1'; }
   get value() { return this.#value; }
   get disabled() { return this.getAttribute('disabled') === '' || false; }
   get valuePrecision() { return this.getAttribute('value-precision') || ''; }
-  get defaultValue() { return this._defaultValue; }
 
   set min(min) { this.setAttribute('min', min); }
   set max(max) { this.setAttribute('max', max); }
   set step(step) { this.setAttribute('step', step); }
   set value(value) {
-    this.#value = this._getSaveValue(value);
+    this.#value = this.#getSaveValue(value);
     this.#internals.setFormValue(this.#value);
-    this._update();
+    this.#update();
   }
   set disabled(disabled) {
     if (disabled) {
@@ -94,52 +86,51 @@ class RangeSliderElement extends HTMLElement {
     }
   }
   set valuePrecision(precision) { this.setAttribute('value-precision', precision); }
-  set defaultValue(value) { this._defaultValue = value; }
 
   connectedCallback() {
-    this.addEventListener('pointerdown', this._startHandler, false);
-    this.addEventListener('pointerup', this._endHandler, false);
-    this.addEventListener('keydown', this._keyCodeHandler, false);
-    this._update();
+    this.addEventListener('pointerdown', this.#startHandler, false);
+    this.addEventListener('pointerup', this.#endHandler, false);
+    this.addEventListener('keydown', this.#keyCodeHandler, false);
+    this.#update();
   }
 
   disconnectedCallback() {
-    this.removeEventListener('pointerdown', this._startHandler, false);
-    this.removeEventListener('pointerup', this._endHandler, false);
-    this.removeEventListener('keydown', this._keyCodeHandler, false);
+    this.removeEventListener('pointerdown', this.#startHandler, false);
+    this.removeEventListener('pointerup', this.#endHandler, false);
+    this.removeEventListener('keydown', this.#keyCodeHandler, false);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue === newValue) return;
-    this._update();
+    this.#update();
     setAriaAttribute(this, name, newValue);
   }
 
-  _startHandler = e => {
+  #startHandler = e => {
     if (this.disabled) return;
 
     // Click and drag
     this.setPointerCapture(e.pointerId);
-    this.addEventListener('pointermove', this._moveHandler, false);
+    this.addEventListener('pointermove', this.#moveHandler, false);
 
     // Click jump (ignore thumb clicks)
     if (e.target?.dataset?.thumb !== undefined) return;
-    this._reflectValue(e);
+    this.#reflectValue(e);
   }
 
-  _moveHandler = e => {
-    this._reflectValue(e);
+  #moveHandler = e => {
+    this.#reflectValue(e);
   }
 
-  _endHandler = e => {
+  #endHandler = e => {
     this.releasePointerCapture(e.pointerId);
-    this.removeEventListener('pointermove', this._moveHandler, false);
+    this.removeEventListener('pointermove', this.#moveHandler, false);
 
     // TODO: check if value changed
     this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
-  _keyCodeHandler = e => {
+  #keyCodeHandler = e => {
     const code = e.code;
     const up = ['ArrowUp', 'ArrowRight'].includes(code);
     const down = ['ArrowDown', 'ArrowLeft'].includes(code);
@@ -154,9 +145,9 @@ class RangeSliderElement extends HTMLElement {
     }
   }
 
-  _reflectValue = e => {
-    const isVertical = Boolean(this._isVertical);
-    const isRTL = Boolean(this._isRTL);
+  #reflectValue = e => {
+    const isVertical = Boolean(this.#isVertical);
+    const isRTL = Boolean(this.#isRTL);
     const min = Number(this.min);
     const max = Number(this.max);
     const oldValue = this.value;
@@ -170,7 +161,7 @@ class RangeSliderElement extends HTMLElement {
     const computedValue = min + percentComplete * (max - min);
 
     // Constrain value
-    const newValue = this._constrainValue(computedValue);
+    const newValue = this.#constrainValue(computedValue);
 
     if (oldValue !== newValue) {
       this.value = newValue;
@@ -178,12 +169,12 @@ class RangeSliderElement extends HTMLElement {
     }
   }
 
-  _constrainValue(value) {
+  #constrainValue(value) {
     const step = Number(this.step);
     const valuePrecision = Number(this.valuePrecision) || getPrescision(this.step) || 0;
 
     // min, max constrain
-    const saveValue = this._getSaveValue(value);
+    const saveValue = this.#getSaveValue(value);
 
     // Rounding in steps
     const nearestValue = Math.round(saveValue / step) * step;
@@ -194,14 +185,20 @@ class RangeSliderElement extends HTMLElement {
     return newValue;
   }
 
-  _getSaveValue(value) {
+  #getComputedValue() {
+    const min = Number(this.min);
+    const max = Number(this.max);
+    return String(max < min ? min : min + (max - min) / 2);
+  }
+
+  #getSaveValue(value) {
     const min = Number(this.min);
     const max = Number(this.max);
     return  Math.min(Math.max(value, min), max)
   }
 
-  _update() {
-    const isRTL = Boolean(this._isRTL);
+  #update() {
+    const isRTL = Boolean(this.#isRTL);
     const min = Number(this.min);
     const max = Number(this.max);
     const value = Number(this.value);
@@ -212,7 +209,7 @@ class RangeSliderElement extends HTMLElement {
 
   stepUp(amount = this.step) {
     const oldValue = Number(this.value);
-    const newValue = this._constrainValue(oldValue + Number(amount));
+    const newValue = this.#constrainValue(oldValue + Number(amount));
     if (oldValue !== newValue) {
       this.value = newValue;
       this.dispatchEvent(new Event('input', { bubbles: true }));
@@ -222,7 +219,7 @@ class RangeSliderElement extends HTMLElement {
 
   stepDown(amount = this.step) {
     const oldValue = Number(this.value);
-    const newValue = this._constrainValue(oldValue - Number(amount));
+    const newValue = this.#constrainValue(oldValue - Number(amount));
     if (oldValue !== newValue) {
       this.value = newValue;
       this.dispatchEvent(new Event('input', { bubbles: true }));
