@@ -15,7 +15,6 @@ TEMPLATE.innerHTML = `
 class RangeSliderElement extends HTMLElement {
   constructor() {
     super();
-    this._ignoreChange = false;
     this._isVertical = this.getAttribute('orientation') === 'vertical';
     this._isRTL = this._isVertical || this.getAttribute('dir') === 'rtl';
     this._defaultValue = this.value;
@@ -82,7 +81,7 @@ class RangeSliderElement extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (oldValue === newValue || this._ignoreChange) return;
+    if (oldValue === newValue) return;
     this._update();
     setAriaAttribute(this, name, newValue);
   }
