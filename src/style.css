@@ -19,7 +19,7 @@ range-slider:focus-visible {
 }
 
 range-slider:active {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 range-slider[disabled] {
@@ -33,11 +33,19 @@ range-slider [data-track] {
   flex: 1 1 0%;
   height: var(--track-height);
   border-radius: calc(var(--track-height));
-  background: linear-gradient(to right, AccentColor var(--value-percentage, 0%), ButtonFace var(--value-percentage, 0%));
+  background: linear-gradient(
+    to right,
+    AccentColor var(--value-percentage, 0%),
+    ButtonFace var(--value-percentage, 0%)
+  );
 }
 
 range-slider[dir="rtl"] [data-track] {
-  background: linear-gradient(to right, ButtonFace var(--value-percentage, 0%), AccentColor var(--value-percentage, 0%));
+  background: linear-gradient(
+    to right,
+    ButtonFace var(--value-percentage, 0%),
+    AccentColor var(--value-percentage, 0%)
+  );
 }
 
 /* Thumb */
@@ -47,11 +55,12 @@ range-slider [data-thumb] {
   width: var(--thumb-size);
   height: var(--thumb-size);
   position: absolute;
-  inset: 0 auto 0 clamp(
-    0%,
-    calc(var(--value-percentage, 0%) + var(--thumb-size) / 2 * -1),
-    calc(100% - var(--thumb-size))
-  );
+  inset: 0 auto 0
+    clamp(
+      0%,
+      calc(var(--value-percentage, 0%) + var(--thumb-size) / 2 * -1),
+      calc(100% - var(--thumb-size))
+    );
 }
 
 /* Vertical orientation */
@@ -64,13 +73,18 @@ range-slider[orientation="vertical"] {
 
 range-slider[orientation="vertical"] [data-track] {
   width: var(--track-height);
-  background: linear-gradient(to bottom, ButtonFace var(--value-percentage, 0%), AccentColor var(--value-percentage, 0%));
+  background: linear-gradient(
+    to bottom,
+    ButtonFace var(--value-percentage, 0%),
+    AccentColor var(--value-percentage, 0%)
+  );
 }
 
 range-slider[orientation="vertical"] [data-thumb] {
   inset: clamp(
-    0%,
-    calc(var(--value-percentage, 0%) + var(--thumb-size) / 2 * -1),
-    calc(100% - var(--thumb-size))
-  ) auto 0 auto;
+      0%,
+      calc(var(--value-percentage, 0%) + var(--thumb-size) / 2 * -1),
+      calc(100% - var(--thumb-size))
+    )
+    auto 0 auto;
 }

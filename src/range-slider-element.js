@@ -12,7 +12,7 @@ TEMPLATE.innerHTML = `
   <div data-thumb></div>
 `;
 
-class RangeSliderElement extends HTMLElement {
+export default class RangeSliderElement extends HTMLElement {
   static observedAttributes = REFLECTED_ATTRIBUTES;
 
   // Identify as form-associated custom element
@@ -21,8 +21,8 @@ class RangeSliderElement extends HTMLElement {
   #internals;
   #value;
 
-  #isVertical = this.getAttribute('orientation') === 'vertical';;
-  #isRTL = this.#isVertical || this.getAttribute('dir') === 'rtl'
+  #isVertical = this.getAttribute('orientation') === 'vertical';
+  #isRTL = this.#isVertical || this.getAttribute('dir') === 'rtl';
 
   constructor() {
     super();
@@ -46,16 +46,34 @@ class RangeSliderElement extends HTMLElement {
     }
   }
 
-  get min() { return this.getAttribute('min') || '0'; }
-  get max() { return this.getAttribute('max') || '100'; }
-  get step() { return this.getAttribute('step') || '1'; }
-  get value() { return this.#value; }
-  get disabled() { return this.getAttribute('disabled') === '' || false; }
-  get valuePrecision() { return this.getAttribute('value-precision') || ''; }
+  get min() {
+    return this.getAttribute('min') || '0';
+  }
+  get max() {
+    return this.getAttribute('max') || '100';
+  }
+  get step() {
+    return this.getAttribute('step') || '1';
+  }
+  get value() {
+    return this.#value;
+  }
+  get disabled() {
+    return this.getAttribute('disabled') === '' || false;
+  }
+  get valuePrecision() {
+    return this.getAttribute('value-precision') || '';
+  }
 
-  set min(min) { this.setAttribute('min', min); }
-  set max(max) { this.setAttribute('max', max); }
-  set step(step) { this.setAttribute('step', step); }
+  set min(min) {
+    this.setAttribute('min', min);
+  }
+  set max(max) {
+    this.setAttribute('max', max);
+  }
+  set step(step) {
+    this.setAttribute('step', step);
+  }
   set value(value) {
     this.#value = this.#getSaveValue(value);
     this.#internals.setFormValue(this.#value);
@@ -70,7 +88,9 @@ class RangeSliderElement extends HTMLElement {
       this.setAttribute('tabindex', 0);
     }
   }
-  set valuePrecision(precision) { this.setAttribute('value-precision', precision); }
+  set valuePrecision(precision) {
+    this.setAttribute('value-precision', precision);
+  }
 
   /**
    * Form data support
@@ -78,14 +98,30 @@ class RangeSliderElement extends HTMLElement {
    * but browser-level form controls provide them. Providing them helps
    * ensure consistency with browser-provided controls.
    */
-  get form() { return this.#internals.form; }
-  get name() { return this.getAttribute('name'); }
-  get type() { return this.localName; }
-  get validity() {return this.#internals.validity; }
-  get validationMessage() {return this.#internals.validationMessage; }
-  get willValidate() {return this.#internals.willValidate; }
-  checkValidity() { return this.#internals.checkValidity(); }
-  reportValidity() {return this.#internals.reportValidity(); }
+  get form() {
+    return this.#internals.form;
+  }
+  get name() {
+    return this.getAttribute('name');
+  }
+  get type() {
+    return this.localName;
+  }
+  get validity() {
+    return this.#internals.validity;
+  }
+  get validationMessage() {
+    return this.#internals.validationMessage;
+  }
+  get willValidate() {
+    return this.#internals.willValidate;
+  }
+  checkValidity() {
+    return this.#internals.checkValidity();
+  }
+  reportValidity() {
+    return this.#internals.reportValidity();
+  }
 
   connectedCallback() {
     this.addEventListener('pointerdown', this.#startHandler);
@@ -103,7 +139,7 @@ class RangeSliderElement extends HTMLElement {
     setAriaAttribute(this, name, newValue);
   }
 
-  #startHandler = event => {
+  #startHandler = (event) => {
     if (this.disabled) return;
 
     // Click and drag
@@ -115,16 +151,15 @@ class RangeSliderElement extends HTMLElement {
     // Click jump (ignore thumb clicks)
     if (event.target?.dataset?.thumb !== undefined) return;
     this.#reflectValue(event);
-  }
+  };
 
-  #moveHandler = event => {
+  #moveHandler = (event) => {
     event.preventDefault();
     event.stopPropagation();
-
     this.#reflectValue(event);
-  }
+  };
 
-  #endHandler = event => {
+  #endHandler = (event) => {
     this.releasePointerCapture(event.pointerId);
     this.removeEventListener('pointermove', this.#moveHandler);
     window.removeEventListener('pointerup', this.#endHandler);
@@ -132,24 +167,22 @@ class RangeSliderElement extends HTMLElement {
 
     // TODO: check if value changed
     this.dispatchEvent(new Event('change', { bubbles: true }));
-  }
+  };
 
-  #keyCodeHandler = event => {
+  #keyCodeHandler = (event) => {
     const code = event.code;
     const up = ['ArrowUp', 'ArrowRight'].includes(code);
     const down = ['ArrowDown', 'ArrowLeft'].includes(code);
-
     if (up) {
       event.preventDefault();
       this.stepUp();
-    }
-    else if (down) {
+    } else if (down) {
       event.preventDefault();
       this.stepDown();
     }
-  }
+  };
 
-  #reflectValue = event => {
+  #reflectValue = (event) => {
     const isVertical = Boolean(this.#isVertical);
     const isRTL = Boolean(this.#isRTL);
     const min = Number(this.min);
@@ -171,7 +204,7 @@ class RangeSliderElement extends HTMLElement {
       this.value = newValue;
       this.dispatchEvent(new Event('input', { bubbles: true }));
     }
-  }
+  };
 
   #constrainValue(value) {
     const step = Number(this.step);
@@ -184,7 +217,9 @@ class RangeSliderElement extends HTMLElement {
     const nearestValue = Math.round(saveValue / step) * step;
 
     // Value precision
-    const newValue = valuePrecision ? nearestValue.toFixed(valuePrecision) : Math.round(nearestValue).toString();
+    const newValue = valuePrecision
+      ? nearestValue.toFixed(valuePrecision)
+      : Math.round(nearestValue).toString();
 
     return newValue;
   }
@@ -198,7 +233,7 @@ class RangeSliderElement extends HTMLElement {
   #getSaveValue(value) {
     const min = Number(this.min);
     const max = Number(this.max);
-    return  Math.min(Math.max(value, min), max)
+    return Math.min(Math.max(value, min), max);
   }
 
   #update() {
@@ -242,5 +277,3 @@ function setAriaAttribute(element, name, value) {
   if (!attributeName) return;
   element.setAttribute(`aria-${attributeName}`, value);
 }
-
-export default RangeSliderElement;

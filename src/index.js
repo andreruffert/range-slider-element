@@ -1,6 +1,6 @@
-import './style.css'
+import './style.css';
 import RangeSliderElement from './range-slider-element';
-export { RangeSliderElement as default }
+export { RangeSliderElement as default };
 
 const ELEMENT_NAME = 'range-slider';
 
