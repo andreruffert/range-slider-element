@@ -1,4 +1,3 @@
-const UPDATE_EVENTS = ['input', 'change'];
 const REFLECTED_ATTRIBUTES = ['min', 'max', 'step', 'value', 'disabled', 'value-precision'];
 
 const ARIA_ATTRIBUTES = {
@@ -17,7 +16,8 @@ class RangeSliderElement extends HTMLElement {
   constructor() {
     super();
     this._ignoreChange = false;
-    this._isRTL = this.getAttribute('dir') === 'rtl';
+    this._isVertical = this.getAttribute('orientation') === 'vertical';
+    this._isRTL = this._isVertical || this.getAttribute('dir') === 'rtl';
     this._defaultValue = this.value;
 
     // Enable focus
@@ -127,13 +127,14 @@ class RangeSliderElement extends HTMLElement {
   }
 
   _reflectValue = e => {
+    const isVertical = Boolean(this._isVertical);
     const isRTL = Boolean(this._isRTL);
     const min = Number(this.min);
     const max = Number(this.max);
     const oldValue = this.value;
-    const fullWidth = e.target.offsetWidth;
-    const offsetX = Math.min(Math.max(e.offsetX, 0), fullWidth);
-    const percent = offsetX / fullWidth;
+    const fullSize = isVertical ? e.target.offsetHeight : e.target.offsetWidth;
+    const offset = Math.min(Math.max(isVertical ? e.offsetY : e.offsetX, 0), fullSize);
+    const percent = offset / fullSize;
     const percentComplete = isRTL ? 1 - percent : percent;
 
     // Fit the percentage complete between the range [min,max]
