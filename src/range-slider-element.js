@@ -13,8 +13,22 @@ TEMPLATE.innerHTML = `
 `;
 
 class RangeSliderElement extends HTMLElement {
+  static observedAttributes = REFLECTED_ATTRIBUTES;
+
+  // Identify the element as a form-associated custom element
+  static formAssociated = true;
+
+  #internals;
+  #value;
+
   constructor() {
     super();
+    // Get access to the internal form control APIs
+    this.#internals = this.attachInternals();
+
+    // Set initial value
+    this.value = this.getAttribute('value') || this._computedValue;
+
     this._isVertical = this.getAttribute('orientation') === 'vertical';
     this._isRTL = this._isVertical || this.getAttribute('dir') === 'rtl';
     this._defaultValue = this.value;
@@ -33,9 +47,20 @@ class RangeSliderElement extends HTMLElement {
     }
   }
 
-  static get observedAttributes() {
-    return REFLECTED_ATTRIBUTES;
-  }
+  /**
+   * Form data support
+   * The following properties and methods aren't strictly required,
+   * but browser-level form controls provide them. Providing them helps
+   * ensure consistency with browser-provided controls.
+   */
+  get form() { return this.#internals.form; }
+  get name() { return this.getAttribute('name'); }
+  get type() { return this.localName; }
+  get validity() {return this.#internals.validity; }
+  get validationMessage() {return this.#internals.validationMessage; }
+  get willValidate() {return this.#internals.willValidate; }
+  checkValidity() { return this.#internals.checkValidity(); }
+  reportValidity() {return this.#internals.reportValidity(); }
 
   get _computedValue() {
     const min = Number(this.min);
@@ -46,7 +71,7 @@ class RangeSliderElement extends HTMLElement {
   get min() { return this.getAttribute('min') || '0'; }
   get max() { return this.getAttribute('max') || '100'; }
   get step() { return this.getAttribute('step') || '1'; }
-  get value() { return this.getAttribute('value') || this._computedValue; }
+  get value() { return this.#value; }
   get disabled() { return this.getAttribute('disabled') === '' || false; }
   get valuePrecision() { return this.getAttribute('value-precision') || ''; }
   get defaultValue() { return this._defaultValue; }
@@ -54,7 +79,11 @@ class RangeSliderElement extends HTMLElement {
   set min(min) { this.setAttribute('min', min); }
   set max(max) { this.setAttribute('max', max); }
   set step(step) { this.setAttribute('step', step); }
-  set value(value) { this.setAttribute('value', value); }
+  set value(value) {
+    this.#value = this._getSaveValue(value);
+    this.#internals.setFormValue(this.#value);
+    this._update();
+  }
   set disabled(disabled) {
     if (disabled) {
       this.setAttribute('disabled', '');
@@ -150,13 +179,11 @@ class RangeSliderElement extends HTMLElement {
   }
 
   _constrainValue(value) {
-    const min = Number(this.min);
-    const max = Number(this.max);
     const step = Number(this.step);
     const valuePrecision = Number(this.valuePrecision) || getPrescision(this.step) || 0;
 
     // min, max constrain
-    const saveValue = Math.min(Math.max(value, min), max);
+    const saveValue = this._getSaveValue(value);
 
     // Rounding in steps
     const nearestValue = Math.round(saveValue / step) * step;
@@ -165,6 +192,12 @@ class RangeSliderElement extends HTMLElement {
     const newValue = valuePrecision ? nearestValue.toFixed(valuePrecision) : Math.round(nearestValue).toString();
 
     return newValue;
+  }
+
+  _getSaveValue(value) {
+    const min = Number(this.min);
+    const max = Number(this.max);
+    return  Math.min(Math.max(value, min), max)
   }
 
   _update() {
