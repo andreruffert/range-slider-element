@@ -20,6 +20,15 @@ class RangeSliderElement extends HTMLElement {
     this._isRTL = this.getAttribute('dir') === 'rtl';
     this._defaultValue = this.value;
 
+    // Enable focus
+    !this.disabled && this.setAttribute('tabindex', '0');
+
+    // Set aria attributes
+    this.setAttribute('role', 'slider');
+    setAriaAttribute(this, 'value', this.value);
+    setAriaAttribute(this, 'min', this.min);
+    setAriaAttribute(this, 'max', this.max);
+
     if (!this.firstChild) {
       this.append(TEMPLATE.content.cloneNode(true));
     }
@@ -39,7 +48,7 @@ class RangeSliderElement extends HTMLElement {
   get max() { return this.getAttribute('max') || '100'; }
   get step() { return this.getAttribute('step') || '1'; }
   get value() { return this.getAttribute('value') || this._computedValue; }
-  get disabled() { return this.getAttribute('disabled') || false }
+  get disabled() { return this.getAttribute('disabled') === '' || false; }
   get valuePrecision() { return this.getAttribute('value-precision') || ''; }
   get defaultValue() { return this._defaultValue; }
 
@@ -47,7 +56,15 @@ class RangeSliderElement extends HTMLElement {
   set max(max) { this.setAttribute('max', max); }
   set step(step) { this.setAttribute('step', step); }
   set value(value) { this.setAttribute('value', value); }
-  set disabled(disabled) { this.setAttribute('disabled', disabled); }
+  set disabled(disabled) {
+    if (disabled) {
+      this.setAttribute('disabled', '');
+      this.removeAttribute('tabindex');
+    } else {
+      this.removeAttribute('disabled');
+      this.setAttribute('tabindex', 0);
+    }
+  }
   set valuePrecision(precision) { this.setAttribute('value-precision', precision); }
   set defaultValue(value) { this._defaultValue = value; }
 
@@ -56,13 +73,6 @@ class RangeSliderElement extends HTMLElement {
     this.addEventListener('pointerup', this._endHandler, false);
     this.addEventListener('keydown', this._keyCodeHandler, false);
     this._update();
-
-    // Aria attributes
-    this.setAttribute('tabindex', '0');
-    this.setAttribute('role', 'slider');
-    setAriaAttribute(this, 'value', this.value);
-    setAriaAttribute(this, 'min', this.min);
-    setAriaAttribute(this, 'max', this.max);
   }
 
   disconnectedCallback() {
@@ -78,6 +88,8 @@ class RangeSliderElement extends HTMLElement {
   }
 
   _startHandler = e => {
+    if (this.disabled) return;
+
     // Click and drag
     this.setPointerCapture(e.pointerId);
     this.addEventListener('pointermove', this._moveHandler, false);
