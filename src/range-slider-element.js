@@ -15,22 +15,22 @@ TEMPLATE.innerHTML = `
 class RangeSliderElement extends HTMLElement {
   static observedAttributes = REFLECTED_ATTRIBUTES;
 
-  // Identify the element as a form-associated custom element
+  // Identify as form-associated custom element
   static formAssociated = true;
 
   #internals;
   #value;
-  #isVertical;
-  #isRTL;
+
+  #isVertical = this.getAttribute('orientation') === 'vertical';;
+  #isRTL = this.#isVertical || this.getAttribute('dir') === 'rtl'
 
   constructor() {
     super();
     // Get access to the internal form control APIs
     this.#internals = this.attachInternals();
 
+    // Set initial value
     this.value = this.getAttribute('value') || this.#getComputedValue();
-    this.#isVertical = this.getAttribute('orientation') === 'vertical';
-    this.#isRTL = this.#isVertical || this.getAttribute('dir') === 'rtl';
 
     // Enable focus
     !this.disabled && this.setAttribute('tabindex', '0');
@@ -45,21 +45,6 @@ class RangeSliderElement extends HTMLElement {
       this.append(TEMPLATE.content.cloneNode(true));
     }
   }
-
-  /**
-   * Form data support
-   * The following properties and methods aren't strictly required,
-   * but browser-level form controls provide them. Providing them helps
-   * ensure consistency with browser-provided controls.
-   */
-  get form() { return this.#internals.form; }
-  get name() { return this.getAttribute('name'); }
-  get type() { return this.localName; }
-  get validity() {return this.#internals.validity; }
-  get validationMessage() {return this.#internals.validationMessage; }
-  get willValidate() {return this.#internals.willValidate; }
-  checkValidity() { return this.#internals.checkValidity(); }
-  reportValidity() {return this.#internals.reportValidity(); }
 
   get min() { return this.getAttribute('min') || '0'; }
   get max() { return this.getAttribute('max') || '100'; }
@@ -87,17 +72,29 @@ class RangeSliderElement extends HTMLElement {
   }
   set valuePrecision(precision) { this.setAttribute('value-precision', precision); }
 
+  /**
+   * Form data support
+   * The following properties and methods aren't strictly required,
+   * but browser-level form controls provide them. Providing them helps
+   * ensure consistency with browser-provided controls.
+   */
+  get form() { return this.#internals.form; }
+  get name() { return this.getAttribute('name'); }
+  get type() { return this.localName; }
+  get validity() {return this.#internals.validity; }
+  get validationMessage() {return this.#internals.validationMessage; }
+  get willValidate() {return this.#internals.willValidate; }
+  checkValidity() { return this.#internals.checkValidity(); }
+  reportValidity() {return this.#internals.reportValidity(); }
+
   connectedCallback() {
-    this.addEventListener('pointerdown', this.#startHandler, false);
-    this.addEventListener('pointerup', this.#endHandler, false);
-    this.addEventListener('keydown', this.#keyCodeHandler, false);
-    this.#update();
+    this.addEventListener('pointerdown', this.#startHandler);
+    this.addEventListener('keydown', this.#keyCodeHandler);
   }
 
   disconnectedCallback() {
-    this.removeEventListener('pointerdown', this.#startHandler, false);
-    this.removeEventListener('pointerup', this.#endHandler, false);
-    this.removeEventListener('keydown', this.#keyCodeHandler, false);
+    this.removeEventListener('pointerdown', this.#startHandler);
+    this.removeEventListener('keydown', this.#keyCodeHandler);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -106,53 +103,60 @@ class RangeSliderElement extends HTMLElement {
     setAriaAttribute(this, name, newValue);
   }
 
-  #startHandler = e => {
+  #startHandler = event => {
     if (this.disabled) return;
 
     // Click and drag
-    this.setPointerCapture(e.pointerId);
-    this.addEventListener('pointermove', this.#moveHandler, false);
+    this.setPointerCapture(event.pointerId);
+    this.addEventListener('pointermove', this.#moveHandler);
+    window.addEventListener('pointerup', this.#endHandler);
+    window.addEventListener('pointercancel', this.#endHandler);
 
     // Click jump (ignore thumb clicks)
-    if (e.target?.dataset?.thumb !== undefined) return;
-    this.#reflectValue(e);
+    if (event.target?.dataset?.thumb !== undefined) return;
+    this.#reflectValue(event);
   }
 
-  #moveHandler = e => {
-    this.#reflectValue(e);
+  #moveHandler = event => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.#reflectValue(event);
   }
 
-  #endHandler = e => {
-    this.releasePointerCapture(e.pointerId);
-    this.removeEventListener('pointermove', this.#moveHandler, false);
+  #endHandler = event => {
+    this.releasePointerCapture(event.pointerId);
+    this.removeEventListener('pointermove', this.#moveHandler);
+    window.removeEventListener('pointerup', this.#endHandler);
+    window.removeEventListener('pointercancel', this.#endHandler);
 
     // TODO: check if value changed
     this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
-  #keyCodeHandler = e => {
-    const code = e.code;
+  #keyCodeHandler = event => {
+    const code = event.code;
     const up = ['ArrowUp', 'ArrowRight'].includes(code);
     const down = ['ArrowDown', 'ArrowLeft'].includes(code);
 
     if (up) {
-      e.preventDefault();
+      event.preventDefault();
       this.stepUp();
     }
     else if (down) {
-      e.preventDefault();
+      event.preventDefault();
       this.stepDown();
     }
   }
 
-  #reflectValue = e => {
+  #reflectValue = event => {
     const isVertical = Boolean(this.#isVertical);
     const isRTL = Boolean(this.#isRTL);
     const min = Number(this.min);
     const max = Number(this.max);
     const oldValue = this.value;
-    const fullSize = isVertical ? e.target.offsetHeight : e.target.offsetWidth;
-    const offset = Math.min(Math.max(isVertical ? e.offsetY : e.offsetX, 0), fullSize);
+    const fullSize = isVertical ? event.target.offsetHeight : event.target.offsetWidth;
+    const offset = Math.min(Math.max(isVertical ? event.offsetY : event.offsetX, 0), fullSize);
     const percent = offset / fullSize;
     const percentComplete = isRTL ? 1 - percent : percent;
 
