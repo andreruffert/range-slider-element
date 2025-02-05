@@ -25,8 +25,7 @@ range-slider:active {
 
 range-slider[disabled] {
   filter: grayscale(1);
-  opacity: 0.6;
-  pointer-events: none;
+  opacity: 0.4;
 }
 
 /* Track */
