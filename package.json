@@ -16,14 +16,12 @@
     "./style.css": "./dist/range-slider-element.css"
   },
   "scripts": {
-    "prebuild": "rm -rf dist",
-    "build": "vite build",
-    "build:docs": "vite build --outDir=docs",
     "dev": "vite",
-    "cypress": "cypress",
     "check": "biome check --write",
     "lint": "biome ci",
     "test": "vitest",
+    "prebuild": "rm -rf dist",
+    "build": "vite build",
     "prepublishOnly": "npm run build",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },

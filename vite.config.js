@@ -12,11 +12,6 @@ export default defineConfig({
       fileName: 'range-slider-element',
       cssFileName: 'range-slider-element',
     },
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-      },
-    },
   },
   test: {
     browser: {
