@@ -1,21 +1,18 @@
 range-slider {
-  --track-height: 6px;
-  --thumb-size: 16px;
+  --track-size: 0.3em;
+  --thumb-size: 1em;
+  --accent-color: #0075ff;
+  --button-face: lightgray;
 
   position: relative;
   display: inline-flex;
   align-items: center;
-  height: var(--thumb-size);
-  min-width: 130px;
+  min-height: 1em;
+  min-inline-size: 130px;
   margin: 2px;
-  outline: 0;
 
   /* Make sure capture pointer events will work properly on touch devices */
   touch-action: none;
-}
-
-range-slider:focus-visible {
-  outline: AccentColor auto 1px;
 }
 
 range-slider:active {
@@ -27,64 +24,89 @@ range-slider[disabled] {
   opacity: 0.4;
 }
 
-/* Track */
-range-slider [data-track] {
-  align-self: center;
-  flex: 1 1 0%;
-  height: var(--track-height);
-  border-radius: calc(var(--track-height));
-  background: linear-gradient(
-    to right,
-    AccentColor var(--value-percentage, 0%),
-    ButtonFace var(--value-percentage, 0%)
-  );
+range-slider[orientation="vertical"] {
+  flex-direction: column;
+  width: var(--thumb-size);
+  min-inline-size: initial;
+  min-block-size: 130px;
 }
 
-range-slider[dir="rtl"] [data-track] {
-  background: linear-gradient(
-    to right,
-    ButtonFace var(--value-percentage, 0%),
-    AccentColor var(--value-percentage, 0%)
+/* Track */
+range-slider [data-track] {
+  flex: 1 1 0%;
+  block-size: var(--track-size);
+  background: var(--button-face);
+  border-radius: var(--track-size);
+}
+
+range-slider[orientation="vertical"] [data-track] {
+  inline-size: var(--track-size);
+  block-size: 100%;
+}
+
+/* Track fill */
+range-slider [data-track-fill] {
+  position: absolute;
+  inset: auto 0;
+  inline-size: clamp(
+    0% +
+    var(--thumb-size) /
+    2,
+    var(--value-percentage, 0%),
+    100% -
+    var(--thumb-size) /
+    2
   );
+  block-size: var(--track-size);
+  background: var(--accent-color);
+  border-start-start-radius: var(--thumb-size);
+  border-end-start-radius: var(--thumb-size);
+}
+
+range-slider[orientation="vertical"] [data-track-fill] {
+  inset: auto auto 0 auto;
+  inline-size: var(--track-size);
+  block-size: clamp(
+    0% +
+    var(--thumb-size) /
+    2,
+    var(--value-percentage, 0%),
+    100% -
+    var(--thumb-size) /
+    2
+  );
+  border-start-start-radius: unset;
+  border-end-end-radius: var(--thumb-size);
+}
+
+/* Runnable track */
+range-slider [data-runnable-track] {
+  position: absolute;
+  inset: 0 calc(var(--thumb-size) / 2);
+}
+
+range-slider[orientation="vertical"] [data-runnable-track] {
+  inset: calc(var(--thumb-size) / 2) 0;
 }
 
 /* Thumb */
 range-slider [data-thumb] {
-  background: AccentColor;
-  border-radius: 50%;
+  background: var(--accent-color);
+  border-radius: 100%;
   width: var(--thumb-size);
   height: var(--thumb-size);
+  margin-block: auto;
   position: absolute;
-  inset: 0 auto 0
-    clamp(
-      0%,
-      calc(var(--value-percentage, 0%) + var(--thumb-size) / 2 * -1),
-      calc(100% - var(--thumb-size))
-    );
+  inset: 0 auto 0 var(--value-percentage, 0);
+  margin-inline-start: calc(var(--thumb-size) / 2 * -1);
 }
 
-/* Vertical orientation */
-range-slider[orientation="vertical"] {
-  flex-direction: column;
-  width: var(--thumb-size);
-  min-width: initial;
-  min-height: 130px;
-}
-
-range-slider[orientation="vertical"] [data-track] {
-  width: var(--track-height);
-  background: linear-gradient(
-    to bottom,
-    ButtonFace var(--value-percentage, 0%),
-    AccentColor var(--value-percentage, 0%)
-  );
+range-slider[dir="rtl"] [data-thumb] {
+  inset: 0 var(--value-percentage, 0) 0 auto;
 }
 
 range-slider[orientation="vertical"] [data-thumb] {
-  inset: clamp(
-      0%,
-      calc(var(--value-percentage, 0%) + var(--thumb-size) / 2 * -1),
-      calc(100% - var(--thumb-size))
-    )
-    auto 0 auto;
+  inset: auto auto var(--value-percentage, 0) auto;
+  margin-inline-start: unset;
+  margin-block: calc(var(--thumb-size) / 2 * -1);
 }
