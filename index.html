@@ -35,18 +35,33 @@
         font-size: 1.2em;
       }
 
-      /* Default example value output */
-      section output {
+      /* Default value output */
+      section > output {
         font-weight: 600;
-        margin-bottom: 30px;
+        margin-block: 1em;
+        text-align: center;
+        user-select: none;
       }
 
-      /* Custom styles examples */
-      range-slider[data-style="example-1"] {
-        outline: 0;
+      /* Debug styles */
+      range-slider[data-style="debug"] {
+        [data-runnable-track] {
+          outline: 1px dotted;
+        }
 
+        [data-thumb] {
+          opacity: 0.4;
+        }
+      }
+
+      /* Custom styles example-1 */
+      range-slider[data-theme="example-1"] {
         [data-track] {
-          background: linear-gradient(to right, #6221ea var(--value-percentage, 0%), #c6afe5 var(--value-percentage, 0%));
+          background: #c6afe5;
+        }
+
+        [data-track-fill] {
+          background: #6221ea;
         }
 
         [data-thumb] {
@@ -65,44 +80,74 @@
         }
       }
 
-      /* Value bubble example */
-      range-slider:active .value-bubble {
-        opacity: 1;
-        transform: scale(1);
+      /* Value bubble */
+      range-slider .value-bubble {
+        box-sizing: border-box;
+        margin: unset;
+        position: absolute;
+        width: 32px;
+        height: 66px;
+        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="62" fill="none"><path fill="currentColor" d="M27.3 27.3C25 29.6 17 35.8 17 43v3c0 3 2.5 5 3.2 5.8a6 6 0 1 1-8.5 0C12.6 51 15 49 15 46v-3c0-7.2-8-13.4-10.3-15.7A16 16 0 0 1 16 0a16 16 0 0 1 11.3 27.3z"/><circle cx="16" cy="56" r="1" fill="%235D509E"/></svg>');
+        background-repeat: no-repeat;
+        background-position: center;
+        color: white;
+        text-align: center;
+        padding: 10px 2px 0;
+        font-size: .8em;
+        text-shadow: 0 -.5px 0 rgba(0,0,0, 0.4);
+        filter: drop-shadow(0 1px 3px rgba(0,0,0, 0.3));
+        opacity: 0;
+        transition: opacity 200ms ease;
+        user-select: none;
+        pointer-events: none;
       }
 
-      .value-bubble {
-        --element-height: 24px;
+      range-slider:active .value-bubble {
+        opacity: 1;
+      }
 
-        box-sizing: border-box;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="62" fill="none"><path fill="currentColor" d="M27.3 27.3C25 29.6 17 35.8 17 43v3c0 3 2.5 5 3.2 5.8a6 6 0 1 1-8.5 0C12.6 51 15 49 15 46v-3c0-7.2-8-13.4-10.3-15.7A16 16 0 0 1 16 0a16 16 0 0 1 11.3 27.3z"/><circle cx="16" cy="56" r="1" fill="%235D509E"/></svg>') top center no-repeat;
-        position: absolute;
-        bottom: calc(var(--element-height) / 2 - var(--thumb-size) / 2 - 2px);
-        left: clamp(
-          0%,
-          calc(var(--value-percentage, 0%) + var(--thumb-size) / 2 * -1),
-          calc(100% - var(--thumb-size))
-        );
-        margin-left: -8px;
-        margin-block: auto;
-        width: 32px;
-        height: 62px;
-        text-align: center;
-        padding: 8px 3px 0;
-        filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3));
-        transform-origin: 50% 90%;
-        opacity: 0;
-        transform: scale(.2);
-        color: #fff;
-        font: inherit;
-        font-size: calc(100% - var(--value-width, 3) / 5 * .2em);
-        text-overflow: clip;
-        text-shadow: 0 -.5px 0 rgba(0,0,0,0.4);
-        transition: all 200ms ease;
-        transition-property: opacity, transform;
-        will-change: transform;
-        pointer-events: none;
-        overflow: hidden;
+      range-slider [data-thumb]:has(.value-bubble) {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+
+      /* Custom styles rangeslider.js */
+      range-slider[data-theme="rangeslider.js"] {
+        --track-size: .8em;
+        --thumb-size: 2em;
+
+        [data-track] {
+          background: #e6e6e6;
+          box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-track-fill] {
+          background: lime;
+          box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-thumb] {
+          background: white linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+          box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+          border: 1px solid #ccc;
+        }
+
+        [data-thumb]:after {
+          content: "";
+          display: block;
+          width: 18px;
+          height: 18px;
+          margin: auto;
+          position: absolute;
+          inset: 0;
+          background-image: linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+          border-radius: 100%;
+        }
+
+        &:active [data-thumb] {
+          background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+        }
       }
     </style>
   </head>
@@ -146,16 +191,16 @@
 
       <section>
         <h1>Custom styling</h1>
-        <range-slider data-style="example-1"></range-slider>
-      </section>
-
-      <section>
-        <h1>Value bubble</h1>
-        <range-slider data-style="example-1">
+        <range-slider data-theme="example-1">
           <div data-track></div>
-          <div data-thumb></div>
-          <output class="value-bubble"></output>
+          <div data-track-fill></div>
+          <div data-runnable-track>
+            <div data-thumb>
+              <output class="value-bubble"></output>
+            </div>
+          </div>
         </range-slider>
+        <range-slider data-theme="rangeslider.js"></range-slider>
       </section>
 
       <section>
@@ -173,6 +218,11 @@
       </section>
 
       <section>
+        <h1><code>debug</code></h1>
+        <range-slider data-style="debug"></range-slider>
+      </section>
+
+      <section>
         <h1><code>&lt;input type="range"&gt;</code></h1>
         <input type="range">
         <input type="range" style="writing-mode: vertical-lr; direction: rtl; width: 16px;">
@@ -186,7 +236,7 @@
       function setup() {
         const elements = document.querySelectorAll(['range-slider', 'input']);
 
-        // Set initial output values
+        // Create output and set initial values
         elements.forEach(element => {
           element.insertAdjacentHTML('afterend', `
             <output>${element.value}</output>
@@ -194,7 +244,6 @@
         });
 
         // Update output values
-
         const updateOutputValue = (event) => {
           const rangeElement = event.target;
           const outputElement = rangeElement.nextElementSibling.closest('output');

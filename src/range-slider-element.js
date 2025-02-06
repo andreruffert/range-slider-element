@@ -9,7 +9,10 @@ const ARIA_ATTRIBUTES = {
 const TEMPLATE = document.createElement('template');
 TEMPLATE.innerHTML = `
   <div data-track></div>
-  <div data-thumb></div>
+  <div data-track-fill></div>
+  <div data-runnable-track>
+    <div data-thumb></div>
+  </div>
 `;
 
 export default class RangeSliderElement extends HTMLElement {
@@ -188,14 +191,14 @@ export default class RangeSliderElement extends HTMLElement {
     const min = Number(this.min);
     const max = Number(this.max);
     const oldValue = this.value;
-    const fullSize = isVertical ? event.target.offsetHeight : event.target.offsetWidth;
+    const fullSize = isVertical ? this.offsetHeight : this.offsetWidth;
     const offset = Math.min(Math.max(isVertical ? event.offsetY : event.offsetX, 0), fullSize);
-    const percent = offset / fullSize;
-    const percentComplete = isRTL ? 1 - percent : percent;
+    const percentage = offset / fullSize;
+    const percentageComplete = isRTL ? 1 - percentage : percentage;
 
     // Fit the percentage complete between the range [min,max]
     // by remapping from [0, 1] to [min, min+(max-min)].
-    const computedValue = min + percentComplete * (max - min);
+    const computedValue = min + percentageComplete * (max - min);
 
     // Constrain value
     const newValue = this.#constrainValue(computedValue);
@@ -203,8 +206,17 @@ export default class RangeSliderElement extends HTMLElement {
     if (oldValue !== newValue) {
       this.value = newValue;
       this.dispatchEvent(new Event('input', { bubbles: true }));
+      setAriaAttribute(this, 'value', this.value);
     }
   };
+
+  #update() {
+    const min = Number(this.min);
+    const max = Number(this.max);
+    const value = Number(this.value);
+    const percentage = (100 * (value - min)) / (max - min);
+    this.style.setProperty('--value-percentage', `${percentage}%`);
+  }
 
   #constrainValue(value) {
     const step = Number(this.step);
@@ -234,16 +246,6 @@ export default class RangeSliderElement extends HTMLElement {
     const min = Number(this.min);
     const max = Number(this.max);
     return Math.min(Math.max(value, min), max);
-  }
-
-  #update() {
-    const isRTL = Boolean(this.#isRTL);
-    const min = Number(this.min);
-    const max = Number(this.max);
-    const value = Number(this.value);
-    const percent = (100 * (value - min)) / (max - min);
-    const percentComplete = isRTL ? 100 - percent : percent;
-    this.style.setProperty('--value-percentage', `${percentComplete}%`);
   }
 
   stepUp(amount = this.step) {
