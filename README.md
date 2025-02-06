@@ -23,13 +23,11 @@ Follows the [ARIA best practices guide on sliders](https://www.w3.org/TR/wai-ari
   <br>
 </div>
 
-
 ## Install
 
-```console
-$ npm install range-slider-element
+```shell
+npm install range-slider-element
 ```
-
 
 ## Usage
 
@@ -38,7 +36,15 @@ import 'range-slider-element';
 ```
 
 ```html
-<range-slider min="0" max="100" step="1"></range-slider>
+<range-slider></range-slider>
+```
+
+### Programatically 
+
+```js
+import RangeSliderElement from 'range-slider-element';
+
+const element = new RangeSliderElement();
 ```
 
 ### Attributes
@@ -47,7 +53,8 @@ import 'range-slider-element';
 * `max` The maximum permitted value. The default is 100.
 * `step` The stepping interval. The default is 1.
 * `value` The value. The default is `min + (max - min) / 2`.
-* [`dir`][dir] Directionality. The default is ltr.
+* [`dir`][dir] Directionality. The default is ltr. Allowed options `rtl`.
+* `orientation` The default is horizontal. Allowed options `vertical`.
 
 [dir]: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir
 
@@ -55,22 +62,28 @@ import 'range-slider-element';
 
 Exposed CSS custom properties scoped within the `range-slider` element.
 
-* `--value-percentage` - The current value in percentage, e.g. 50%
+* `--track-size` - The track size. The default is `0.3em`. Can be overwritten for customization.
+* `--thumb-size` - The thumb size, The default is `1em`. Can be overwritten for customization.
+* `--value-percentage` - The current value in percentage, e.g. `50%`. Will be updated via JS.
 
 ```css
 range-slider {}
 range-slider:active {}
 range-slider:focus {}
 range-slider [data-track] {}
+range-slider [data-track-fill] {}
+range-slider [data-runnable-track] {}
 range-slider [data-thumb] {}
 ```
 
+For examples of how to customize the default styling, see the [docs][docs].
+
+[docs]: https://andreruffert.github.io/range-slider-element
 
 ### Events
 
 * `input` - Pointer move, value updated. Bubbles.
 * `change` - Pointer up, value updated. Bubbles.
-
 
 ## Browser support
 
@@ -78,7 +91,6 @@ Browsers without native [custom element support][support] require a [polyfill][]
 
 [support]: https://caniuse.com/#feat=custom-elementsv1
 [polyfill]: https://github.com/webcomponents/custom-elements
-
 
 ## License
 
