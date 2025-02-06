@@ -2,7 +2,7 @@
 
 > A cross browser customizable range slider element.
 
-[![CI status](https://github.com/andreruffert/range-slider-element/workflows/CI/badge.svg)](https://github.com/andreruffert/range-slider-element/actions?workflow=CI)
+[![Test status](https://github.com/andreruffert/range-slider-element/actions/workflows/test.yml/badge.svg)](https://github.com/andreruffert/range-slider-element/actions/workflows/test.yml)
 [![npm version](https://img.shields.io/npm/v/range-slider-element.svg)](https://www.npmjs.com/package/range-slider-element)
 [![npm downloads](https://img.shields.io/npm/dm/range-slider-element?logo=npm)](https://www.npmjs.com/package/range-slider-element)
 
@@ -13,6 +13,7 @@ Follows the [ARIA best practices guide on sliders](https://www.w3.org/TR/wai-ari
 * Customizable styling
 * Touchscreen friendly
 * Keyboard accessible
+* Form data support
 
 <div align="center">
   <br>
