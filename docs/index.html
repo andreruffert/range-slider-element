@@ -2,8 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <title>Range Slider Element - Web Component</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>range-slider-element</title>
+    <meta name="author" content="André Ruffert">
+    <meta name="description" content="A cross browser customizable and accessible range-slider custom element by André Ruffert.">
+    <meta name="keywords" content="slider,range,customizable,accessible,custom element,web component">
+    <meta name="og:type" content="website">
+    <meta name="og:url" content="https://andreruffert.github.io/range-slider-element/">
+    <meta name="og:description" content="A cross browser customizable and accessible range-slider custom element by André Ruffert.">
+    <meta property="og:locale" content="en_US">
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://unpkg.com/range-slider-element@next/dist/range-slider-element.css">
   </head>
@@ -12,15 +19,12 @@
       <section class="intro">
         <h1>Range Slider Element</h1>
         <p>A cross browser customizable range slider custom element.</p>
-        <ul>
-          <li>No dependencies
-          <li>Framework agnostic <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank" rel="noreferrer">web component</a>
-          <li>Completely customizable styling
-          <li>Touchscreen friendly
-          <li>Keyboard accessible
-          <li>Form data support
-          <li>Follows the <a href="https://www.w3.org/TR/wai-aria-practices/#slider" target="_blank" rel="noreferrer">ARIA best practices guide on sliders</a>
-        </ul>
+
+        <div class="highlight">
+          <pre id="copy-npm-install">npm install range-slider-element</pre>
+          <clipboard-copy for="copy-npm-install" class="button">Copy</clipboard-copy>
+        </div>
+
         <a href="https://github.com/andreruffert/range-slider-element" target="_blank" rel="noreferrer" class="github-link">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
           <span class="sr-only">range-slider-element on GitHub</span>
@@ -52,11 +56,18 @@
       </section>
 
       <section class="content-section">
-        <h1>Install</h1>
-        <div class="highlight">
-          <pre id="copy-npm-install">npm install range-slider-element</pre>
-          <clipboard-copy for="copy-npm-install" class="button">Copy</clipboard-copy>
-        </div>
+        <h1>Features</h1>
+        <p>The <code>&lt;input type="range"&gt;</code> HTML element can be used to create a slider, but it is very difficult to style across browsers. The <code>&lt;range-slider&gt;&lt;/range-slider&gt;</code> custom element helps achieve accessible sliders that can be styled as needed.</p>
+        <ul>
+          <li>No dependencies
+          <li>Framework agnostic <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank" rel="noreferrer">Web Component</a>
+          <li>Cross browser customizable styling
+          <li>Horizontal and vertical orientations
+          <li>Touch friendly
+          <li>Keyboard accessible
+          <li>HTML form data support
+          <li>Follows the <a href="https://www.w3.org/TR/wai-aria-practices/#slider" target="_blank" rel="noreferrer">ARIA best practices guide on sliders</a>
+        </ul>
       </section>
 
       <section class="content-section">

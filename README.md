@@ -1,19 +1,19 @@
 # &lt;range-slider&gt; element
 
-> A cross browser customizable range slider element.
-
 [![Test status](https://github.com/andreruffert/range-slider-element/actions/workflows/test.yml/badge.svg)](https://github.com/andreruffert/range-slider-element/actions/workflows/test.yml)
 [![npm version](https://img.shields.io/npm/v/range-slider-element.svg)](https://www.npmjs.com/package/range-slider-element)
 [![npm downloads](https://img.shields.io/npm/dm/range-slider-element?logo=npm)](https://www.npmjs.com/package/range-slider-element)
 
-Accessible range slider custom element with keyboard support.        
-Follows the [ARIA best practices guide on sliders](https://www.w3.org/TR/wai-aria-practices/#slider).
+> A cross browser customizable and accessible range-slider element.
 
 * No dependencies
-* Customizable styling
-* Touchscreen friendly
+* Framework agnostic Web Component
+* Cross browser customizable styling
+* Horizontal and vertical orientations
+* Touch friendly
 * Keyboard accessible
-* Form data support
+* HTML form data support
+* Follows the [ARIA best practices guide on sliders](https://www.w3.org/TR/wai-aria-practices/#slider).
 
 <div align="center">
   <br>
