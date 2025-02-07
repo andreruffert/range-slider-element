@@ -31,7 +31,7 @@ npm install range-slider-element
 
 ## Usage
 
-Make sure to load the base styles exported via `range-slider-element.css`.
+Make sure to load the base styles exported via `range-slider-element/style.css`.
 
 ```js
 import 'range-slider-element';
