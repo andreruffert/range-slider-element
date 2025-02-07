@@ -172,6 +172,26 @@ footer {
   gap: 1.25rem;
 }
 
+.demo-section .controls {
+  display: grid;
+  grid-template-columns: auto;
+  justify-items: start;
+  gap: 1rem;
+
+  label {
+    font-size: 85%;
+    display: flex;
+    gap: 0.5em;
+  }
+
+  fieldset {
+    border: 1px solid
+      light-dark(var(--light-button-face), var(--dark-button-face));
+    border-radius: 0.25rem;
+    padding: 1rem;
+  }
+}
+
 .demo-section .playground {
   display: grid;
   grid-template-columns: auto;
@@ -221,6 +241,13 @@ footer {
   padding: 1rem;
   border-radius: inherit;
   overflow: auto;
-  white-space: pre-wrap;
   max-block-size: 400px;
+}
+
+/**
+ * A hacky way to disable contenteditable to prevent focus/text-selection when entering the element while dragging.
+ * `pointer-events` on the contenteditable itself don't seem to have any effect..
+ */
+html:has(range-slider:focus) .demo-section {
+  user-select: none;
 }
