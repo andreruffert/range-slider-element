@@ -1,6 +1,6 @@
 range-slider {
-  --track-size: 0.3em;
-  --thumb-size: 1em;
+  --track-size: 0.2rem;
+  --thumb-size: 1.2rem;
 
   --track-fill-clamp: clamp(
     0% +
@@ -19,6 +19,10 @@ range-slider {
   min-inline-size: 130px;
   border-radius: var(--track-size);
   margin: 2px;
+
+  /* Prevent selection useful for touch devices */
+  user-select: none;
+  -webkit-user-select: none;
 
   /* Make sure capture pointer events will work properly on touch devices */
   touch-action: none;
@@ -88,6 +92,7 @@ range-slider[orientation="vertical"] [data-runnable-track] {
 /* Thumb */
 range-slider [data-thumb] {
   pointer-events: auto;
+  touch-action: none;
   background-color: #0075ff;
   border-radius: 100%;
   inline-size: var(--thumb-size);
