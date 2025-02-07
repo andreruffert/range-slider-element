@@ -17,11 +17,13 @@
   },
   "scripts": {
     "dev": "vite",
+    "dev:docs": "vite --config vite.docs.config.js",
     "check": "biome check --write",
     "lint": "biome ci",
     "test": "vitest",
     "prebuild": "rm -rf dist",
     "build": "vite build",
+    "build:docs": "vite build --config vite.docs.config.js",
     "prepublishOnly": "npm run build",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },

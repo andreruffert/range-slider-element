@@ -1,0 +1,219 @@
+:root {
+  --dark-accent: #a3a8ff;
+  --dark-canvas: #242424;
+  --dark-canvas-text: rgba(255, 255, 255, 0.871);
+  --dark-link-text: var(--dark-accent);
+  --dark-button-face: #1a1a1a;
+
+  --light-accent: #646cff;
+  --light-canvas: #ffffff;
+  --light-canvas-text: #213547;
+  --light-link-text: var(--light-accent);
+  --light-button-face: #f9f9f9;
+
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: light-dark(var(--light-canvas-text), var(--dark-canvas-text));
+  background-color: light-dark(var(--light-canvas), var(--dark-canvas));
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:focus-visible {
+  outline-color: light-dark(var(--light-accent), var(--dark-accent));
+}
+
+a {
+  font-weight: 500;
+  color: light-dark(var(--light-link-text), var(--dark-link-text));
+  text-decoration: inherit;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:visited {
+  color: light-dark(#747bff, #535bf2);
+}
+
+body {
+  margin: 0;
+  display: grid;
+  gap: 4rem;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button,
+.button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  text-align: center;
+  background-color: light-dark(
+    var(--light-button-face),
+    var(--dark-button-face)
+  );
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover,
+.button:hover {
+  border-color: light-dark(var(--light-accent), var(--dark-accent));
+}
+
+input {
+  accent-color: light-dark(var(--light-accent), var(--dark-accent));
+}
+
+code {
+  border-radius: 0.25rem;
+  background-color: light-dark(
+    var(--light-button-face),
+    var(--dark-button-face)
+  );
+  padding: .375rem;
+  white-space: break-spaces;
+}
+
+.highlight {
+  display: flex;
+  justify-content: space-between;
+  margin-block-end: 1rem;
+  background-color: light-dark(
+    var(--light-button-face),
+    var(--dark-button-face)
+  );
+  border-radius: 0.25rem;
+  overflow: auto;
+  inline-size: 0;
+  min-inline-size: 100%;
+}
+
+.highlight pre {
+  padding: 1rem;
+  overflow: auto;
+}
+
+.highlight .button {
+  align-self: flex-start;
+  margin: 0.5rem;
+  font-size: 85%;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: rect(0 0 0 0);
+  overflow-wrap: normal;
+  border: 0;
+}
+
+main {
+  display: grid;
+  gap: 4rem;
+  margin: 1.25rem max(1rem, 50% - 600px);
+  padding: 0 .5rem;
+}
+
+footer {
+  text-align: center;
+  margin: 1.25rem max(1rem, 50% - 600px);
+  padding: 0 .5rem;
+  text-wrap: balance;
+}
+
+.intro {
+  max-width: fit-content;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.intro ul {
+  text-align: left;
+}
+
+.intro .github-link {
+  display: inline-flex;
+  margin-block: 1rem;
+}
+
+/* Demo */
+.demo-section {
+  display: grid;
+  grid-template-columns: auto;
+  align-items: start;
+  gap: 1.25rem;
+}
+
+.demo-section .playground {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 1rem;
+
+  @media (min-width: 960px) {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+  }
+}
+
+/* Demo preview */
+.demo-section .preview {
+  display: grid;
+  grid-template-rows: auto;
+  align-items: center;
+  justify-items: center;
+  align-self: stretch;
+  gap: 1rem;
+  min-block-size: 300px;
+  box-shadow: 0 0 0 1px
+    light-dark(var(--light-button-face), var(--dark-button-face));
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+/* Demo code */
+.demo-section .code {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 1rem;
+}
+
+.demo-section .code pre {
+  border-radius: 1em;
+  background-color: light-dark(
+    var(--light-button-face),
+    var(--dark-button-face)
+  );
+  min-inline-size: 100%;
+  inline-size: 0;
+  display: grid;
+  margin: 0;
+}
+
+.demo-section .code style {
+  display: block;
+  padding: 1rem;
+  border-radius: inherit;
+  overflow: auto;
+  white-space: pre-wrap;
+  max-block-size: 400px;
+}
