@@ -28,8 +28,11 @@
       </section>
 
       <section class="demo-section">
-        <div>
+        <div class="controls">
           <code>&lt;range-slider&gt;&lt;/range-slider&gt;</code>
+          <fieldset>
+            <label>Theme <select id="theme-selector"></select></label>
+          </fieldset>
         </div>
         <div class="playground">
           <div class="preview">
@@ -38,24 +41,7 @@
 
           <div class="code">
             <pre>
-              <style type="text/css" contenteditable="plaintext-only" spellcheck="false" id="playground-css">range-slider {
-  --track-size: 0.2rem; /* the track size */
-  --thumb-size: 1.2rem; /* the thumb size */
-
-  width: 100%;
-}
-
-range-slider [data-track] {
-  background-color: light-dark(#f9f9f9, #1a1a1a);
-}
-
-range-slider [data-track-fill] {
-  background-color: light-dark(#646cff, #a3a8ff);
-}
-
-range-slider [data-thumb] {
-  background-color: light-dark(#646cff, #a3a8ff);
-}</style>
+              <style type="text/css" contenteditable="plaintext-only" spellcheck="false" id="playground-css"></style>
             </pre>
             <clipboard-copy for="playground-css" class="button">
               Copy the CSS
@@ -155,6 +141,30 @@ range-slider [data-runnable-track] {}</pre>
     <script type="module">
       import 'https://unpkg.com/range-slider-element@next/dist/range-slider-element.js';
       import 'https://unpkg.com/@github/clipboard-copy-element@1.3.0/dist/index.js';
+      import { themes } from './themes';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        /**
+         * Theme switcher
+         */
+        {
+          const themeOptions = Object.keys(themes).map(name => {
+            const option = document.createElement('option');
+            option.value = option.textContent = name;
+            return option
+          });
+
+          const playgroundStyles = document.querySelector('#playground-css');
+          const themeSelector = document.querySelector('#theme-selector');
+          themeOptions.forEach(option => themeSelector.append(option));
+          themeSelector.addEventListener('change', event => {
+            playgroundStyles.textContent = themes[event.target.value] || 'Not found';
+          });
+
+          // Set initial theme
+          playgroundStyles.textContent = themes['Example 1'];
+        }
+      });
 
       document.addEventListener('clipboard-copy', event => {
         const button = event.target;
