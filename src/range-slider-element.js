@@ -146,7 +146,6 @@ export default class RangeSliderElement extends HTMLElement {
     if (this.disabled) return;
 
     event.stopPropagation();
-    event.preventDefault();
 
     // Click and drag
     this.setPointerCapture(event.pointerId);
