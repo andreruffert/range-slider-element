@@ -40,14 +40,9 @@ range-slider[orientation="vertical"] {
   min-block-size: 130px;
 }
 
-/* Light DOM */
-range-slider * {
-  pointer-events: none;
-  user-select: none;
-}
-
 /* Track */
 range-slider [data-track] {
+  pointer-events: none;
   flex: 1 1 0%;
   block-size: var(--track-size);
   background-color: lightgray;
@@ -61,6 +56,7 @@ range-slider[orientation="vertical"] [data-track] {
 
 /* Track fill */
 range-slider [data-track-fill] {
+  pointer-events: none;
   position: absolute;
   inset: auto 0;
   inline-size: var(--track-fill-clamp, var(--value-percentage));
@@ -80,6 +76,7 @@ range-slider[orientation="vertical"] [data-track-fill] {
 
 /* Runnable track */
 range-slider [data-runnable-track] {
+  pointer-events: none;
   position: absolute;
   inset: 0 calc(var(--thumb-size) / 2);
 }
@@ -90,6 +87,7 @@ range-slider[orientation="vertical"] [data-runnable-track] {
 
 /* Thumb */
 range-slider [data-thumb] {
+  pointer-events: auto;
   background-color: #0075ff;
   border-radius: 100%;
   inline-size: var(--thumb-size);
