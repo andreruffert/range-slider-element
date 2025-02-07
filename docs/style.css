@@ -245,6 +245,11 @@ footer {
   border-radius: inherit;
   overflow: auto;
   max-block-size: 400px;
+
+  /* prevent iOS zoom on focus */
+  @media (hover: none) {
+    font-size: 16px;
+  }
 }
 
 /**
