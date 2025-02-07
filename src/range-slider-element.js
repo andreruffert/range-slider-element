@@ -145,6 +145,9 @@ export default class RangeSliderElement extends HTMLElement {
   #startHandler = (event) => {
     if (this.disabled) return;
 
+    event.stopPropagation();
+    event.preventDefault();
+
     // Click and drag
     this.setPointerCapture(event.pointerId);
     this.addEventListener('pointermove', this.#moveHandler);
@@ -157,8 +160,6 @@ export default class RangeSliderElement extends HTMLElement {
   };
 
   #moveHandler = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
     this.#reflectValue(event);
   };
 

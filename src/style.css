@@ -1,18 +1,21 @@
 range-slider {
   --track-size: 0.3em;
   --thumb-size: 1em;
-  --accent-color: #0075ff;
-  --button-face: lightgray;
 
   position: relative;
   display: inline-flex;
   align-items: center;
-  min-height: 1em;
+  min-block-size: var(--thumb-size);
   min-inline-size: 130px;
   margin: 2px;
 
   /* Make sure capture pointer events will work properly on touch devices */
   touch-action: none;
+}
+
+range-slider * {
+  pointer-events: none;
+  user-select: none;
 }
 
 range-slider:active {
@@ -27,7 +30,7 @@ range-slider[disabled] {
 range-slider[orientation="vertical"] {
   flex-direction: column;
   width: var(--thumb-size);
-  min-inline-size: initial;
+  min-inline-size: var(--thumb-size);
   min-block-size: 130px;
 }
 
@@ -35,7 +38,7 @@ range-slider[orientation="vertical"] {
 range-slider [data-track] {
   flex: 1 1 0%;
   block-size: var(--track-size);
-  background: var(--button-face);
+  background: lightgray;
   border-radius: var(--track-size);
 }
 
@@ -58,7 +61,7 @@ range-slider [data-track-fill] {
     2
   );
   block-size: var(--track-size);
-  background: var(--accent-color);
+  background: #0075ff;
   border-start-start-radius: var(--thumb-size);
   border-end-start-radius: var(--thumb-size);
 }
@@ -91,7 +94,7 @@ range-slider[orientation="vertical"] [data-runnable-track] {
 
 /* Thumb */
 range-slider [data-thumb] {
-  background: var(--accent-color);
+  background: #0075ff;
   border-radius: 100%;
   width: var(--thumb-size);
   height: var(--thumb-size);
