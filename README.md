@@ -47,7 +47,7 @@ Or via CDN
 HTML
 
 ```html
-<range-slider></range-slider>
+<range-slider min="0" max="100" step="1"></range-slider>
 ```
 
 ### Attributes
