@@ -2,20 +2,26 @@ range-slider {
   --track-size: 0.3em;
   --thumb-size: 1em;
 
+  --track-fill-clamp: clamp(
+    0% +
+    var(--thumb-size) /
+    2,
+    var(--value-percentage, 0%),
+    100% -
+    var(--thumb-size) /
+    2
+  );
+
   position: relative;
   display: inline-flex;
   align-items: center;
   min-block-size: var(--thumb-size);
   min-inline-size: 130px;
+  border-radius: var(--track-size);
   margin: 2px;
 
   /* Make sure capture pointer events will work properly on touch devices */
   touch-action: none;
-}
-
-range-slider * {
-  pointer-events: none;
-  user-select: none;
 }
 
 range-slider:active {
@@ -34,12 +40,18 @@ range-slider[orientation="vertical"] {
   min-block-size: 130px;
 }
 
+/* Light DOM */
+range-slider * {
+  pointer-events: none;
+  user-select: none;
+}
+
 /* Track */
 range-slider [data-track] {
   flex: 1 1 0%;
   block-size: var(--track-size);
-  background: lightgray;
-  border-radius: var(--track-size);
+  background-color: lightgray;
+  border-radius: inherit;
 }
 
 range-slider[orientation="vertical"] [data-track] {
@@ -51,35 +63,19 @@ range-slider[orientation="vertical"] [data-track] {
 range-slider [data-track-fill] {
   position: absolute;
   inset: auto 0;
-  inline-size: clamp(
-    0% +
-    var(--thumb-size) /
-    2,
-    var(--value-percentage, 0%),
-    100% -
-    var(--thumb-size) /
-    2
-  );
+  inline-size: var(--track-fill-clamp, var(--value-percentage));
   block-size: var(--track-size);
-  background: #0075ff;
-  border-start-start-radius: var(--thumb-size);
-  border-end-start-radius: var(--thumb-size);
+  background-color: #0075ff;
+  border-start-start-radius: inherit;
+  border-end-start-radius: inherit;
 }
 
 range-slider[orientation="vertical"] [data-track-fill] {
   inset: auto auto 0 auto;
   inline-size: var(--track-size);
-  block-size: clamp(
-    0% +
-    var(--thumb-size) /
-    2,
-    var(--value-percentage, 0%),
-    100% -
-    var(--thumb-size) /
-    2
-  );
+  block-size: var(--track-fill-clamp, var(--value-percentage));
   border-start-start-radius: unset;
-  border-end-end-radius: var(--thumb-size);
+  border-end-end-radius: inherit;
 }
 
 /* Runnable track */
@@ -94,10 +90,10 @@ range-slider[orientation="vertical"] [data-runnable-track] {
 
 /* Thumb */
 range-slider [data-thumb] {
-  background: #0075ff;
+  background-color: #0075ff;
   border-radius: 100%;
-  width: var(--thumb-size);
-  height: var(--thumb-size);
+  inline-size: var(--thumb-size);
+  block-size: var(--thumb-size);
   margin-block: auto;
   position: absolute;
   inset: 0 auto 0 var(--value-percentage, 0);
