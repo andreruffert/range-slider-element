@@ -53,8 +53,9 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: clamp(2rem, 2vw + 1.5rem, 3.25rem);
   line-height: 1.1;
+  margin-block-start: 0;
 }
 
 button,
@@ -144,18 +145,20 @@ footer {
 }
 
 .intro {
-  max-width: fit-content;
+  display: grid;
+  gap: 1rem;
   margin-inline: auto;
+  margin-block-start: 4rem;
   text-align: center;
-}
 
-.intro ul {
-  text-align: left;
-}
+  h1 {
+    margin-block-end: 0;
+  }
 
-.intro .github-link {
-  display: inline-flex;
-  margin-block: 1rem;
+  .github-link {
+    display: inline-flex;
+    margin-inline: auto;
+  }
 }
 
 .content-section {
