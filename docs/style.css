@@ -107,6 +107,7 @@ code {
 }
 
 .highlight pre {
+  margin: 0;
   padding: 1rem;
   overflow: auto;
 }
@@ -155,6 +156,12 @@ footer {
 .intro .github-link {
   display: inline-flex;
   margin-block: 1rem;
+}
+
+.content-section {
+  inline-size: 100%;
+  max-inline-size: 800px;
+  margin-inline: auto;
 }
 
 /* Demo */

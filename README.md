@@ -31,27 +31,30 @@ npm install range-slider-element
 
 ## Usage
 
+Make sure to load the base styles exported via `range-slider-element.css`.
+
 ```js
 import 'range-slider-element';
 ```
+
+Or via CDN
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.css">
+<script type="module" src="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.js"></script>
+```
+
+HTML
 
 ```html
 <range-slider></range-slider>
 ```
 
-### Programatically 
-
-```js
-import RangeSliderElement from 'range-slider-element';
-
-const element = new RangeSliderElement();
-```
-
 ### Attributes
 
-* `min` The minimum permitted value. The default is 0.
-* `max` The maximum permitted value. The default is 100.
-* `step` The stepping interval. The default is 1.
+* `min` The minimum permitted value. The default is `0`.
+* `max` The maximum permitted value. The default is `100`.
+* `step` The stepping interval. The default is `1`.
 * `value` The value. The default is `min + (max - min) / 2`.
 * [`dir`][dir] Directionality. The default is ltr. Allowed options `rtl`.
 * `orientation` The default is horizontal. Allowed options `vertical`.
@@ -60,20 +63,28 @@ const element = new RangeSliderElement();
 
 ### Styling
 
+#### CSS custom properties
+
 Exposed CSS custom properties scoped within the `range-slider` element.
 
 * `--track-size` - The track size. The default is `0.3em`. Can be overwritten for customization.
-* `--thumb-size` - The thumb size, The default is `1em`. Can be overwritten for customization.
+* `--thumb-size` - The thumb size. The default is `1em`. Can be overwritten for customization.
 * `--value-percentage` - The current value in percentage, e.g. `50%`. Will be updated via JS.
+
+Advanced customization
+
+* `--track-fill-clamp` - The track fill size. The default is `clamp(0% + var(--thumb-size) / 2, var(--value-percentage, 0%), 100% - var(--thumb-size) / 2)`.
+
+#### DOM selectors
 
 ```css
 range-slider {}
-range-slider:active {}
-range-slider:focus {}
 range-slider [data-track] {}
 range-slider [data-track-fill] {}
-range-slider [data-runnable-track] {}
 range-slider [data-thumb] {}
+
+/* Advanced customization */
+range-slider [data-runnable-track] {}
 ```
 
 For examples of how to customize the default styling, see the [docs][docs].
