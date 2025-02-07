@@ -1,9 +1,4 @@
 node_modules
 \__*
 *.log
-.env
-.cache
 dist
-
-cypress/screenshots/
-cypress/videos/
