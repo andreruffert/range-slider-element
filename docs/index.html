@@ -65,7 +65,7 @@ range-slider [data-thumb] {
         </div>
       </section>
 
-      <section>
+      <section class="content-section">
         <h1>Install</h1>
         <div class="highlight">
           <pre id="copy-npm-install">npm install range-slider-element</pre>
@@ -73,16 +73,78 @@ range-slider [data-thumb] {
         </div>
       </section>
 
-      <section>
+      <section class="content-section">
         <h1>Usage</h1>
+
+        <p>Make sure to load the base styles exported via <code>range-slider-element.css</code>.</p>
+
         <div class="highlight">
           <pre id="copy-usage-import-js">import 'range-slider-element';</pre>
           <clipboard-copy for="copy-usage-import-js" class="button">Copy</clipboard-copy>
         </div>
+
+        <p>Or via CDN</p>
+        <div class="highlight">
+          <pre id="copy-usage-cdn">&lt;link rel="stylesheet" href="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.css"&gt;
+&lt;script src="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.js"&gt;&lt;/script&gt;</pre>
+          <clipboard-copy for="copy-usage-cdn" class="button">Copy</clipboard-copy>
+        </div>
+
+        <p>HTML</p>
         <div class="highlight">
           <pre id="copy-usage-element-html">&lt;range-slider min="0" max="100" step="1"&gt;&lt;/range-slider&gt;</pre>
           <clipboard-copy for="copy-usage-element-html" class="button">Copy</clipboard-copy>
         </div>
+
+        <h2>Attributes</h2>
+        <ul>
+          <li><code>min</code> The minimum permitted value. The default is <code>0</code>.
+          <li><code>max</code> The maximum permitted value. The default is <code>100</code>.
+          <li><code>step</code> The stepping interval. The default is <code>1</code>.
+          <li><code>value</code> The value. The default is <code>min + (max - min) / 2</code>.
+          <li><code>dir</code> Directionality. The default is ltr. Allowed options <code>rtl</code>.
+          <li><code>orientation</code> The default is horizontal. Allowed options <code>vertical</code>.
+        </ul>
+
+        <h2>Styling</h2>
+        <h3>CSS custom properties</h3>
+        <p>Exposed CSS custom properties scoped within the <code>range-slider</code> element.</p>
+        <ul>
+          <li>
+            <code>--track-size</code> - The track size. The default is
+            <code>0.3em</code>. Can be overwritten for customization.
+          </li>
+          <li>
+            <code>--thumb-size</code> - The thumb size, The default is <code>1em</code>.
+            Can be overwritten for customization.
+          </li>
+          <li>
+            <code>--value-percentage</code> - The current value in percentage, e.g.
+            <code>50%</code>. Will be updated via JS.
+          </li>
+        </ul>
+
+        <p>Advanced customization</p>
+        <ul>
+          <li><code>--track-fill-clamp</code> - The track fill size. The default is <code>clamp(0% + var(--thumb-size) / 2, var(--value-percentage, 0%), 100% - var(--thumb-size) / 2)</code>.
+        </ul>
+
+        <h3>DOM selectors</h3>
+        <div class="highlight">
+          <pre>range-slider {}
+range-slider [data-track] {}
+range-slider [data-track-fill] {}
+range-slider [data-thumb] {}
+
+/* Advanced customization */
+range-slider [data-runnable-track] {}</pre>
+        </div>
+
+        <h3>Events</h3>
+        <ul>
+          <li><code>input</code> - Pointer move, value updated. Bubbles.</li>
+          <li><code>change</code> - Pointer up, value updated. Bubbles.</li>
+        </ul>
       </section>
     </main>
 
