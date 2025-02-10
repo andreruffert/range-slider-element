@@ -1,261 +1,286 @@
-:root {
-  --dark-accent: #a3a8ff;
-  --dark-canvas: #242424;
-  --dark-canvas-text: rgba(255, 255, 255, 0.871);
-  --dark-link-text: var(--dark-accent);
-  --dark-button-face: #1a1a1a;
+@layer reset, layout;
 
-  --light-accent: #646cff;
-  --light-canvas: #ffffff;
-  --light-canvas-text: #213547;
-  --light-link-text: var(--light-accent);
-  --light-button-face: #f9f9f9;
-
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: light-dark(var(--light-canvas-text), var(--dark-canvas-text));
-  background-color: light-dark(var(--light-canvas), var(--dark-canvas));
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer reset {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+  }
 }
 
-* {
-  box-sizing: border-box;
-}
+@layer layout {
+  :root {
+    --font-main: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    --font-mono:
+      ui-monospace, Cascadia Mono, Menlo, Monaco, Segoe UI Mono, Roboto Mono, Oxygen Mono, Ubuntu Mono, Source Code Pro, Fira Mono, Inconsolata, Droid Sans Mono, Courier New, monospace;
 
-:focus-visible {
-  outline-color: light-dark(var(--light-accent), var(--dark-accent));
-}
+    --dark-accent: #a3a8ff;
+    --dark-canvas: #242424;
+    --dark-canvas-text: rgba(255, 255, 255, 0.871);
+    --dark-link-text: var(--dark-accent);
+    --dark-button-face: #1a1a1a;
 
-a {
-  font-weight: 500;
-  color: light-dark(var(--light-link-text), var(--dark-link-text));
-  text-decoration: inherit;
-}
-a:hover {
-  text-decoration: underline;
-}
-a:visited {
-  color: light-dark(#747bff, #535bf2);
-}
+    --light-accent: #535bf2;
+    --light-canvas: #ffffff;
+    --light-canvas-text: #213547;
+    --light-link-text: var(--light-accent);
+    --light-button-face: #f9f9f9;
 
-body {
-  margin: 0;
-  display: grid;
-  gap: 4rem;
-  min-height: 100vh;
-}
+    font-family: var(--font-main);
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 400;
 
-h1 {
-  font-size: clamp(2rem, 2vw + 1.5rem, 3.25rem);
-  line-height: 1.1;
-  margin-block-start: 0;
-}
+    color-scheme: light dark;
+    color: light-dark(var(--light-canvas-text), var(--dark-canvas-text));
+    background-color: light-dark(var(--light-canvas), var(--dark-canvas));
 
-button,
-.button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  text-align: center;
-  background-color: light-dark(
-    var(--light-button-face),
-    var(--dark-button-face)
-  );
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover,
-.button:hover {
-  border-color: light-dark(var(--light-accent), var(--dark-accent));
-}
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-input {
-  accent-color: light-dark(var(--light-accent), var(--dark-accent));
-}
+  :focus-visible {
+    outline-color: light-dark(var(--light-accent), var(--dark-accent));
+  }
 
-code {
-  border-radius: 0.25rem;
-  background-color: light-dark(
-    var(--light-button-face),
-    var(--dark-button-face)
-  );
-  padding: .375rem;
-  white-space: break-spaces;
-}
+  a {
+    font-weight: 500;
+    color: light-dark(var(--light-link-text), var(--dark-link-text));
+    text-decoration: inherit;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
 
-.highlight {
-  display: flex;
-  justify-content: space-between;
-  margin-block-end: 1rem;
-  background-color: light-dark(
-    var(--light-button-face),
-    var(--dark-button-face)
-  );
-  border-radius: 0.25rem;
-  overflow: auto;
-  inline-size: 0;
-  min-inline-size: 100%;
-}
-
-.highlight pre {
-  margin: 0;
-  padding: 1rem;
-  overflow: auto;
-}
-
-.highlight .button {
-  align-self: flex-start;
-  margin: 0.5rem;
-  font-size: 85%;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip-path: rect(0 0 0 0);
-  overflow-wrap: normal;
-  border: 0;
-}
-
-main {
-  display: grid;
-  gap: 4rem;
-  margin: 1.25rem max(1rem, 50% - 600px);
-  padding: 0 .5rem;
-}
-
-footer {
-  text-align: center;
-  margin: 1.25rem max(1rem, 50% - 600px);
-  padding: 0 .5rem;
-  text-wrap: balance;
-}
-
-.intro {
-  display: grid;
-  gap: 1rem;
-  margin-inline: auto;
-  margin-block-start: 4rem;
-  text-align: center;
+  body {
+    display: grid;
+    gap: 4rem;
+    min-height: 100vh;
+  }
 
   h1 {
-    margin-block-end: 0;
+    font-size: clamp(2rem, 2vw + 1.5rem, 3.25rem);
+    line-height: 1.1;
+    margin-block-start: 0;
   }
 
-  .github-link {
-    display: inline-flex;
+  button,
+  .button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    text-align: center;
+    background-color: light-dark(
+      var(--light-button-face),
+      var(--dark-button-face)
+    );
+    cursor: pointer;
+    transition: border-color 0.25s;
+  }
+  button:hover,
+  .button:hover {
+    border-color: light-dark(var(--light-accent), var(--dark-accent));
+  }
+
+  input {
+    accent-color: light-dark(var(--light-accent), var(--dark-accent));
+  }
+
+  pre,
+  code {
+    font-family: var(--font-mono);
+  }
+
+  pre {
+    line-height: 1.6;
+    tab-size: 2;
+    hyphens: none;
+  }
+
+  code {
+    border-radius: 0.25rem;
+    background-color: light-dark(
+      var(--light-button-face),
+      var(--dark-button-face)
+    );
+    padding: .1em .375em;
+    white-space: break-spaces;
+  }
+
+  .highlight {
+    display: flex;
+    justify-content: space-between;
+    margin-block-end: 1rem;
+    background-color: light-dark(
+      var(--light-button-face),
+      var(--dark-button-face)
+    );
+    border-radius: 0.25rem;
+    overflow: auto;
+    inline-size: 0;
+    min-inline-size: 100%;
+  }
+
+  .highlight pre {
+    margin: unset;
+    padding: 1rem;
+    overflow: auto;
+  }
+
+  .highlight .button {
+    align-self: flex-start;
+    margin: 0.5rem;
+    font-size: 85%;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: rect(0 0 0 0);
+    overflow-wrap: normal;
+    border: 0;
+  }
+
+  main {
+    display: grid;
+    gap: 4rem;
+    margin: 1.25rem max(1rem, 50% - 600px);
+    padding: 0 .5rem;
+  }
+
+  footer {
+    text-align: center;
+    margin: 1.25rem max(1rem, 50% - 600px);
+    padding: 0 .5rem;
+    text-wrap: balance;
+  }
+
+  .intro {
+    display: grid;
+    gap: 1rem;
+    margin-inline: auto;
+    margin-block-start: 4rem;
+    text-align: center;
+
+    h1 {
+      margin-block-end: 0;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+
+    .github-link {
+      display: inline-flex;
+      margin-inline: auto;
+    }
+  }
+
+  .content-section {
+    inline-size: 100%;
+    max-inline-size: 800px;
     margin-inline: auto;
   }
-}
 
-.content-section {
-  inline-size: 100%;
-  max-inline-size: 800px;
-  margin-inline: auto;
-}
-
-/* Demo */
-.demo-section {
-  display: grid;
-  grid-template-columns: auto;
-  align-items: start;
-  gap: 1.25rem;
-}
-
-.demo-section .controls {
-  display: grid;
-  grid-template-columns: auto;
-  justify-items: start;
-  gap: 1rem;
-
-  label {
-    font-size: 85%;
-    display: flex;
-    gap: 0.5em;
+  /* Demo */
+  .demo-section {
+    display: grid;
+    grid-template-columns: auto;
+    align-items: start;
+    gap: 1.25rem;
   }
 
-  fieldset {
-    border: 1px solid
+  .demo-section .controls {
+    display: grid;
+    grid-template-columns: auto;
+    justify-items: start;
+    gap: 1rem;
+
+    label {
+      font-size: 85%;
+      display: flex;
+      gap: 0.5em;
+    }
+
+    fieldset {
+      border: 1px solid
+        light-dark(var(--light-button-face), var(--dark-button-face));
+      border-radius: 0.25rem;
+      padding: 1rem;
+    }
+  }
+
+  .demo-section .playground {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 1rem;
+
+    @media (min-width: 960px) {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+    }
+  }
+
+  /* Demo preview */
+  .demo-section .preview {
+    display: grid;
+    grid-template-rows: auto;
+    align-items: center;
+    justify-items: center;
+    align-self: stretch;
+    gap: 1rem;
+    min-block-size: 300px;
+    box-shadow: 0 0 0 1px
       light-dark(var(--light-button-face), var(--dark-button-face));
-    border-radius: 0.25rem;
+    border-radius: 1rem;
     padding: 1rem;
   }
-}
 
-.demo-section .playground {
-  display: grid;
-  grid-template-columns: auto;
-  gap: 1rem;
-
-  @media (min-width: 960px) {
-    grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+  /* Demo code */
+  .demo-section .code {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 1rem;
   }
-}
 
-/* Demo preview */
-.demo-section .preview {
-  display: grid;
-  grid-template-rows: auto;
-  align-items: center;
-  justify-items: center;
-  align-self: stretch;
-  gap: 1rem;
-  min-block-size: 300px;
-  box-shadow: 0 0 0 1px
-    light-dark(var(--light-button-face), var(--dark-button-face));
-  border-radius: 1rem;
-  padding: 1rem;
-}
-
-/* Demo code */
-.demo-section .code {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  gap: 1rem;
-}
-
-.demo-section .code pre {
-  border-radius: 1em;
-  background-color: light-dark(
-    var(--light-button-face),
-    var(--dark-button-face)
-  );
-  min-inline-size: 100%;
-  inline-size: 0;
-  display: grid;
-  margin: 0;
-}
-
-.demo-section .code style {
-  display: block;
-  padding: 1rem;
-  border-radius: inherit;
-  overflow: auto;
-  max-block-size: 400px;
-
-  /* prevent iOS zoom on focus */
-  @media (hover: none) {
-    font-size: 16px;
+  .demo-section .code pre {
+    border-radius: 1em;
+    background-color: light-dark(
+      var(--light-button-face),
+      var(--dark-button-face)
+    );
+    min-inline-size: 100%;
+    inline-size: 0;
+    display: grid;
+    margin: 0;
   }
-}
 
-/**
- * A hacky way to disable contenteditable to prevent focus/text-selection when entering the element while dragging.
- * `pointer-events` on the contenteditable itself don't seem to have any effect..
- */
-html:has(range-slider:focus) .demo-section {
-  user-select: none;
+  .demo-section .code style {
+    display: block;
+    padding: 1rem;
+    border-radius: inherit;
+    overflow: auto;
+    max-block-size: 400px;
+
+    /* prevent iOS zoom on focus */
+    @media (hover: none) {
+      font-size: 16px;
+    }
+  }
+
+  /**
+   * A hacky way to disable contenteditable to prevent focus/text-selection when entering the element while dragging.
+   * `pointer-events` on the contenteditable itself don't seem to have any effect..
+   */
+  html:has(range-slider:focus) .demo-section {
+    user-select: none;
+  }
 }
