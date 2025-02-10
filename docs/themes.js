@@ -24,15 +24,15 @@ const example_1 = `range-slider {
   ${DEFAULT_STYLES}
 
   [data-track] {
-    background: #c6afe5;
+    background: #a3a8ff;
   }
 
   [data-track-fill] {
-    background: #6221ea;
+    background: #535bf2;
   }
 
   [data-thumb] {
-    background: #6221ea;
+    background: #535bf2;
     border: 2px solid white;
     transition: transform 200ms ease;
     will-change: transform;
@@ -44,7 +44,7 @@ const example_1 = `range-slider {
   }
 
   &:focus [data-thumb] {
-    outline: 0.2rem solid #8e6ef1;
+    outline: 0.2rem solid #636bff;
   }
 }`;
 
