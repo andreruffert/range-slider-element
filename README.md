@@ -69,11 +69,6 @@ Exposed CSS custom properties scoped within the `range-slider` element.
 
 * `--track-size` - The track size. The default is `0.2rem`. Can be overwritten for customization.
 * `--thumb-size` - The thumb size. The default is `1.2rem`. Can be overwritten for customization.
-* `--value-percentage` - The current value in percentage, e.g. `50%`. Will be updated via JS.
-
-Advanced customization
-
-* `--track-fill-clamp` - The track fill size. The default is `clamp(0% + var(--thumb-size) / 2, var(--value-percentage, 0%), 100% - var(--thumb-size) / 2)`.
 
 #### DOM selectors
 
