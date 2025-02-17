@@ -20,8 +20,9 @@ test('default attributes', async () => {
   await expect.element(runnableTrack).toBeInTheDocument();
   await expect.element(thumb).toBeInTheDocument();
 
-  expect(thumb).toHaveRole('slider');
+  expect(element).toHaveAttribute('tabindex', '-1');
   expect(thumb).toHaveAttribute('tabindex', '0');
+  expect(thumb).toHaveRole('slider');
   expect(thumb).toHaveAttribute('aria-valuenow', '50');
   expect(thumb).toHaveAttribute('aria-valuemin', '0');
   expect(thumb).toHaveAttribute('aria-valuemax', '100');
@@ -54,10 +55,13 @@ test('disabled attribute', async () => {
 
   const element = document.querySelector('range-slider');
   const thumb = element.querySelector('[data-runnable-track] [data-thumb]');
+
+  expect(element).not.toHaveAttribute('tabindex', '-1');
   expect(thumb).not.toHaveAttribute('tabindex', '0');
 
   // Programmatic change
   element.disabled = false;
+  expect(element).toHaveAttribute('tabindex', '-1');
   expect(thumb).toHaveAttribute('tabindex', '0');
 });
 
