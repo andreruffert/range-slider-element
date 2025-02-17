@@ -1,3 +1,4 @@
+import { userEvent } from '@vitest/browser/context';
 import { expect, test } from 'vitest';
 import '../src/index.js';
 
@@ -95,4 +96,14 @@ test('multi thumb support', async () => {
 
   expect(element).toHaveValue('10,40');
   expect(form).toHaveFormValues({ 'price-range': '10,40' });
+});
+
+test('focus behaviour', async () => {
+  render('<range-slider></range-slider>');
+
+  const element = document.querySelector('range-slider');
+  const thumb = element.querySelector('[data-runnable-track] [data-thumb]');
+
+  await userEvent.keyboard('{Tab}');
+  expect(thumb).toHaveFocus();
 });
