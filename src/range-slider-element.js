@@ -118,13 +118,13 @@ export default class RangeSliderElement extends HTMLElement {
   set disabled(disabled) {
     if (disabled) {
       this.setAttribute('disabled', '');
-      this.setAttribute('tabindex', '-1');
+      this.removeAttribute('tabindex');
       for (const thumb of this.#thumbs) {
         thumb.removeAttribute('tabindex');
       }
     } else {
       this.removeAttribute('disabled');
-      this.removeAttribute('tabindex');
+      this.setAttribute('tabindex', '-1');
       for (const thumb of this.#thumbs) {
         thumb.setAttribute('tabindex', 0);
       }
