@@ -44,7 +44,7 @@
       }
 
       /* Debug styles */
-      range-slider[data-style="debug"] {
+      html.debug range-slider {
         [data-runnable-track] {
           outline: 1px dotted;
         }
@@ -70,9 +70,8 @@
           will-change: transform;
         }
 
-        &:active [data-thumb] {
+        [data-thumb]:focus {
           box-shadow: none;
-          transform: scale(1.5);
         }
 
         &:focus [data-thumb] {
@@ -103,7 +102,11 @@
         pointer-events: none;
       }
 
-      range-slider:active .value-bubble {
+      range-slider [data-thumb]:has(.value-bubble):active {
+        transform: scale(1.5);
+      }
+
+      range-slider [data-thumb]:has(.value-bubble):active .value-bubble {
         opacity: 1;
       }
 
@@ -150,9 +153,20 @@
           background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
         }
       }
+
+      /* [data-thumb="0"] {
+        inset: 0 auto 0 var(--value-0-percent, 0) !important;
+      }
+      [data-thumb="1"] {
+        inset: 0 auto 0 var(--value-1-percent, 50%) !important;
+      }
+      [data-thumb="2"] {
+        inset: 0 auto 0 var(--value-2-percent, 100%) !important;
+      } */
     </style>
   </head>
   <body>
+    <header><button data-debug="toggle">Toggle debug</button></header>
     <main>
       <h1>range-slider-element</h1>
       <section>
@@ -191,6 +205,37 @@
       </section>
 
       <section>
+        <h1><code>multi thumb</code></h1>
+        <range-slider value="10,40" name="price-range" data-style="debug">
+          <div data-track></div>
+          <div data-track-fill></div>
+          <div data-runnable-track>
+            <div data-thumb aria-label="Minimum Price"></div>
+            <div data-thumb aria-label="Maximum Price"></div>
+          </div>
+        </range-slider>
+
+        <range-slider value="10,40,90">
+          <div data-track></div>
+          <div data-track-fill></div>
+          <div data-runnable-track>
+            <div data-thumb></div>
+            <div data-thumb></div>
+            <div data-thumb></div>
+          </div>
+        </range-slider>
+
+        <range-slider value="10,80" orientation="vertical">
+          <div data-track></div>
+          <div data-track-fill></div>
+          <div data-runnable-track>
+            <div data-thumb></div>
+            <div data-thumb></div>
+          </div>
+        </range-slider>
+      </section>
+
+      <section>
         <h1>Custom styling</h1>
         <range-slider data-theme="example-1">
           <div data-track></div>
@@ -208,9 +253,6 @@
         <h1>Form data support</h1>
         <form>
           <fieldset>
-            <input type="range" name="native-input">
-          </fieldset>
-          <fieldset>
             <range-slider name="range-slider"></range-slider>
           </fieldset>
           <button type="submit">Submit</button>
@@ -219,12 +261,7 @@
       </section>
 
       <section>
-        <h1><code>debug</code></h1>
-        <range-slider data-style="debug"></range-slider>
-      </section>
-
-      <section>
-        <h1><code>&lt;input type="range"&gt;</code></h1>
+        <h1>Native <code>&lt;input type="range"&gt;</code></h1>
         <input type="range">
         <input type="range" style="writing-mode: vertical-lr; direction: rtl; width: 16px;">
       </section>
@@ -235,26 +272,17 @@
       document.addEventListener('DOMContentLoaded', setup);
 
       function setup() {
-        const elements = document.querySelectorAll(['range-slider', 'input']);
+        document.addEventListener('click', globalClickHandler);
+        document.addEventListener('input', updateOutputValue);
+        document.addEventListener('change', updateOutputValue);
 
-        // Create output and set initial values
+        // Create output and set initial value
+        const elements = document.querySelectorAll(['range-slider', 'input']);
         elements.forEach(element => {
           element.insertAdjacentHTML('afterend', `
             <output>${element.value}</output>
           `);
         });
-
-        // Update output values
-        const updateOutputValue = (event) => {
-          const rangeElement = event.target;
-          const outputElement = rangeElement.nextElementSibling.closest('output');
-          if (!outputElement) return;
-
-          outputElement.textContent = rangeElement.value;
-        };
-
-        document.addEventListener('input', updateOutputValue);
-        document.addEventListener('change', updateOutputValue);
 
         // Value bubble example
         const valueBubble = document.querySelector('.value-bubble');
@@ -270,18 +298,34 @@
         document.querySelector('form').onsubmit = (event) => {
           event.preventDefault();
 
-          if ('FormDataEvent' in window) {
-            console.info('formdata event is supported')
+          if (!'FormDataEvent' in window) {
+            console.info('formdata event is NOT supported');
+            return;
           }
-
-          if ('ElementInternals' in window && 'setFormValue' in window.ElementInternals.prototype) {
-            console.info('Form-associated custom elements are supported')
+          if (!'ElementInternals' in window && 'setFormValue' in window.ElementInternals.prototype) {
+            console.info('Form-associated custom elements are NOT supported');
+            return;
           }
 
           const formData = new FormData(event.target);
           const formDataOutput = event.target.querySelector('.form-data');
           formDataOutput.textContent = JSON.stringify(Object.fromEntries(formData), null, 2);
         }
+      }
+
+      function globalClickHandler(event) {
+        // Toggle debug mode
+        if (event.target.closest('[data-debug="toggle"]')) {
+          document.documentElement.classList.toggle('debug');
+        }
+      }
+
+      // Update output values
+      function updateOutputValue(event) {
+        const rangeElement = event.target;
+        const outputElement = rangeElement.nextElementSibling.closest('output');
+        if (!outputElement) return;
+        outputElement.textContent = rangeElement.value;
       }
     </script>
   </body>
