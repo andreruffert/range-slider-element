@@ -1,3 +1,6 @@
+/**
+ * LAYOUT specific
+ */
 range-slider {
   --track-size: 0.2rem;
   --thumb-size: 1.2rem;
@@ -7,30 +10,22 @@ range-slider {
   align-items: center;
   min-block-size: var(--thumb-size);
   min-inline-size: 130px;
-  border-radius: var(--track-size);
-  margin: 2px;
+  outline: none;
 
-  /* Prevent selection useful for touch devices */
+  /* Prevent selection relevant for touch devices */
   user-select: none;
   -webkit-user-select: none;
 
   /* Make sure capture pointer events will work properly on touch devices */
   touch-action: none;
 }
-
-range-slider:focus {
-  outline: none;
-}
-
 range-slider:active {
   opacity: 0.8;
 }
-
 range-slider[disabled] {
   filter: grayscale(1);
   opacity: 0.4;
 }
-
 range-slider[orientation="vertical"] {
   flex-direction: column;
   width: var(--thumb-size);
@@ -43,10 +38,8 @@ range-slider [data-track] {
   pointer-events: none;
   flex: 1 1 0%;
   block-size: var(--track-size);
-  background-color: lightgray;
   border-radius: inherit;
 }
-
 range-slider[orientation="vertical"] [data-track] {
   inline-size: var(--track-size);
   block-size: 100%;
@@ -57,11 +50,9 @@ range-slider [data-track-fill] {
   pointer-events: none;
   position: absolute;
   block-size: var(--track-size);
-  background-color: #0075ff;
   border-start-start-radius: inherit;
   border-end-start-radius: inherit;
 }
-
 range-slider[orientation="vertical"] [data-track-fill] {
   inline-size: var(--track-size);
   block-size: auto;
@@ -75,7 +66,6 @@ range-slider [data-runnable-track] {
   position: absolute;
   inset: 0 calc(var(--thumb-size) / 2);
 }
-
 range-slider[orientation="vertical"] [data-runnable-track] {
   inset: calc(var(--thumb-size) / 2) 0;
 }
@@ -84,15 +74,46 @@ range-slider[orientation="vertical"] [data-runnable-track] {
 range-slider [data-thumb] {
   pointer-events: auto;
   touch-action: none;
-  background-color: #0075ff;
-  border-radius: 100%;
   inline-size: var(--thumb-size);
   block-size: var(--thumb-size);
   position: absolute;
   margin-inline-start: calc(var(--thumb-size) / 2 * -1);
 }
-
 range-slider[orientation="vertical"] [data-thumb] {
   margin-inline-start: unset;
   margin-block: calc(var(--thumb-size) / 2 * -1);
+}
+
+/**
+ * THEME specific
+ */
+range-slider {
+  border-radius: var(--track-size);
+  margin: 2px;
+}
+range-slider:active {
+  opacity: 0.8;
+}
+range-slider[disabled] {
+  filter: grayscale(1);
+  opacity: 0.4;
+}
+
+/* Track */
+range-slider [data-track] {
+  background-color: ButtonFace;
+  background-color: lightgray;
+}
+
+/* Track fill */
+range-slider [data-track-fill] {
+  background-color: Highlight;
+  background-color: #0075ff;
+}
+
+/* Thumb */
+range-slider [data-thumb] {
+  background-color: Highlight;
+  background-color: #0075ff;
+  border-radius: 100%;
 }
