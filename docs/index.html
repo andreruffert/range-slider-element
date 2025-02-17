@@ -6,19 +6,17 @@
     <title>Range Slider Element - Web Component</title>
 
     <meta name="author" content="André Ruffert">
-    <meta name="description" content="A cross browser customizable and accessible &lt;range-slider&gt; custom element.">
+    <meta name="description" content="A cross browser customizable and accessible &lt;range-slider&gt; Web Component.">
     <meta name="keywords" content="slider,range,customizable,accessible,custom element,web component">
 
     <meta name="og:title" content="&lt;range-slider&gt; - Web Component">
     <meta name="og:type" content="website">
     <meta name="og:url" content="https://andreruffert.github.io/range-slider-element/">
-    <meta property="og:image" content="">
-    <meta property="og:image:alt" content="">
-
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎚</text></svg>">
-
+    <meta name="og:description" content="A cross browser customizable and accessible &lt;range-slider&gt; Web Component.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎚</text></svg>" />
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://unpkg.com/range-slider-element@next/dist/range-slider-element.css">
+    <!--link rel="stylesheet" href="https://unpkg.com/syntax-highlight-element@next/dist/syntax-highlight-element.css"-->
   </head>
   <body>
     <main>
@@ -26,8 +24,8 @@
         <h1>Range Slider Element</h1>
         <p>A cross browser customizable range slider custom element.</p>
 
-        <div class="highlight">
-          <pre id="copy-npm-install">npm install range-slider-element</pre>
+        <div class="copy-code">
+          <syntax-highlight id="copy-npm-install">npm install range-slider-element</syntax-highlight>
           <clipboard-copy for="copy-npm-install" class="button">Copy</clipboard-copy>
         </div>
 
@@ -40,7 +38,8 @@
       <section class="demo-section">
         <b>Playground</b>
         <div class="controls">
-          <span class="highlight"><pre data-lang="html">&lt;range-slider&gt;&lt;/range-slider&gt;</pre></span>
+          <syntax-highlight language="html">&lt;range-slider&gt;&lt;/range-slider&gt;</syntax-highlight>
+
           <fieldset>
             <label>Theme <select id="theme-selector"></select></label>
           </fieldset>
@@ -80,21 +79,21 @@
       <section class="content-section">
         <h1>Usage</h1>
         <p>Make sure to load the base styles exported via <code>range-slider-element/style.css</code>.</p>
-        <div class="highlight">
-          <pre id="copy-usage-import-js" data-lang="js">import 'range-slider-element';</pre>
+        <div class="copy-code">
+          <syntax-highlight id="copy-usage-import-js" language="js">import 'range-slider-element';</syntax-highlight>
           <clipboard-copy for="copy-usage-import-js" class="button">Copy</clipboard-copy>
         </div>
 
         <p>Or via CDN</p>
-        <div class="highlight">
-          <pre id="copy-usage-cdn" data-lang="html">&lt;link rel="stylesheet" href="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.css"&gt;
-&lt;script src="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.js"&gt;&lt;/script&gt;</pre>
+        <div class="copy-code">
+          <syntax-highlight id="copy-usage-cdn" language="html">&lt;link rel="stylesheet" href="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.css"&gt;
+&lt;script src="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.js"&gt;&lt;/script&gt;</syntax-highlight>
           <clipboard-copy for="copy-usage-cdn" class="button">Copy</clipboard-copy>
         </div>
 
         <p>HTML</p>
-        <div class="highlight">
-          <pre id="copy-usage-element-html" data-lang="html">&lt;range-slider min="0" max="100" step="1"&gt;&lt;/range-slider&gt;</pre>
+        <div class="copy-code">
+          <syntax-highlight id="copy-usage-element-html" language="html">&lt;range-slider min="0" max="100" step="1"&gt;&lt;/range-slider&gt;</syntax-highlight>
           <clipboard-copy for="copy-usage-element-html" class="button">Copy</clipboard-copy>
         </div>
 
@@ -132,14 +131,14 @@
         </ul>
 
         <h3>DOM selectors</h3>
-        <div class="highlight">
-          <pre data-lang="css">range-slider {}
+        <div class="copy-code">
+          <syntax-highlight language="css">range-slider {}
 range-slider [data-track] {}
 range-slider [data-track-fill] {}
 range-slider [data-thumb] {}
 
 /* Advanced customization */
-range-slider [data-runnable-track] {}</pre>
+range-slider [data-runnable-track] {}</syntax-highlight>
         </div>
 
         <h2>Events</h3>
@@ -156,15 +155,9 @@ range-slider [data-runnable-track] {}</pre>
 
     <script type="module">
       import 'https://unpkg.com/range-slider-element@next/dist/range-slider-element.js';
+      import 'https://unpkg.com/syntax-highlight-element@next/dist/syntax-highlight-element.js';
       import 'https://unpkg.com/@github/clipboard-copy-element@1.3.0/dist/index.js';
       import { themes } from './themes.js';
-
-
-      (async () => {
-        if (CSS.highlights) {
-          await import('./syntax-highlight.js');
-        }
-      })();
 
       document.addEventListener('DOMContentLoaded', () => {
         /**
