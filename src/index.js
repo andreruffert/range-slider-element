@@ -2,9 +2,7 @@ import './style.css';
 import RangeSliderElement from './range-slider-element';
 export { RangeSliderElement as default };
 
-const ELEMENT_NAME = 'range-slider';
-
-if (!window.customElements.get(ELEMENT_NAME)) {
+if (!window.customElements.get(RangeSliderElement.tagName)) {
   window.RangeSliderElement = RangeSliderElement;
-  window.customElements.define(ELEMENT_NAME, RangeSliderElement);
+  window.customElements.define(RangeSliderElement.tagName, RangeSliderElement);
 }

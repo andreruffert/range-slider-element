@@ -17,6 +17,7 @@ TEMPLATE.innerHTML = `
 `;
 
 export default class RangeSliderElement extends HTMLElement {
+  static tagName = 'range-slider';
   static observedAttributes = REFLECTED_ATTRIBUTES;
   static formAssociated = true;
 
