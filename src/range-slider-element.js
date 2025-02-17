@@ -2,6 +2,11 @@ import { getPrescision, setAriaAttribute } from './utils';
 
 const REFLECTED_ATTRIBUTES = ['min', 'max', 'step', 'value', 'disabled', 'value-precision'];
 
+const KEY_CODE_ACTIONS = {
+  stepUp: ['ArrowUp', 'ArrowRight'],
+  stepDown: ['ArrowDown', 'ArrowLeft'],
+};
+
 const TEMPLATE = document.createElement('template');
 TEMPLATE.innerHTML = `
   <div data-track></div>
@@ -13,8 +18,6 @@ TEMPLATE.innerHTML = `
 
 export default class RangeSliderElement extends HTMLElement {
   static observedAttributes = REFLECTED_ATTRIBUTES;
-
-  // Identify as form-associated custom element
   static formAssociated = true;
 
   #internals;
@@ -30,6 +33,11 @@ export default class RangeSliderElement extends HTMLElement {
     // Template setup
     if (!this.firstChild) {
       this.appendChild(TEMPLATE.content.cloneNode(true));
+    }
+
+    // Keyboard setup
+    if (!this.disabled) {
+      this.setAttribute('tabindex', '-1');
     }
 
     // Thumb setup
@@ -109,11 +117,13 @@ export default class RangeSliderElement extends HTMLElement {
   set disabled(disabled) {
     if (disabled) {
       this.setAttribute('disabled', '');
+      this.setAttribute('tabindex', '-1');
       for (const thumb of this.#thumbs) {
         thumb.removeAttribute('tabindex');
       }
     } else {
       this.removeAttribute('disabled');
+      this.setAttribute('tabindex');
       for (const thumb of this.#thumbs) {
         thumb.setAttribute('tabindex', 0);
       }
@@ -157,13 +167,13 @@ export default class RangeSliderElement extends HTMLElement {
   connectedCallback() {
     this.addEventListener('focusin', this.#focusHandler);
     this.addEventListener('pointerdown', this.#startHandler);
-    this.addEventListener('keydown', this.#keyCodeHandler);
+    this.addEventListener('keydown', this.#keyboardHandler);
   }
 
   disconnectedCallback() {
     this.removeEventListener('focusin', this.#focusHandler);
     this.removeEventListener('pointerdown', this.#startHandler);
-    this.removeEventListener('keydown', this.#keyCodeHandler);
+    this.removeEventListener('keydown', this.#keyboardHandler);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -180,6 +190,7 @@ export default class RangeSliderElement extends HTMLElement {
   }
 
   #focusHandler = (event) => {
+    if (event.target.dataset.thumb === undefined) return; // Skip element itself (keyboard support)
     this.#thumbIndex = Number(event.target.dataset.thumb);
   };
 
@@ -191,8 +202,12 @@ export default class RangeSliderElement extends HTMLElement {
     window.addEventListener('pointerup', this.#endHandler);
     window.addEventListener('pointercancel', this.#endHandler);
 
-    // Click jump (ignore thumb clicks)
-    if (event.target?.dataset?.thumb === undefined) {
+    // Thumb click
+    if (event.target.dataset.thumb !== undefined) {
+      this.#thumbIndex = Number(event.target.dataset.thumb);
+    }
+    // Track click
+    else {
       const { offsetX, offsetY } = event;
       this.#thumbIndex = this.#getClosestThumb(this.#isVertical ? offsetY : offsetX);
       this.#mirrorValue(this.#isVertical ? offsetY : offsetX);
@@ -200,8 +215,7 @@ export default class RangeSliderElement extends HTMLElement {
   };
 
   #moveHandler = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
+    event.preventDefault(); // Prevent text selection (Safari)
     this.#mirrorValue(this.#isVertical ? event.offsetY : event.offsetX);
   };
 
@@ -215,16 +229,17 @@ export default class RangeSliderElement extends HTMLElement {
     this.dispatchEvent(new Event('change', { bubbles: true }));
   };
 
-  #keyCodeHandler = (event) => {
-    const code = event.code;
-    const up = ['ArrowUp', 'ArrowRight'].includes(code);
-    const down = ['ArrowDown', 'ArrowLeft'].includes(code);
-    if (up) {
+  #keyboardHandler = (event) => {
+    const actionKeys = Object.keys(KEY_CODE_ACTIONS);
+    const action = actionKeys.find((type) => KEY_CODE_ACTIONS[type].includes(event.code) && type);
+
+    if (document.activeElement !== this.#thumbs[this.#thumbIndex]) {
+      this.#thumbs[this.#thumbIndex].focus({ focusVisible: false });
+    }
+
+    if (action) {
       event.preventDefault();
-      this.stepUp();
-    } else if (down) {
-      event.preventDefault();
-      this.stepDown();
+      this[action]();
     }
   };
 
@@ -274,25 +289,26 @@ export default class RangeSliderElement extends HTMLElement {
     const percent = safeOffset / this.#size;
     const value = this.#getValueFromPercent(this.#isRTL ? 1 - percent : percent);
 
-    // Split #value based on the first thumb position from the "end"
-    const split = this.#value.findIndex((v) => value - v < 0);
+    // First thumb position from the "end"
+    const index = this.#value.findIndex((v) => value - v < 0);
+
     // Pick the first one
-    if (split === 0) {
-      closestThumb = split;
+    if (index === 0) {
+      closestThumb = index;
     }
     // Pick the last one (position is past all the thumbs)
-    else if (split === -1) {
+    else if (index === -1) {
       closestThumb = this.#value.length - 1;
     } else {
-      const lastStart = this.#value[split - 1];
-      const firstEnd = this.#value[split];
+      const lastStart = this.#value[index - 1];
+      const firstEnd = this.#value[index];
       // Pick the first one from the "start" unless they are stacked on top of each other
       if (Math.abs(lastStart - value) < Math.abs(firstEnd - value)) {
-        closestThumb = split - 1;
+        closestThumb = index - 1;
       }
       // Pick the last one from the "end"
       else {
-        closestThumb = split;
+        closestThumb = index;
       }
     }
 
@@ -364,8 +380,6 @@ export default class RangeSliderElement extends HTMLElement {
    * @param {number} amount - Amount to step up
    */
   stepUp(amount = this.step) {
-    console.log(this.#thumbIndex);
-
     const newValue = this.#value[this.#thumbIndex] + amount;
     this.#updateValue(this.#thumbIndex, newValue, ['change']);
   }
