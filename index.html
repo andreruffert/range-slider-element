@@ -8,11 +8,6 @@
       body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         font-size: 16px;
-        display: flex;
-        gap: 4em;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
         min-height: 100vh;
         max-width: 500px;
         margin: 0 auto;
@@ -53,6 +48,18 @@
           opacity: 0.4;
         }
       }
+
+      range-slider {
+        width: 100%;
+      }
+
+      range-slider [data-track] {
+        pointer-events: auto;
+      }
+      range-slider [data-track]:hover {
+        background-color: hotpink;
+      }
+
 
       /* Custom styles example-1 */
       range-slider[data-theme="example-1"] {
