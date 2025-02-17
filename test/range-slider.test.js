@@ -118,3 +118,15 @@ test('thumb click does not update the value', async () => {
   await userEvent.click(thumb);
   expect(element).toHaveValue(String(value));
 });
+
+test('track click updates the value', async () => {
+  render('<range-slider max="42"></range-slider>');
+
+  const element = document.querySelector('range-slider');
+
+  await userEvent.click(element, { position: { x: element.offsetWidth - 1, y: 5 } });
+  expect(element).toHaveValue(String(42));
+
+  await userEvent.click(element, { position: { x: 1, y: 5 } });
+  expect(element).toHaveValue(String(0));
+});
