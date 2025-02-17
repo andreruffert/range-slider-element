@@ -1,4 +1,41 @@
-# 1.1.0 (2021-05-28)
+# [2.0.0-rc.4](https://github.com/andreruffert/range-slider-element/compare/v2.0.0-rc.0...v2.0.0-rc.4) (2025-02-17)
+
+
+### Bug Fixes
+
+* disabled setter ([0b9cf8d](https://github.com/andreruffert/range-slider-element/commit/0b9cf8d899c5f748bb4f69d102c1cb66cfacaa7f))
+* disabled setter element tabindex attribute ([3576040](https://github.com/andreruffert/range-slider-element/commit/3576040f7e537a1aa8efef92b4a9f3945fb43682))
+
+
+### Features
+
+* improved focus behaviour ([ef56e4e](https://github.com/andreruffert/range-slider-element/commit/ef56e4e70d8a45bf5d9e00960e6afca0141608e8))
+* introduce multi thumb support ([36d3051](https://github.com/andreruffert/range-slider-element/commit/36d3051cb6ee5bb8846a7d538c077e33348ebf51))
+* v2 iteration ([c3d1cc8](https://github.com/andreruffert/range-slider-element/commit/c3d1cc844983700dfaf7577aa1e78b91d07e4c04))
+* v2 iteration ([73875a6](https://github.com/andreruffert/range-slider-element/commit/73875a67056ad40f79d85ae8de7e8a792939e52b))
+* v2 iteration ([86072dc](https://github.com/andreruffert/range-slider-element/commit/86072dcda041a3afda67469f179000a75ad44395))
+* v2 iteration ([f8098c8](https://github.com/andreruffert/range-slider-element/commit/f8098c8e9bc73411305e59ecc8b8a2c44af70c45))
+
+
+
+# [2.0.0-rc.0](https://github.com/andreruffert/range-slider-element/compare/v1.1.0...v2.0.0-rc.0) (2025-02-06)
+
+
+### Bug Fixes
+
+* disabled state ([1764069](https://github.com/andreruffert/range-slider-element/commit/17640693b6ce82c0717c9d689eca52d453984134))
+* rtl direction track value fill ([6423940](https://github.com/andreruffert/range-slider-element/commit/64239404c95e1cc320fdc30889380f02663d5fc2))
+
+
+### Features
+
+* add vertical orientation support ([7c3a768](https://github.com/andreruffert/range-slider-element/commit/7c3a768b5331e5e8487bd75ae80f501b11bc9ab0))
+* introduce form data support ([e153c6f](https://github.com/andreruffert/range-slider-element/commit/e153c6f3c5ed68bcbd817284649405938f37e452))
+* v2 iteration ([5a6cce4](https://github.com/andreruffert/range-slider-element/commit/5a6cce41c0b785374b2d86af2aafbd6134a069ed))
+
+
+
+# [1.1.0](https://github.com/andreruffert/range-slider-element/compare/v1.0.0...v1.1.0) (2021-05-28)
 
 
 ### Features
@@ -7,7 +44,7 @@
 
 
 
-# 1.0.0 (2020-12-21)
+# [1.0.0](https://github.com/andreruffert/range-slider-element/compare/v1.0.0-beta.7...v1.0.0) (2020-12-21)
 
 
 ### Features
@@ -16,11 +53,11 @@
 
 
 
-# 1.0.0-beta.7 (2020-04-14)
+# [1.0.0-beta.7](https://github.com/andreruffert/range-slider-element/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2020-04-14)
 
 
 
-# 1.0.0-beta.6 (2019-10-14)
+# [1.0.0-beta.6](https://github.com/andreruffert/range-slider-element/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2019-10-14)
 
 
 ### Features
@@ -29,11 +66,11 @@
 
 
 
-# 1.0.0-beta.5 (2019-10-08)
+# [1.0.0-beta.5](https://github.com/andreruffert/range-slider-element/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2019-10-08)
 
 
 
-# 1.0.0-beta.4 (2019-10-07)
+# [1.0.0-beta.4](https://github.com/andreruffert/range-slider-element/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2019-10-07)
 
 
 ### Bug Fixes
@@ -43,11 +80,11 @@
 
 
 
-# 1.0.0-beta.3 (2019-10-06)
+# [1.0.0-beta.3](https://github.com/andreruffert/range-slider-element/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2019-10-06)
 
 
 
-# 1.0.0-beta.2 (2019-10-06)
+# [1.0.0-beta.2](https://github.com/andreruffert/range-slider-element/compare/91b540507e36986853e0702a09724e9c0904c584...v1.0.0-beta.2) (2019-10-06)
 
 
 ### Bug Fixes
