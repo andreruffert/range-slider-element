@@ -113,7 +113,16 @@
     white-space: break-spaces;
   }
 
-  .highlight {
+  syntax-highlight {
+    padding: 1rem;
+    border-radius: 0.25rem;
+    background-color: light-dark(
+      var(--light-button-face),
+      var(--dark-button-face)
+    );
+  }
+
+  .copy-code {
     display: flex;
     justify-content: space-between;
     margin-block-end: 1rem;
@@ -127,13 +136,13 @@
     min-inline-size: 100%;
   }
 
-  .highlight pre {
+  .copy-code pre {
     margin: unset;
     padding: 1rem;
     overflow: auto;
   }
 
-  .highlight .button {
+  .copy-code .button {
     align-self: flex-start;
     margin: 0.5rem;
     font-size: 85%;
@@ -268,7 +277,7 @@
     padding: 1rem;
     border-radius: inherit;
     overflow: auto;
-    max-block-size: 400px;
+    block-size: 400px;
 
     /* prevent iOS zoom on focus */
     @media (hover: none) {
@@ -282,5 +291,89 @@
    */
   html:has(range-slider:focus) .demo-section {
     user-select: none;
+  }
+}
+
+@layer syntax-highlight-element {
+  syntax-highlight {
+    display: inline-flex;
+    font-family: var(--font-mono);
+    white-space: pre;
+    tab-size: 2;
+    hyphens: none;
+    line-height: 1.6;
+    overflow: auto;
+  }
+
+  ::highlight(parameter) {
+    color: #1a1a1a;
+  }
+
+  ::highlight(comment),
+  ::highlight(prolog),
+  ::highlight(doctype),
+  ::highlight(cdata) {
+    color: light-dark(#b3b3b3, hsla(0, 0%, 100%, 0.5));
+  }
+
+  ::highlight(punctuation) {
+    color: #b3b3b3;
+  }
+
+  ::highlight(property),
+  ::highlight(tag),
+  ::highlight(boolean),
+  ::highlight(number),
+  ::highlight(constant),
+  ::highlight(symbol),
+  ::highlight(deleted),
+  ::highlight(class-name) {
+    color: light-dark(#e90, rgb(229, 192, 123));
+  }
+
+  ::highlight(selector),
+  ::highlight(attr-name),
+  ::highlight(string),
+  ::highlight(char),
+  ::highlight(builtin),
+  ::highlight(inserted) {
+    color: #bea5ff;
+  }
+
+  ::highlight(operator),
+  ::highlight(entity),
+  ::highlight(url) {
+    color: #c1cff1;
+    background: hsla(0, 0%, 100%, 0.5);
+  }
+
+  ::highlight(atrule),
+  ::highlight(attr-value),
+  ::highlight(keyword) {
+    color: #00d061;
+    color: rgb(209, 154, 102);
+  }
+
+  ::highlight(function) {
+    color: rgb(198, 120, 221);
+  }
+
+  ::highlight(regex),
+  ::highlight(important),
+  ::highlight(variable) {
+    color: #e90;
+  }
+
+  ::highlight(important),
+  ::highlight(bold) {
+    font-weight: bold;
+  }
+
+  ::highlight(italic) {
+    font-style: italic;
+  }
+
+  ::highlight(entity) {
+    cursor: help;
   }
 }
