@@ -2,16 +2,6 @@ range-slider {
   --track-size: 0.2rem;
   --thumb-size: 1.2rem;
 
-  --track-fill-clamp: clamp(
-    0% +
-    var(--thumb-size) /
-    2,
-    var(--value-percentage, 0%),
-    100% -
-    var(--thumb-size) /
-    2
-  );
-
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -62,8 +52,6 @@ range-slider[orientation="vertical"] [data-track] {
 range-slider [data-track-fill] {
   pointer-events: none;
   position: absolute;
-  inset: auto 0;
-  inline-size: var(--track-fill-clamp, var(--value-percentage));
   block-size: var(--track-size);
   background-color: #0075ff;
   border-start-start-radius: inherit;
@@ -71,9 +59,8 @@ range-slider [data-track-fill] {
 }
 
 range-slider[orientation="vertical"] [data-track-fill] {
-  inset: auto auto 0 auto;
   inline-size: var(--track-size);
-  block-size: var(--track-fill-clamp, var(--value-percentage));
+  block-size: auto;
   border-start-start-radius: unset;
   border-end-end-radius: inherit;
 }
@@ -97,18 +84,11 @@ range-slider [data-thumb] {
   border-radius: 100%;
   inline-size: var(--thumb-size);
   block-size: var(--thumb-size);
-  margin-block: auto;
   position: absolute;
-  inset: 0 auto 0 var(--value-percentage, 0);
   margin-inline-start: calc(var(--thumb-size) / 2 * -1);
 }
 
-range-slider[dir="rtl"] [data-thumb] {
-  inset: 0 var(--value-percentage, 0) 0 auto;
-}
-
 range-slider[orientation="vertical"] [data-thumb] {
-  inset: auto auto var(--value-percentage, 0) auto;
   margin-inline-start: unset;
   margin-block: calc(var(--thumb-size) / 2 * -1);
 }
