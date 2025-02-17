@@ -107,3 +107,14 @@ test('focus behaviour', async () => {
   await userEvent.keyboard('{Tab}');
   expect(thumb).toHaveFocus();
 });
+
+test('thumb click does not update the value', async () => {
+  render('<range-slider></range-slider>');
+
+  const element = document.querySelector('range-slider');
+  const thumb = element.querySelector('[data-runnable-track] [data-thumb]');
+  const value = element.value;
+
+  await userEvent.click(thumb);
+  expect(element).toHaveValue(String(value));
+});
