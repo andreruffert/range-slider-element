@@ -18,6 +18,10 @@ range-slider {
   touch-action: none;
 }
 
+range-slider:focus {
+  outline: none;
+}
+
 range-slider:active {
   opacity: 0.8;
 }
