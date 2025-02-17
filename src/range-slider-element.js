@@ -75,7 +75,7 @@ export default class RangeSliderElement extends HTMLElement {
     return this.#thumbs.length > 1;
   }
   get #thumbs() {
-    return this.querySelectorAll('[data-thumb]');
+    return this.querySelectorAll('[data-runnable-track] [data-thumb]');
   }
   get #trackFill() {
     return this.querySelector('[data-track-fill]');
@@ -323,8 +323,6 @@ export default class RangeSliderElement extends HTMLElement {
     );
 
     if (oldValue !== newValue) {
-      console.log('#updateValue', { oldValue, newValue, index });
-
       this.#value[index] = newValue;
       this.#valuePercent[index] = this.#getPercentFromValue(newValue);
       this.#internals.setFormValue(this.#value.join(','));
