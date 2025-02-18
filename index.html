@@ -49,17 +49,9 @@
         }
       }
 
-      range-slider {
-        width: 100%;
+      range-slider:not([orientation="vertical"]) {
+        inline-size: 100%;
       }
-
-      range-slider [data-track] {
-        pointer-events: auto;
-      }
-      range-slider [data-track]:hover {
-        background-color: hotpink;
-      }
-
 
       /* Custom styles example-1 */
       range-slider[data-theme="example-1"] {
