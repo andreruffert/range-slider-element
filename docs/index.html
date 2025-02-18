@@ -2,198 +2,206 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <title>&lt;range-slider&gt; element - Web Component</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Range Slider Element - Web Component</title>
 
     <meta name="author" content="André Ruffert">
-    <meta name="description" content="A cross browser customizable and accessible &lt;range-slider&gt; Web Component.">
-    <meta name="keywords" content="slider,range,customizable,accessible,custom element,web component">
+    <meta name="description" content="A cross browser customizable and accessible range slider web component.">
+    <meta name="keywords" content="slider,range,customizable,accessible,multi thumb,custom element,web component">
 
-    <meta name="og:title" content="&lt;range-slider&gt; - Web Component">
+    <meta name="og:title" content="&lt;range-slider&gt; element - Web Component">
     <meta name="og:type" content="website">
     <meta name="og:url" content="https://andreruffert.github.io/range-slider-element/">
-    <meta name="og:description" content="A cross browser customizable and accessible &lt;range-slider&gt; Web Component.">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎚</text></svg>" />
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎚</text></svg>">
+
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://unpkg.com/range-slider-element@next/dist/range-slider-element.css">
-    <!--link rel="stylesheet" href="https://unpkg.com/syntax-highlight-element@next/dist/syntax-highlight-element.css"-->
   </head>
   <body>
     <main>
-      <section class="intro">
-        <h1>Range Slider Element</h1>
-        <p>A cross browser customizable range slider custom element.</p>
-
-        <div class="copy-code">
-          <syntax-highlight id="copy-npm-install">npm install range-slider-element</syntax-highlight>
-          <clipboard-copy for="copy-npm-install" class="button">Copy</clipboard-copy>
+      <section data-section="intro">
+        <span class="emoji" aria-hidden="true">🎚</span>
+        <h1 class="heading">
+          <span>&lt;range-slider&gt;</span>
+web component
+        </h1>
+        <p class="tagline">A cross browser customizable and accessible range slider element</p>
+        <p class="badges">
+          <img src="https://img.shields.io/badge/v2%20Release%20Candidate-4a46e0" alt="v2 Release Candidate" />
+          <a href="https://www.npmjs.com/package/range-slider-element">
+            <img src="https://img.shields.io/npm/v/range-slider-element?color=4a46e0&labelColor=1a1a1a" alt="npm version" />
+          </a>
+          <a href="https://www.npmjs.com/package/range-slider-element"><img src="https://img.shields.io/npm/dm/range-slider-element?color=4a46e0&labelColor=1a1a1a" alt="npm downloads"></a>
+          <a href="https://github.com/andreruffert/range-slider-element"><img src="https://img.shields.io/badge/source-a?logo=github&color=1a1a1a" alt="GitHub"></a>
+        </p>
+        <div class="copy-code-container">
+          <div class="copy-code">
+            <syntax-highlight id="copy-npm-install">npm install range-slider-element</syntax-highlight>
+            <clipboard-copy for="copy-npm-install" class="button">Copy</clipboard-copy>
+          </div>
         </div>
-
-        <a href="https://github.com/andreruffert/range-slider-element" target="_blank" rel="noreferrer" class="github-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-          <span class="sr-only">range-slider-element on GitHub</span>
-        </a>
+        <span aria-hidden="true">~</span>
       </section>
 
-      <section class="demo-section">
-        <b>Playground</b>
-        <div class="controls">
-          <syntax-highlight language="html">&lt;range-slider&gt;&lt;/range-slider&gt;</syntax-highlight>
-
-          <fieldset>
-            <label>Theme <select id="theme-selector"></select></label>
-          </fieldset>
+      <section data-section="playground">
+        <div class="menubar">
+          <div class="menubar__item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v2"/><path d="M14 2v4"/><path d="M17 2a1 1 0 0 1 1 1v9H6V3a1 1 0 0 1 1-1z"/><path d="M6 12a1 1 0 0 0-1 1v1a2 2 0 0 0 2 2h2a1 1 0 0 1 1 1v2.9a2 2 0 1 0 4 0V17a1 1 0 0 1 1-1h2a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1"/></svg>
+            <select aria-label="Theme preset" id="theme-preset-select"></select>
+          </div>
         </div>
         <div class="playground">
-          <div class="preview">
+          <div data-playground="preview">
             <range-slider aria-label="Choose a value"></range-slider>
           </div>
-
-          <div class="code">
-            <pre>
-              <style type="text/css" spellcheck="false" id="playground-css" data-lang="css"></style>
-            </pre>
-            <clipboard-copy for="playground-css" class="button">
+          <div data-playground="code">
+            <syntax-highlight language="html" id="playground-html">&lt;range-slider&gt;&lt;/range-slider&gt;</syntax-highlight>
+            <syntax-highlight language="css">
+              <style type="text/css" spellcheck="false" id="playground-css"></style>
+            </syntax-highlight>
+            <!--clipboard-copy for="playground-css" class="button">
               Copy the CSS
-            </clipboard-copy>
-
+            </clipboard-copy-->
           </div>
         </div>
       </section>
 
-      <section class="content-section">
+      <section data-section="content">
         <h1>Features</h1>
-        <p>The <code>&lt;input type="range"&gt;</code> HTML element can be used to create a slider, but it is very difficult to style across browsers. The <code>&lt;range-slider&gt;&lt;/range-slider&gt;</code> custom element helps achieve accessible sliders that can be styled as needed.</p>
+        <p>The <code>&lt;input type="range"&gt;</code> HTML element can be used to create basic sliders, but it is difficult to style across browsers. The <code>&lt;range-slider&gt;</code> custom element helps achieve accessible sliders that can be styled as needed.</p>
         <ul>
           <li>No dependencies
-          <li>Framework agnostic <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank" rel="noreferrer">Web Component</a>
+          <li>Framework agnostic <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank" rel="noreferrer">web component</a>
           <li>Cross browser customizable styling
+          <li>Single or multi thumb
           <li>Horizontal and vertical orientations
-          <li>Touch friendly
+          <li>HTML form support
           <li>Keyboard accessible
-          <li>HTML form data support
+          <li>Touch friendly
           <li>Follows the <a href="https://www.w3.org/TR/wai-aria-practices/#slider" target="_blank" rel="noreferrer">ARIA best practices guide on sliders</a>
         </ul>
       </section>
 
-      <section class="content-section">
-        <h1>Usage</h1>
-        <p>Make sure to load the base styles exported via <code>range-slider-element/style.css</code>.</p>
-        <div class="copy-code">
-          <syntax-highlight id="copy-usage-import-js" language="js">import 'range-slider-element';</syntax-highlight>
-          <clipboard-copy for="copy-usage-import-js" class="button">Copy</clipboard-copy>
-        </div>
+      <section data-section="content">
+        <article>
+          <h1>Installation & Usage</h1>
 
-        <p>Or via CDN</p>
-        <div class="copy-code">
-          <syntax-highlight id="copy-usage-cdn" language="html">&lt;link rel="stylesheet" href="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.css"&gt;
+          <h2>Install</h2>
+          <p>Install via npm</p>
+          <div class="copy-code">
+            <syntax-highlight id="copy-install-npm">npm install syntax-highlight-element</syntax-highlight>
+            <clipboard-copy for="copy-install-npm" class="button">Copy</clipboard-copy>
+          </div>
+
+          <h2>Usage</h2>
+          <p>Make sure to load the base styles exported via <code>range-slider-element/style.css</code>.</p>
+          <div class="copy-code">
+            <syntax-highlight language="js" id="copy-usage-import-js">import 'range-slider-element';</syntax-highlight>
+            <clipboard-copy for="copy-usage-import-js" class="button">Copy</clipboard-copy>
+          </div>
+          <p>Or via CDN</p>
+          <div class="copy-code">
+            <syntax-highlight language="html" id="copy-usage-cdn">&lt;link rel="stylesheet" href="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.css"&gt;
 &lt;script src="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.js"&gt;&lt;/script&gt;</syntax-highlight>
-          <clipboard-copy for="copy-usage-cdn" class="button">Copy</clipboard-copy>
-        </div>
+            <clipboard-copy for="copy-usage-cdn" class="button">Copy</clipboard-copy>
+          </div>
+          <p>HTML</p>
+          <div class="copy-code">
+            <syntax-highlight language="html" id="copy-usage-html">&lt;range-slider min="0" max="100" step="1" value="50"&gt;&lt;/range-slider&gt;</syntax-highlight>
+            <clipboard-copy for="copy-usage-html" class="button">Copy</clipboard-copy>
+          </div>
 
-        <p>HTML</p>
-        <div class="copy-code">
-          <syntax-highlight id="copy-usage-element-html" language="html">&lt;range-slider min="0" max="100" step="1"&gt;&lt;/range-slider&gt;</syntax-highlight>
-          <clipboard-copy for="copy-usage-element-html" class="button">Copy</clipboard-copy>
-        </div>
+          <h2>Attributes</h2>
+          <ul>
+            <li><code>min</code> The minimum permitted value. The default is <code>0</code>.
+            <li><code>max</code> The maximum permitted value. The default is <code>100</code>.
+            <li><code>step</code> The stepping interval. The default is <code>1</code>.
+            <li><code>value</code> The value. The default is <code>50</code> (<code>min + (max - min) / 2</code>).
+            <li><code>dir</code> Directionality. The default is ltr. Allowed options <code>rtl</code>.
+            <li><code>orientation</code> The default is horizontal. Allowed options <code>vertical</code>.
+          </ul>
 
-        <h2>Attributes</h2>
-        <ul>
-          <li><code>min</code> The minimum permitted value. The default is <code>0</code>.
-          <li><code>max</code> The maximum permitted value. The default is <code>100</code>.
-          <li><code>step</code> The stepping interval. The default is <code>1</code>.
-          <li><code>value</code> The value. The default is <code>min + (max - min) / 2</code>.
-          <li><code>dir</code> Directionality. The default is ltr. Allowed options <code>rtl</code>.
-          <li><code>orientation</code> The default is horizontal. Allowed options <code>vertical</code>.
-        </ul>
+          <h2>Styling</h2>
+          <h3>CSS custom properties</h3>
+          <p>Exposed CSS custom properties scoped within the <code>range-slider</code> element.</p>
+          <ul>
+            <li>
+              <code>--track-size</code> - The track size. The default is
+              <code>0.2rem</code>. Can be overwritten for customization.
+            </li>
+            <li>
+              <code>--thumb-size</code> - The thumb size, The default is <code>1.2rem</code>.
+              Can be overwritten for customization.
+            </li>
+          </ul>
 
-        <h2>Styling</h2>
-        <h3>CSS custom properties</h3>
-        <p>Exposed CSS custom properties scoped within the <code>range-slider</code> element.</p>
-        <ul>
-          <li>
-            <code>--track-size</code> - The track size. The default is
-            <code>0.2rem</code>. Can be overwritten for customization.
-          </li>
-          <li>
-            <code>--thumb-size</code> - The thumb size, The default is <code>1.2rem</code>.
-            Can be overwritten for customization.
-          </li>
-          <li>
-            <code>--value-percentage</code> - The current value in percentage, e.g.
-            <code>50%</code>. Will be updated via JS.
-          </li>
-        </ul>
-
-        <p>Advanced customization</p>
-        <ul>
-          <li><code>--track-fill-clamp</code> - The track fill size. The default is <code>clamp(0% + var(--thumb-size) / 2, var(--value-percentage, 0%), 100% - var(--thumb-size) / 2)</code>.
-        </ul>
-
-        <h3>DOM selectors</h3>
-        <div class="copy-code">
-          <syntax-highlight language="css">range-slider {}
+          <h3>DOM selectors</h3>
+          <div class="copy-code">
+            <syntax-highlight language="css">range-slider {}
 range-slider [data-track] {}
 range-slider [data-track-fill] {}
 range-slider [data-thumb] {}
 
 /* Advanced customization */
 range-slider [data-runnable-track] {}</syntax-highlight>
-        </div>
+          </div>
 
-        <h2>Events</h3>
-        <ul>
-          <li><code>input</code> - Pointer move, value updated. Bubbles.</li>
-          <li><code>change</code> - Pointer up, value updated. Bubbles.</li>
-        </ul>
+          <h2>Events</h3>
+          <ul>
+            <li><code>input</code> - Pointer move, value updated. Bubbles.</li>
+            <li><code>change</code> - Pointer up, key up, value updated. Bubbles.</li>
+          </ul>
+        </article>
       </section>
     </main>
 
     <footer>
-      <p><small>An <a href="https://github.com/andreruffert" target="_blank" rel="noreferrer">open source</a> project by <a href="https://andreruffert.com" target="_blank" rel="author">André Ruffert</a>.</small></p>
+      <p>An <a href="https://github.com/andreruffert" target="_blank" rel="noreferrer">open source</a> project by <a href="https://andreruffert.com" target="_blank">André Ruffert</a> ©.</p>
+      <p>Released under the MIT License.</p>
     </footer>
 
     <script type="module">
-      import 'https://unpkg.com/range-slider-element@next/dist/range-slider-element.js';
       import 'https://unpkg.com/syntax-highlight-element@next/dist/syntax-highlight-element.js';
-      import 'https://unpkg.com/@github/clipboard-copy-element@1.3.0/dist/index.js';
-      import { themes } from './themes.js';
+      import 'https://unpkg.com/range-slider-element@next/dist/range-slider-element.js';
+      import * as themePresets from './theme-presets.js';
 
       document.addEventListener('DOMContentLoaded', () => {
+        const playgroundHtml = document.querySelector('#playground-html');
+        const playgroundCss = document.querySelector('#playground-css');
+
+        // Set initial theme preset
+        playgroundCss.textContent = themePresets.example1;
+
         /**
          * Playground CSS
          * Allow only plaintext editing
-         * Firefox doesn't support `plaintext-only` only yet so we fallback to `true`.
+         * Firefox doesn't support `plaintext-only` yet so we fallback to `true`.
          */
-        {
-          const playgroundCss = document.querySelector('#playground-css');
-          playgroundCss.setAttribute('contenteditable', 'plaintext-only');
-          if (playgroundCss.contentEditable != 'plaintext-only') {
-            playgroundCss.setAttribute('contenteditable', 'true');
-          }
+        playgroundCss.setAttribute('contenteditable', 'plaintext-only');
+        if (playgroundCss.contentEditable !== 'plaintext-only') {
+          playgroundCss.setAttribute('contenteditable', 'true');
         }
 
         /**
-         * Theme switcher
+         * Theme preset switcher
          */
-        {
-          const themeOptions = Object.keys(themes).map(name => {
-            const option = document.createElement('option');
-            option.value = option.textContent = name;
-            return option
-          });
+        const themeSelector = document.querySelector('#theme-preset-select');
+        const themeOptions = Object.keys(themePresets).map(name => {
+          const option = document.createElement('option');
+          option.value = option.textContent = name;
+          return option
+        });
 
-          const playgroundStyles = document.querySelector('#playground-css');
-          const themeSelector = document.querySelector('#theme-selector');
-          themeOptions.forEach(option => themeSelector.append(option));
-          themeSelector.addEventListener('change', event => {
-            playgroundStyles.textContent = themes[event.target.value] || 'Not found';
-          });
-
-          // Set initial theme
-          playgroundStyles.textContent = themes['Example 1'];
-        }
+        themeOptions.forEach(option => themeSelector.append(option));
+        themeSelector.addEventListener('change', event => {
+          playgroundCss.textContent = themePresets[event.target.value] || 'Not found';
+        });
       });
+    </script>
+
+    <script type="module">
+      import 'https://unpkg.com/@github/clipboard-copy-element@1.3.0/dist/index.js';
 
       document.addEventListener('clipboard-copy', event => {
         const button = event.target;
