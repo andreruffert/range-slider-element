@@ -7,6 +7,7 @@
     --thumb-size: 1.2rem;
 
     position: relative;
+    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     block-size: var(--thumb-size);
@@ -32,6 +33,7 @@
     flex: 1;
     block-size: var(--track-size);
     border-radius: inherit;
+    box-sizing: inherit;
   }
   range-slider[orientation="vertical"] [data-track] {
     inline-size: var(--track-size);
@@ -45,6 +47,7 @@
     block-size: var(--track-size);
     border-start-start-radius: inherit;
     border-end-start-radius: inherit;
+    box-sizing: inherit;
   }
   range-slider[orientation="vertical"] [data-track-fill] {
     inline-size: var(--track-size);
@@ -58,6 +61,7 @@
     pointer-events: none;
     position: absolute;
     inset: 0 calc(var(--thumb-size) / 2);
+    box-sizing: inherit;
   }
   range-slider[orientation="vertical"] [data-runnable-track] {
     inset: calc(var(--thumb-size) / 2) 0;
@@ -71,6 +75,7 @@
     block-size: var(--thumb-size);
     position: absolute;
     margin-inline-start: calc(var(--thumb-size) / 2 * -1);
+    box-sizing: inherit;
   }
   range-slider[orientation="vertical"] [data-thumb] {
     margin-inline-start: unset;
