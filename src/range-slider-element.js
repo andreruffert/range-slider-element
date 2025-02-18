@@ -369,10 +369,14 @@ export default class RangeSliderElement extends HTMLElement {
     const trackFillEnd = this.#isMultiThumb
       ? `${100 - this.#valuePercent[this.#valuePercent.length - 1]}%`
       : `${100 - this.#valuePercent[0]}%`;
+    // Ensure thumb always covers the fill
+    const trackFillEndClamp = `clamp(var(--thumb-size) / 2, ${trackFillEnd}, 100% - var(--thumb-size) / 2)`;
 
     this.#trackFill.style.setProperty(
       `inset-${this.#isVertical ? 'block' : 'inline'}`,
-      this.#isVertical ? `${trackFillEnd} ${trackFillStart}` : `${trackFillStart} ${trackFillEnd}`,
+      this.#isVertical
+        ? `${trackFillEndClamp} ${trackFillStart}`
+        : `${trackFillStart} ${trackFillEndClamp}`,
     );
   }
 
