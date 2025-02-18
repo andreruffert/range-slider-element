@@ -1,3 +1,14 @@
+# [2.0.0-rc.5](https://github.com/andreruffert/range-slider-element/compare/v2.0.0-rc.4...v2.0.0-rc.5) (2025-02-18)
+
+
+### Features
+
+* ensure thumb always covers the fill ([2f0e0a7](https://github.com/andreruffert/range-slider-element/commit/2f0e0a783033dc3ac2aa30e5122d7de124a36b4c))
+* **style:** element *-size instead of min-*-size ([dba7626](https://github.com/andreruffert/range-slider-element/commit/dba7626e46b7c9c27254d7f8bc4a15ff25274c86))
+* **style:** introduce [@layer](https://github.com/layer) range-slider-element ([25e5b34](https://github.com/andreruffert/range-slider-element/commit/25e5b34b26a428ecb1b7f637ad39ea84f90e2046))
+
+
+
 # [2.0.0-rc.4](https://github.com/andreruffert/range-slider-element/compare/v2.0.0-rc.0...v2.0.0-rc.4) (2025-02-17)
 
 
