@@ -8,8 +8,8 @@ range-slider {
   position: relative;
   display: inline-flex;
   align-items: center;
-  min-block-size: var(--thumb-size);
-  min-inline-size: 130px;
+  block-size: var(--thumb-size);
+  inline-size: 130px;
   outline: none;
 
   /* Prevent selection relevant for touch devices */
@@ -29,8 +29,8 @@ range-slider[disabled] {
 range-slider[orientation="vertical"] {
   flex-direction: column;
   width: var(--thumb-size);
-  min-inline-size: var(--thumb-size);
-  min-block-size: 130px;
+  inline-size: var(--thumb-size);
+  block-size: 130px;
 }
 
 /* Track */
