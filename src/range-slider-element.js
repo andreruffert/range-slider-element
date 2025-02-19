@@ -216,6 +216,7 @@ export default class RangeSliderElement extends HTMLElement {
   };
 
   #moveHandler = (event) => {
+    if (event.target !== this) return; // Limit event.offsetX/Y to self to avoid incorrect calculations
     event.preventDefault(); // Prevent text selection (Safari)
     this.#mirrorValue(this.#isVertical ? event.offsetY : event.offsetX);
   };
