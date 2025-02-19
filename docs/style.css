@@ -373,23 +373,23 @@
 
 @layer syntax-highlight-element {
   :root {
-    /* --sh-color-text: #414141; */
-    /* --sh-color-background: transparent; */
-    --sh-token-constant: #e90;
-    --sh-token-string: #bea5ff;
-    --sh-token-comment: #aaa;
-    --sh-token-keyword: #d19a66;
-    --sh-token-parameter: #1a1a1a;
-    --sh-token-function: #c678dd;
-    --sh-token-string-expression: deeppink;
-    --sh-token-punctuation: #b3b3b3;
-    --sh-token-link: #c1cff1;
-    --sh-token-deleted: crimson;
-    --sh-token-inserted: #00d061;
+    /* --she-color-text: #414141; */
+    /* --she-color-background: transparent; */
+    --she-token-constant: #e90;
+    --she-token-string: #bea5ff;
+    --she-token-comment: #aaa;
+    --she-token-keyword: #d19a66;
+    --she-token-parameter: #1a1a1a;
+    --she-token-function: #c678dd;
+    --she-token-string-expression: deeppink;
+    --she-token-punctuation: #b3b3b3;
+    --she-token-link: #c1cff1;
+    --she-token-deleted: crimson;
+    --she-token-inserted: #00d061;
   }
 
   syntax-highlight {
-    display: inline-flex;
+    display: inline-block;
     font-family: var(--fonts-mono);
     white-space: pre;
     tab-size: 2;
@@ -403,18 +403,18 @@
   }
 
   ::highlight(parameter) {
-    color: var(--sh-token-parameter);
+    color: var(--she-token-parameter);
   }
 
   ::highlight(comment),
   ::highlight(prolog),
   ::highlight(doctype),
   ::highlight(cdata) {
-    color: var(--sh-token-comment);
+    color: var(--she-token-comment);
   }
 
   ::highlight(punctuation) {
-    color: var(--sh-token-punctuation);
+    color: var(--she-token-punctuation);
   }
 
   ::highlight(property),
@@ -424,7 +424,7 @@
   ::highlight(constant),
   ::highlight(symbol),
   ::highlight(class-name) {
-    color: var(--sh-token-constant);
+    color: var(--she-token-constant);
   }
 
   ::highlight(selector),
@@ -432,37 +432,37 @@
   ::highlight(string),
   ::highlight(char),
   ::highlight(builtin) {
-    color: var(--sh-token-string);
+    color: var(--she-token-string);
   }
 
   ::highlight(deleted) {
-    color: var(--sh-token-deleted);
+    color: var(--she-token-deleted);
   }
 
   ::highlight(inserted) {
-    color: var(--sh-token-inserted);
+    color: var(--she-token-inserted);
   }
 
   ::highlight(operator),
   ::highlight(entity),
   ::highlight(url) {
-    color: var(--sh-token-link);
+    color: var(--she-token-link);
     background: hsla(0, 0%, 100%, 0.5);
   }
 
   ::highlight(atrule),
   ::highlight(attr-value),
   ::highlight(keyword) {
-    color: var(--sh-token-keyword);
+    color: var(--she-token-keyword);
   }
 
   ::highlight(function) {
-    color: var(--sh-token-function);
+    color: var(--she-token-function);
   }
 
   ::highlight(regex),
   ::highlight(important),
   ::highlight(variable) {
-    color: var(--sh-token-string-expression);
+    color: var(--she-token-string-expression);
   }
 }

@@ -1,19 +1,20 @@
 # &lt;range-slider&gt; element
 
-[![Test status](https://github.com/andreruffert/range-slider-element/actions/workflows/test.yml/badge.svg)](https://github.com/andreruffert/range-slider-element/actions/workflows/test.yml)
-[![npm version](https://img.shields.io/npm/v/range-slider-element.svg)](https://www.npmjs.com/package/range-slider-element)
-[![npm downloads](https://img.shields.io/npm/dm/range-slider-element?logo=npm)](https://www.npmjs.com/package/range-slider-element)
+[![Test status](https://img.shields.io/github/actions/workflow/status/andreruffert/range-slider-element/test.yml?label=Test&logo=github&color=4a46e0&labelColor=1a1a1a)](https://github.com/andreruffert/range-slider-element/actions/workflows/test.yml)
+[![npm version](https://img.shields.io/npm/v/range-slider-element?color=4a46e0&labelColor=1a1a1a)](https://www.npmjs.com/package/range-slider-element)
+[![npm downloads](https://img.shields.io/npm/dm/range-slider-element?logo=npm&color=4a46e0&labelColor=1a1a1a)](https://www.npmjs.com/package/range-slider-element)
+[![GitHub](https://img.shields.io/badge/source-a?logo=github&color=1a1a1a)](https://github.com/andreruffert/range-slider-element)
 
-> A cross browser customizable and accessible range-slider element.
+> A cross browser customizable and accessible range slider element.
 
-* No dependencies
-* Framework agnostic Web Component
+* Framework agnostic [web component](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) (no dependencies)
 * Cross browser customizable styling
+* Single and multi thumb
 * Horizontal and vertical orientations
+* Works like a built-in HTML form element (uses [ElementInternals](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals))
+* Keyboard accessible (use arrow keys)
 * Touch friendly
-* Keyboard accessible
-* HTML form data support
-* Follows the [ARIA best practices guide on sliders](https://www.w3.org/TR/wai-aria-practices/#slider).
+* Follows the [ARIA best practices guide on sliders](https://www.w3.org/WAI/ARIA/apg/patterns/slider)
 
 <div align="center">
   <br>
@@ -47,7 +48,7 @@ Or via CDN
 HTML
 
 ```html
-<range-slider min="0" max="100" step="1"></range-slider>
+<range-slider min="0" max="100" step="1" value="50"></range-slider>
 ```
 
 ### Attributes
@@ -88,8 +89,8 @@ For examples of how to customize the default styling, see the [docs][docs].
 
 ### Events
 
-* `input` - Pointer move, value updated. Bubbles.
-* `change` - Pointer up, value updated. Bubbles.
+* `input` - Pointer move, value changed. Bubbles.
+* `change` - Pointer up, key up, value changed. Bubbles.
 
 ## Browser support
 

@@ -57,9 +57,10 @@ web component
           </div>
           <div data-playground="code">
             <syntax-highlight language="html" id="playground-html">&lt;range-slider&gt;&lt;/range-slider&gt;</syntax-highlight>
-            <syntax-highlight language="css">
+            <syntax-highlight language="css" content-selector="style">
               <style type="text/css" spellcheck="false" id="playground-css"></style>
             </syntax-highlight>
+
             <!--clipboard-copy for="playground-css" class="button">
               Copy the CSS
             </clipboard-copy-->
@@ -71,15 +72,14 @@ web component
         <h1>Features</h1>
         <p>The <code>&lt;input type="range"&gt;</code> HTML element can be used to create basic sliders, but it is difficult to style across browsers. The <code>&lt;range-slider&gt;</code> custom element helps achieve accessible sliders that can be styled as needed.</p>
         <ul>
-          <li>No dependencies
-          <li>Framework agnostic <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank" rel="noreferrer">web component</a>
+          <li>Framework agnostic <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank" rel="noreferrer">web component</a> (no dependencies)
           <li>Cross browser customizable styling
-          <li>Single or multi thumb
+          <li>Single and multi thumb
           <li>Horizontal and vertical orientations
-          <li>HTML form support
-          <li>Keyboard accessible
+          <li>Works like a built-in HTML form element (uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals" target="_blank" rel="noreferrer">ElementInternals</a>)
+          <li>Keyboard accessible (use arrow keys)
           <li>Touch friendly
-          <li>Follows the <a href="https://www.w3.org/TR/wai-aria-practices/#slider" target="_blank" rel="noreferrer">ARIA best practices guide on sliders</a>
+          <li>Follows the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/slider" target="_blank" rel="noreferrer">ARIA best practices guide on sliders</a>
         </ul>
       </section>
 
@@ -149,8 +149,8 @@ range-slider [data-runnable-track] {}</syntax-highlight>
 
           <h2>Events</h3>
           <ul>
-            <li><code>input</code> - Pointer move, value updated. Bubbles.</li>
-            <li><code>change</code> - Pointer up, key up, value updated. Bubbles.</li>
+            <li><code>input</code> - Pointer move, value changed. Bubbles.</li>
+            <li><code>change</code> - Pointer up, key up, value changed. Bubbles.</li>
           </ul>
         </article>
       </section>
