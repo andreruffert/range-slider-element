@@ -1,3 +1,17 @@
+# [2.0.0-rc.6](https://github.com/andreruffert/range-slider-element/compare/v2.0.0-rc.5...v2.0.0-rc.6) (2025-02-19)
+
+
+### Bug Fixes
+
+* thumb move flicker glitch seen on iOS ([17b6af1](https://github.com/andreruffert/range-slider-element/commit/17b6af119f10e7137e9af6383857cbdb96065063))
+
+
+### Features
+
+* **style:** default box-sizing border-box ([ba11741](https://github.com/andreruffert/range-slider-element/commit/ba117417322ab4ba4be602e681f8f2697e236960))
+
+
+
 # [2.0.0-rc.5](https://github.com/andreruffert/range-slider-element/compare/v2.0.0-rc.4...v2.0.0-rc.5) (2025-02-18)
 
 
