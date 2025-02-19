@@ -5,21 +5,39 @@ const DEFAULT_STYLES = `&:not([orientation="vertical"]) {
     inline-size: 100%;
   }`;
 
-export const debug = `range-slider {
+const _default = `range-slider {
   ${DEFAULT_PROPERTIES}
+
+  border-radius: var(--track-size);
+  margin: 2px;
 
   ${DEFAULT_STYLES}
 
-  [data-runnable-track] {
-    outline: 1px dotted;
+  &:active {
+    opacity: 0.8;
+  }
+
+  &[disabled] {
+    filter: grayscale(1);
+    opacity: 0.4;
+  }
+
+  [data-track] {
+    background-color: lightgray;
+    background-color: ButtonFace;
+  }
+
+  [data-track-fill] {
+    background-color: #0075ff;
   }
 
   [data-thumb] {
-    opacity: 0.4;
+    background-color: #0075ff;
+    border-radius: 100%;
   }
 }`;
 
-export const example1 = `range-slider {
+const example1 = `range-slider {
   ${DEFAULT_PROPERTIES}
 
   ${DEFAULT_STYLES}
@@ -48,3 +66,23 @@ export const example1 = `range-slider {
     outline: 0.2rem solid #636bff;
   }
 }`;
+
+const debug = `range-slider {
+  ${DEFAULT_PROPERTIES}
+
+  ${DEFAULT_STYLES}
+
+  [data-runnable-track] {
+    outline: 1px dotted;
+  }
+
+  [data-thumb] {
+    opacity: 0.4;
+  }
+}`;
+
+export const themePresets = {
+  'Example 1': example1,
+  Default: _default,
+  Debug: debug,
+};

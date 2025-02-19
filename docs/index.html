@@ -28,12 +28,11 @@ web component
         </h1>
         <p class="tagline">A cross browser customizable and accessible range slider element</p>
         <p class="badges">
-          <img src="https://img.shields.io/badge/v2%20Release%20Candidate-4a46e0" alt="v2 Release Candidate" />
           <a href="https://www.npmjs.com/package/range-slider-element">
-            <img src="https://img.shields.io/npm/v/range-slider-element?color=4a46e0&labelColor=1a1a1a" alt="npm version" />
+            <img src="https://img.shields.io/npm/v/range-slider-element?color=4a46e0&labelColor=1a1a1a" width="80" height="20" alt="npm version" />
           </a>
-          <a href="https://www.npmjs.com/package/range-slider-element"><img src="https://img.shields.io/npm/dm/range-slider-element?color=4a46e0&labelColor=1a1a1a" alt="npm downloads"></a>
-          <a href="https://github.com/andreruffert/range-slider-element"><img src="https://img.shields.io/badge/source-a?logo=github&color=1a1a1a" alt="GitHub"></a>
+          <a href="https://www.npmjs.com/package/range-slider-element"><img src="https://img.shields.io/npm/dm/range-slider-element?color=4a46e0&labelColor=1a1a1a" height="20" alt="npm downloads"></a>
+          <a href="https://github.com/andreruffert/range-slider-element"><img src="https://img.shields.io/badge/source-a?logo=github&color=1a1a1a" width="65" height="20" alt="GitHub"></a>
         </p>
         <div class="copy-code-container">
           <div class="copy-code">
@@ -50,20 +49,28 @@ web component
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v2"/><path d="M14 2v4"/><path d="M17 2a1 1 0 0 1 1 1v9H6V3a1 1 0 0 1 1-1z"/><path d="M6 12a1 1 0 0 0-1 1v1a2 2 0 0 0 2 2h2a1 1 0 0 1 1 1v2.9a2 2 0 1 0 4 0V17a1 1 0 0 1 1-1h2a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1"/></svg>
             <select aria-label="Theme preset" id="theme-preset-select"></select>
           </div>
+          <div class="menubar__item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+            <select aria-label="Example preset" id="example-preset-select"></select>
+          </div>
+          <div class="menubar__item" style="margin-inline-start: auto"><small>Playground</small></div>
         </div>
         <div class="playground">
-          <div data-playground="preview">
+          <div data-playground="preview" id="playground-preview">
             <range-slider aria-label="Choose a value"></range-slider>
           </div>
           <div data-playground="code">
-            <syntax-highlight language="html" id="playground-html">&lt;range-slider&gt;&lt;/range-slider&gt;</syntax-highlight>
+            <syntax-highlight language="html" id="playground-html">&lt;range-slider aria-label="Choose a value"&gt;&lt;/range-slider&gt;</syntax-highlight>
+            <clipboard-copy for="playground-html" class="button">
+              Copy the HTML
+            </clipboard-copy>
+
             <syntax-highlight language="css" content-selector="style">
               <style type="text/css" spellcheck="false" id="playground-css"></style>
             </syntax-highlight>
-
-            <!--clipboard-copy for="playground-css" class="button">
+            <clipboard-copy for="playground-css" class="button">
               Copy the CSS
-            </clipboard-copy-->
+            </clipboard-copy>
           </div>
         </div>
       </section>
@@ -164,14 +171,16 @@ range-slider [data-runnable-track] {}</syntax-highlight>
     <script type="module">
       import 'https://unpkg.com/syntax-highlight-element@next/dist/syntax-highlight-element.js';
       import 'https://unpkg.com/range-slider-element@next/dist/range-slider-element.js';
-      import * as themePresets from './theme-presets.js';
+      import {examplePresets} from './example-presets.js';
+      import {themePresets} from './theme-presets.js';
 
       document.addEventListener('DOMContentLoaded', () => {
+        const playgroundPreview = document.querySelector('#playground-preview');
         const playgroundHtml = document.querySelector('#playground-html');
         const playgroundCss = document.querySelector('#playground-css');
 
         // Set initial theme preset
-        playgroundCss.textContent = themePresets.example1;
+        playgroundCss.textContent = themePresets['Example 1'];
 
         /**
          * Playground CSS
@@ -183,21 +192,65 @@ range-slider [data-runnable-track] {}</syntax-highlight>
           playgroundCss.setAttribute('contenteditable', 'true');
         }
 
+        document.addEventListener('keyup', event => {
+          if (event.target !== playgroundCss) return;
+          event.target.normalize();
+          event.target.closest('syntax-highlight').update();
+        });
+
+        // Enhance content-editable functionality
+        playgroundCss.addEventListener('keydown', (event) => {
+          // The tab key should insert a tab character
+          if (event.keyCode === 9) {
+            document.execCommand('insertHTML', false, '  ');
+            event.preventDefault();
+          }
+        });
+
+        /**
+         * Example HTML switcher
+         */
+        const exampleSelector = document.querySelector('#example-preset-select');
+        const exampleOptions = Object.keys(examplePresets).map((name, index) => {
+          const option = document.createElement('option');
+          option.value = option.textContent = name;
+          option.selected = !index;
+          return option
+        });
+        exampleOptions.forEach(option => exampleSelector.append(option));
+        exampleSelector.addEventListener('change', event => {
+          console.log(escapeHtml(examplePresets[event.target.value] || 'Not found'));
+          playgroundHtml.innerHTML = escapeHtml(examplePresets[event.target.value] || 'Not found');
+          playgroundHtml.update()
+          playgroundPreview.innerHTML = examplePresets[event.target.value] || 'Not found';
+        });
+
         /**
          * Theme preset switcher
          */
         const themeSelector = document.querySelector('#theme-preset-select');
-        const themeOptions = Object.keys(themePresets).map(name => {
+        const themeOptions = Object.keys(themePresets).map((name, index) => {
           const option = document.createElement('option');
           option.value = option.textContent = name;
+          option.selected = !index;
           return option
         });
-
         themeOptions.forEach(option => themeSelector.append(option));
         themeSelector.addEventListener('change', event => {
           playgroundCss.textContent = themePresets[event.target.value] || 'Not found';
+          playgroundCss.closest('syntax-highlight').update();
         });
       });
+
+      /**
+      * Escape HTML
+      * @param {string} string - The html string to escape
+      * @returns {string}
+      */
+      function escapeHtml(html) {
+        const placeholderElement = document.createElement('div');
+        return placeholderElement.appendChild(document.createTextNode(html)).parentNode.innerHTML;
+      }
     </script>
 
     <script type="module">

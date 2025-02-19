@@ -116,7 +116,6 @@
     inline-size: 0;
     min-inline-size: 100%;
     border-radius: 0.6rem;
-
     background-color: light-dark(
       var(--light-button-face),
       var(--dark-button-face)
@@ -188,15 +187,19 @@
   /* Demo playground */
   [data-section="playground"] {
     display: grid;
+    gap: var(--spacing-4);
     max-inline-size: var(--sizes-4xl);
     inline-size: var(--sizes-full);
     margin-inline: auto;
-    padding-block: var(--spacing-6);
+    padding: var(--spacing-4);
+    border-radius: 1rem;
+    border: 1px solid
+      light-dark(var(--light-button-face), var(--dark-button-face));
 
     .menubar {
       display: flex;
       gap: var(--spacing-4);
-      padding: var(--spacing-4);
+      padding-inline: var(--spacing-4);
       overflow: auto;
     }
 
@@ -208,6 +211,8 @@
 
     .menubar__item select {
       font-size: 1rem;
+      max-width: 20ch;
+      text-overflow: ellipsis;
     }
 
     .playground {
@@ -229,7 +234,8 @@
       align-self: stretch;
       gap: 1rem;
       min-block-size: 300px;
-      box-shadow: 0 0 0 1px
+      background-color: light-dark(#fdfdfd, #212121);
+      border: 1px solid
         light-dark(var(--light-button-face), var(--dark-button-face));
       border-radius: 1rem;
       padding: var(--spacing-4);
