@@ -155,10 +155,9 @@
     }
 
     .header-links svg {
-        display: initial;
-
-      }
+      display: initial;
     }
+  }
 
   main {
     display: flex;
