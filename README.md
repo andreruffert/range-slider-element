@@ -1,5 +1,13 @@
+> [!IMPORTANT]  
+> This is the documentation for the **v2 Release Candidate**.
+> 
+> You can install it using the @next tag.
+> 
+> `npm i range-slider-element@next`
+
 # &lt;range-slider&gt; element
 
+![Release Candidate v2](https://img.shields.io/badge/Release%20Candidate%20v2-4a46e0)
 [![Test status](https://img.shields.io/github/actions/workflow/status/andreruffert/range-slider-element/test.yml?label=Test&logo=github&color=4a46e0&labelColor=1a1a1a)](https://github.com/andreruffert/range-slider-element/actions/workflows/test.yml)
 [![npm version](https://img.shields.io/npm/v/range-slider-element?color=4a46e0&labelColor=1a1a1a)](https://www.npmjs.com/package/range-slider-element)
 [![npm downloads](https://img.shields.io/npm/dm/range-slider-element?logo=npm&color=4a46e0&labelColor=1a1a1a)](https://www.npmjs.com/package/range-slider-element)
