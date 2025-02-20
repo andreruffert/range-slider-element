@@ -1,7 +1,7 @@
 {
   "name": "range-slider-element",
   "version": "2.0.0-rc.6",
-  "description": "A cross browser customizable and accessible range slider element",
+  "description": "A cross browser customizable and accessible <range-slider> web component",
   "license": "MIT",
   "funding": "https://github.com/andreruffert/range-slider-element?sponsor=1",
   "homepage": "https://andreruffert.github.io/range-slider-element/",

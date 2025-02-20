@@ -13,7 +13,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/range-slider-element?logo=npm&color=4a46e0&labelColor=1a1a1a)](https://www.npmjs.com/package/range-slider-element)
 [![GitHub](https://img.shields.io/badge/source-a?logo=github&color=1a1a1a)](https://github.com/andreruffert/range-slider-element)
 
-> A cross browser customizable and accessible range slider element.
+> A cross browser customizable and accessible <range-slider> web component.
 
 * Framework agnostic [web component](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) (no dependencies)
 * Cross browser customizable styling
