@@ -42,7 +42,6 @@
     background-color: unset;
     border: 1px solid transparent;
     color: inherit;
-    font-family: var(--fonts-mono);
     padding: var(--spacing-1\.5) var(--spacing-3);
     border-radius: 0.6em;
     padding: 0.4em 1em;

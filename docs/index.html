@@ -179,6 +179,8 @@ range-slider [data-runnable-track] {}</syntax-highlight>
       import {examplePresets} from './example-presets.js';
       import {themePresets} from './theme-presets.js';
 
+      const SUPPORTS_CSS_HIGHLIGHTS = CSS.highlights;
+
       document.addEventListener('DOMContentLoaded', () => {
         const playgroundPreview = document.querySelector('#playground-preview');
         const playgroundHtml = document.querySelector('#playground-html');
@@ -199,8 +201,10 @@ range-slider [data-runnable-track] {}</syntax-highlight>
 
         document.addEventListener('keyup', event => {
           if (event.target !== playgroundCss) return;
-          event.target.normalize();
-          event.target.closest('syntax-highlight').update();
+          if (SUPPORTS_CSS_HIGHLIGHTS) {
+            event.target.normalize();
+            event.target.closest('syntax-highlight').update();
+          }
         });
 
         // Enhance content-editable functionality
@@ -224,10 +228,11 @@ range-slider [data-runnable-track] {}</syntax-highlight>
         });
         exampleOptions.forEach(option => exampleSelector.append(option));
         exampleSelector.addEventListener('change', event => {
-          console.log(escapeHtml(examplePresets[event.target.value] || 'Not found'));
           playgroundHtml.innerHTML = escapeHtml(examplePresets[event.target.value] || 'Not found');
-          playgroundHtml.update()
           playgroundPreview.innerHTML = examplePresets[event.target.value] || 'Not found';
+          if (SUPPORTS_CSS_HIGHLIGHTS) {
+            playgroundHtml.update()
+          };
         });
 
         /**
@@ -243,7 +248,9 @@ range-slider [data-runnable-track] {}</syntax-highlight>
         themeOptions.forEach(option => themeSelector.append(option));
         themeSelector.addEventListener('change', event => {
           playgroundCss.textContent = themePresets[event.target.value] || 'Not found';
-          playgroundCss.closest('syntax-highlight').update();
+          if (SUPPORTS_CSS_HIGHLIGHTS) {
+            playgroundCss.closest('syntax-highlight')?.update();
+          };
         });
       });
 
