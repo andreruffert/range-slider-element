@@ -1,13 +1,17 @@
 {
   "name": "range-slider-element",
   "version": "2.0.0-rc.6",
-  "description": "A customizable range slider element",
+  "description": "A cross browser customizable and accessible range slider element",
+  "license": "MIT",
+  "funding": "https://github.com/andreruffert/range-slider-element?sponsor=1",
+  "homepage": "https://andreruffert.github.io/range-slider-element/",
+  "author": {
+    "name": "André Ruffert",
+    "url": "https://andreruffert.com"
+  },
   "type": "module",
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/range-slider-element.umd.cjs",
   "module": "./dist/range-slider-element.js",
+  "main": "./dist/range-slider-element.umd.cjs",
   "exports": {
     ".": {
       "import": "./dist/range-slider-element.js",
@@ -15,6 +19,9 @@
     },
     "./style.css": "./dist/range-slider-element.css"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "dev:docs": "vite --config vite.docs.config.js",
@@ -27,22 +34,6 @@
     "prepublishOnly": "npm run build",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/andreruffert/range-slider-element.git"
-  },
-  "author": "André Ruffert",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/andreruffert/range-slider-element/issues"
-  },
-  "homepage": "https://github.com/andreruffert/range-slider-element#readme",
-  "keywords": [
-    "range slider",
-    "custom elements",
-    "web components",
-    "ui"
-  ],
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@vitest/browser": "3.0.5",
@@ -54,5 +45,21 @@
   "volta": {
     "node": "22.13.1",
     "npm": "11.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreruffert/range-slider-element.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andreruffert/range-slider-element/issues"
+  },
+  "keywords": [
+    "range slider",
+    "multi thumb",
+    "customizable",
+    "accessible",
+    "web component",
+    "custom element",
+    "ui"
+  ]
 }
