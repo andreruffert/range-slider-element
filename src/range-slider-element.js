@@ -253,7 +253,7 @@ export default class RangeSliderElement extends HTMLElement {
     const safeOffset = Math.min(Math.max(offset, 0), this.#size);
     const percent = safeOffset / this.#size;
     const computedValue = this.#getValueFromPercent(this.#isRTL ? 1 - percent : percent);
-    this.#updateValue(this.#thumbIndex, computedValue);
+    this.#updateValue(this.#thumbIndex, computedValue, ['input']);
   };
 
   #getDefaultValue() {
@@ -321,9 +321,9 @@ export default class RangeSliderElement extends HTMLElement {
    *
    * @param {number} index
    * @param {number} value
-   * @param {Array} dispatchEvents
+   * @param {string[]} dispatchEvents
    */
-  #updateValue(index, value, dispatchEvents = ['input']) {
+  #updateValue(index, value, dispatchEvents = []) {
     const oldValue = this.#value[index];
     const valuePrecision = Number(this.valuePrecision) || getPrescision(this.step) || 0;
     const thumbMinValue = this.#value[index - 1] || this.min;
