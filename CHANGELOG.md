@@ -1,3 +1,35 @@
+# [2.0.0-rc.7](https://github.com/andreruffert/range-slider-element/compare/v1.1.0...v2.0.0-rc.7) (2025-02-21)
+
+
+### Bug Fixes
+
+* disabled setter ([31d011f](https://github.com/andreruffert/range-slider-element/commit/31d011fe92a7cc617faee4a9fc19f93f3a6e5352))
+* disabled setter element tabindex attribute ([65ec79b](https://github.com/andreruffert/range-slider-element/commit/65ec79b2abd649ccb09c89f938c451e8db254a74))
+* disabled state ([ddf2010](https://github.com/andreruffert/range-slider-element/commit/ddf201000cc771ece8e92727ae5f525b103625fa))
+* do not send "input" event for initial value ([b462a5b](https://github.com/andreruffert/range-slider-element/commit/b462a5bb32742aab6984f702298d3ccf23669224))
+* rtl direction track value fill ([b41c32a](https://github.com/andreruffert/range-slider-element/commit/b41c32a94d758c78373b83f1ef23915a25bce1a8))
+* send "change" event only if value has changed ([7b5257d](https://github.com/andreruffert/range-slider-element/commit/7b5257d31ffd3975d4f3a3daeef98b18fcbd56eb))
+* thumb move flicker glitch seen on iOS ([39a2b9c](https://github.com/andreruffert/range-slider-element/commit/39a2b9c941c615cb26bc014d3a34caade8c1a79a))
+
+
+### Features
+
+* add vertical orientation support ([42d6ef3](https://github.com/andreruffert/range-slider-element/commit/42d6ef3c206b252c4e1c478ecafa9d8c7aa3f61e))
+* ensure thumb always covers the fill ([e9efe89](https://github.com/andreruffert/range-slider-element/commit/e9efe893bb5e51704c33d517a8c0f9d31606791d))
+* improved focus behaviour ([9c15420](https://github.com/andreruffert/range-slider-element/commit/9c154202fc1ba708bb987b2ed1761dca8c25fbab))
+* introduce form data support ([1bf5263](https://github.com/andreruffert/range-slider-element/commit/1bf5263ec0e8b66658f3ead5c9c994b369a81d7c))
+* introduce multi thumb support ([aa927ef](https://github.com/andreruffert/range-slider-element/commit/aa927efc9be417750eea5719c9a70dc5d01ea96f))
+* **style:** default box-sizing border-box ([f52dcc5](https://github.com/andreruffert/range-slider-element/commit/f52dcc5f5efb63b30538fa5ab397def572bf7223))
+* **style:** element *-size instead of min-*-size ([9322518](https://github.com/andreruffert/range-slider-element/commit/93225184b3407cc135630ecaaa8854b4fece7560))
+* **style:** introduce [@layer](https://github.com/layer) range-slider-element ([4fe86d3](https://github.com/andreruffert/range-slider-element/commit/4fe86d38ae410ea226933bb4f6be14d4206b73bb))
+* v2 iteration ([75a3183](https://github.com/andreruffert/range-slider-element/commit/75a31834aca2667e5a28eacb4e0143d89d4b0c0d))
+* v2 iteration ([abf6864](https://github.com/andreruffert/range-slider-element/commit/abf6864caaa3a159eb719fa5065ab17bb3b5d44b))
+* v2 iteration ([d1a51c0](https://github.com/andreruffert/range-slider-element/commit/d1a51c0035f0e02aa21278a53b36cdcd335f8546))
+* v2 iteration ([6ec9afb](https://github.com/andreruffert/range-slider-element/commit/6ec9afb5081dda1e6cd0e1637487c8b10a7afa51))
+* v2 iteration ([5bb309d](https://github.com/andreruffert/range-slider-element/commit/5bb309d6e9b4f0a5a0e970ae9bc8ef923e271d60))
+
+
+
 # [2.0.0-rc.6](https://github.com/andreruffert/range-slider-element/compare/v2.0.0-rc.5...v2.0.0-rc.6) (2025-02-19)
 
 
