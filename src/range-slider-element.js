@@ -22,6 +22,7 @@ export default class RangeSliderElement extends HTMLElement {
   static formAssociated = true;
 
   #internals;
+  #startValue;
   #value = [];
   #valuePercent = [];
   #thumbIndex = 0;
@@ -203,6 +204,9 @@ export default class RangeSliderElement extends HTMLElement {
     window.addEventListener('pointerup', this.#endHandler);
     window.addEventListener('pointercancel', this.#endHandler);
 
+    // Update value change reference
+    this.#startValue = this.value;
+
     // Thumb click
     if (event.target.dataset.thumb !== undefined) {
       this.#thumbIndex = Number(event.target.dataset.thumb);
@@ -227,8 +231,10 @@ export default class RangeSliderElement extends HTMLElement {
     window.removeEventListener('pointerup', this.#endHandler);
     window.removeEventListener('pointercancel', this.#endHandler);
 
-    // TODO: check if value changed
-    this.dispatchEvent(new Event('change', { bubbles: true }));
+    // Trigger change event
+    if (this.#startValue !== this.value) {
+      this.dispatchEvent(new Event('change', { bubbles: true }));
+    }
   };
 
   #keyboardHandler = (event) => {

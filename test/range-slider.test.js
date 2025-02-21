@@ -1,5 +1,5 @@
 import { userEvent } from '@vitest/browser/context';
-import { expect, test } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import '../src/index.js';
 
 const render = (html) => {
@@ -39,16 +39,39 @@ test('HTML form support', async () => {
   expect(element).toHaveValue('50');
 });
 
+test('value attribute', async () => {
+  render('<range-slider value="20"></range-slider>');
+
+  const element = document.querySelector('range-slider');
+  const handleEvent = vi.fn();
+
+  element.addEventListener('input', handleEvent);
+  element.addEventListener('change', handleEvent);
+
+  expect(element).toHaveValue('20');
+
+  // Make sure that no events have been dispatched for initial value attribute
+  expect(handleEvent).not.toHaveBeenCalled();
+});
+
 test('programmatic value changes', async () => {
   render('<range-slider></range-slider>');
 
   const element = document.querySelector('range-slider');
+  const handleEvent = vi.fn();
+
+  element.addEventListener('input', handleEvent);
+  element.addEventListener('change', handleEvent);
 
   element.value = 20;
   expect(element).toHaveValue('20');
 
   element.setAttribute('value', 10);
   expect(element).toHaveValue('10');
+
+  // Ensure that no events are dispatched for programmatic value changes.
+  // Matching the default browser behavior.
+  expect(handleEvent).not.toHaveBeenCalled();
 });
 
 test('disabled attribute', async () => {
@@ -114,19 +137,34 @@ test('thumb click does not update the value', async () => {
   const element = document.querySelector('range-slider');
   const thumb = element.querySelector('[data-runnable-track] [data-thumb]');
   const value = element.value;
+  const handleEvent = vi.fn();
+
+  element.addEventListener('input', handleEvent);
+  element.addEventListener('change', handleEvent);
 
   await userEvent.click(thumb);
   expect(element).toHaveValue(String(value));
+
+  // Make sure that no events have been dispatched
+  expect(handleEvent).not.toHaveBeenCalled();
 });
 
-test('track click updates the value', async () => {
+test('track click updates the value and sends events', async () => {
   render('<range-slider max="42"></range-slider>');
 
   const element = document.querySelector('range-slider');
+  const handleInputEvent = vi.fn();
+  const handleChangeEvent = vi.fn();
+
+  element.addEventListener('input', handleInputEvent);
+  element.addEventListener('change', handleChangeEvent);
 
   await userEvent.click(element, { position: { x: element.offsetWidth - 1, y: 5 } });
   expect(element).toHaveValue(String(42));
 
-  await userEvent.click(element, { position: { x: 1, y: 5 } });
-  expect(element).toHaveValue(String(0));
+  // Should dispatch "input" event
+  expect(handleInputEvent).toHaveBeenCalled();
+
+  // Should dispatch "change" event
+  expect(handleChangeEvent).toHaveBeenCalled();
 });
