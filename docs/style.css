@@ -261,9 +261,6 @@
   [data-section="playground"] {
     display: grid;
     gap: var(--spacing-4);
-    max-inline-size: var(--sizes-4xl);
-    inline-size: var(--sizes-full);
-    margin-inline: auto;
     padding: var(--spacing-4);
     border-radius: 1rem;
     border: 1px solid
