@@ -29,7 +29,7 @@
         event.target.setAttribute('aria-label', `Switch to ${colorScheme === 'light' ? 'dark' : 'light'} color scheme`)
       });
     </script>
-    <script type="module" async blocking="render" src="https://unpkg.com/color-scheme-switch-element@beta/dist/color-scheme-switch-element.js"></script>
+    <script type="module" async blocking="render" src="https://unpkg.com/color-scheme-switch-element@latest/dist/color-scheme-switch-element.js"></script>
   </head>
   <body>
     <div class="alert">
@@ -130,21 +130,28 @@
           </div>
 
           <h2>Usage</h2>
-          <p>Make sure to load the base styles exported via <code>range-slider-element/style.css</code>.</p>
+          <h3>JavaScript</h3>
+          <p>Import as ES module</p>
           <div class="copy-code">
             <syntax-highlight language="js" id="copy-usage-import-js">import 'range-slider-element';</syntax-highlight>
             <clipboard-copy for="copy-usage-import-js" class="button">Copy</clipboard-copy>
           </div>
           <p>Or via CDN</p>
           <div class="copy-code">
-            <syntax-highlight language="html" id="copy-usage-cdn">&lt;link rel="stylesheet" href="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.css"&gt;
-&lt;script src="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.js"&gt;&lt;/script&gt;</syntax-highlight>
+            <syntax-highlight language="html" id="copy-usage-cdn">&lt;script src="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.js"&gt;&lt;/script&gt;</syntax-highlight>
             <clipboard-copy for="copy-usage-cdn" class="button">Copy</clipboard-copy>
           </div>
-          <p>HTML</p>
+          <h3>HTML</h3>
           <div class="copy-code">
             <syntax-highlight language="html" id="copy-usage-html">&lt;range-slider min="0" max="100" step="1" value="50"&gt;&lt;/range-slider&gt;</syntax-highlight>
             <clipboard-copy for="copy-usage-html" class="button">Copy</clipboard-copy>
+          </div>
+          <h3>CSS</h3>
+          <p>Make sure to load the base styles exported via <code>range-slider-element/style.css</code>.</p>
+          <p>Or via CDN</p>
+          <div class="copy-code">
+            <syntax-highlight language="html" id="copy-usage-cdn">&lt;link rel="stylesheet" href="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.css"&gt;</syntax-highlight>
+            <clipboard-copy for="copy-usage-cdn" class="button">Copy</clipboard-copy>
           </div>
 
           <h2>Attributes</h2>

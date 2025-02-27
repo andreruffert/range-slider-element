@@ -7,12 +7,14 @@
 
 # &lt;range-slider&gt; element
 
+> A cross browser customizable and accessible &lt;range-slider&gt; web component.
+
 [![Test status](https://img.shields.io/github/actions/workflow/status/andreruffert/range-slider-element/test.yml?label=Test&logo=github&color=4a46e0&labelColor=212121)](https://github.com/andreruffert/range-slider-element/actions/workflows/test.yml)
 [![npm version](https://img.shields.io/npm/v/range-slider-element?color=4a46e0&labelColor=212121)](https://www.npmjs.com/package/range-slider-element)
 [![gzip size](https://img.shields.io/badge/gzip-2.5kB-4a46e0?labelColor=212121)](https://pkg-size.dev/range-slider-element)
 [![npm downloads](https://img.shields.io/npm/dm/range-slider-element?logo=npm&color=4a46e0&labelColor=212121)](https://www.npmjs.com/package/range-slider-element)
 
-> A cross browser customizable and accessible &lt;range-slider&gt; web component.
+## Features
 
 * Framework agnostic [web component](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) (no dependencies)
 * Cross browser customizable styling
@@ -25,13 +27,17 @@
 
 ## Install
 
+Install via npm
+
 ```shell
 npm install range-slider-element
 ```
 
 ## Usage
 
-Make sure to load the base styles exported via `range-slider-element/style.css`.
+### JavaScript
+
+Import as ES module
 
 ```js
 import 'range-slider-element';
@@ -40,17 +46,26 @@ import 'range-slider-element';
 Or via CDN
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.css">
 <script type="module" src="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.js"></script>
 ```
 
-HTML
+### HTML
 
 ```html
 <range-slider min="0" max="100" step="1" value="50"></range-slider>
 ```
 
-### Attributes
+### CSS
+
+Make sure to load the base styles exported via `range-slider-element/style.css`.
+
+Or via CDN
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.css">
+```
+
+## Attributes
 
 * `min` The minimum permitted value. The default is `0`.
 * `max` The maximum permitted value. The default is `100`.
@@ -61,16 +76,16 @@ HTML
 
 [dir]: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir
 
-### Styling
+## Styling
 
-#### CSS custom properties
+**CSS custom properties**
 
 Exposed CSS custom properties scoped within the `range-slider` element.
 
 * `--track-size` - The track size. The default is `0.2rem`. Can be overwritten for customization.
 * `--thumb-size` - The thumb size. The default is `1.2rem`. Can be overwritten for customization.
 
-#### DOM selectors
+**DOM selectors**
 
 ```css
 range-slider {}
@@ -82,11 +97,11 @@ range-slider [data-thumb] {}
 range-slider [data-runnable-track] {}
 ```
 
-For examples of how to customize the default styling, see the [docs][docs].
+For examples of how to customize the default styling, check out the [docs][docs].
 
 [docs]: https://andreruffert.github.io/range-slider-element
 
-### Events
+## Events
 
 * `input` - Pointer move, value changed. Bubbles.
 * `change` - Pointer up, key up, value changed. Bubbles.
@@ -100,4 +115,6 @@ Browsers without native [custom element support][support] require a [polyfill][]
 
 ## License
 
-MIT © [André Ruffert](https://andreruffert.com)
+Distributed under the MIT license. See LICENSE for details. 
+
+© [André Ruffert](https://andreruffert.com)
