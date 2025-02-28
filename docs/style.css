@@ -231,6 +231,7 @@
     .heading {
       color: light-dark(var(--light-accent), var(--dark-accent));
       font-size: clamp(1.5rem, 2vw + 1.5rem, 3rem);
+      font-weight: bold;
       line-height: 1.1;
       display: flex;
       flex-direction: column;
@@ -239,6 +240,7 @@
 
     .tagline {
       font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: normal;
       margin: 0;
     }
 
