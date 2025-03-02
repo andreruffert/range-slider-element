@@ -119,81 +119,88 @@
       </section>
 
       <section data-section="content">
-        <article>
           <h1>Installation & Usage</h1>
+          <article>
+            <h2>Install</h2>
+            <p>Install via npm</p>
+            <div class="copy-code">
+              <syntax-highlight id="copy-install-npm">npm install range-slider-element</syntax-highlight>
+              <clipboard-copy for="copy-install-npm" class="button">Copy</clipboard-copy>
+            </div>
+          </article>
 
-          <h2>Install</h2>
-          <p>Install via npm</p>
-          <div class="copy-code">
-            <syntax-highlight id="copy-install-npm">npm install range-slider-element</syntax-highlight>
-            <clipboard-copy for="copy-install-npm" class="button">Copy</clipboard-copy>
-          </div>
+          <article>
+            <h2>Usage</h2>
+            <h3>JavaScript</h3>
+            <p>Import as ES module</p>
+            <div class="copy-code">
+              <syntax-highlight language="js" id="copy-usage-import-js">import 'range-slider-element';</syntax-highlight>
+              <clipboard-copy for="copy-usage-import-js" class="button">Copy</clipboard-copy>
+            </div>
+            <p>Or via CDN</p>
+            <div class="copy-code">
+              <syntax-highlight language="html" id="copy-usage-cdn">&lt;script src="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.js"&gt;&lt;/script&gt;</syntax-highlight>
+              <clipboard-copy for="copy-usage-cdn" class="button">Copy</clipboard-copy>
+            </div>
+            <h3>HTML</h3>
+            <div class="copy-code">
+              <syntax-highlight language="html" id="copy-usage-html">&lt;range-slider min="0" max="100" step="1" value="50"&gt;&lt;/range-slider&gt;</syntax-highlight>
+              <clipboard-copy for="copy-usage-html" class="button">Copy</clipboard-copy>
+            </div>
+            <h3>CSS</h3>
+            <p>Make sure to load the base styles exported via <code>range-slider-element/style.css</code>.</p>
+            <p>Or via CDN</p>
+            <div class="copy-code">
+              <syntax-highlight language="html" id="copy-usage-cdn">&lt;link rel="stylesheet" href="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.css"&gt;</syntax-highlight>
+              <clipboard-copy for="copy-usage-cdn" class="button">Copy</clipboard-copy>
+            </div>
+          </article>
 
-          <h2>Usage</h2>
-          <h3>JavaScript</h3>
-          <p>Import as ES module</p>
-          <div class="copy-code">
-            <syntax-highlight language="js" id="copy-usage-import-js">import 'range-slider-element';</syntax-highlight>
-            <clipboard-copy for="copy-usage-import-js" class="button">Copy</clipboard-copy>
-          </div>
-          <p>Or via CDN</p>
-          <div class="copy-code">
-            <syntax-highlight language="html" id="copy-usage-cdn">&lt;script src="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.js"&gt;&lt;/script&gt;</syntax-highlight>
-            <clipboard-copy for="copy-usage-cdn" class="button">Copy</clipboard-copy>
-          </div>
-          <h3>HTML</h3>
-          <div class="copy-code">
-            <syntax-highlight language="html" id="copy-usage-html">&lt;range-slider min="0" max="100" step="1" value="50"&gt;&lt;/range-slider&gt;</syntax-highlight>
-            <clipboard-copy for="copy-usage-html" class="button">Copy</clipboard-copy>
-          </div>
-          <h3>CSS</h3>
-          <p>Make sure to load the base styles exported via <code>range-slider-element/style.css</code>.</p>
-          <p>Or via CDN</p>
-          <div class="copy-code">
-            <syntax-highlight language="html" id="copy-usage-cdn">&lt;link rel="stylesheet" href="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.css"&gt;</syntax-highlight>
-            <clipboard-copy for="copy-usage-cdn" class="button">Copy</clipboard-copy>
-          </div>
+          <article>
+            <h2>Attributes</h2>
+            <ul>
+              <li><code>min</code> The minimum permitted value. The default is <code>0</code>.
+              <li><code>max</code> The maximum permitted value. The default is <code>100</code>.
+              <li><code>step</code> The stepping interval. The default is <code>1</code>.
+              <li><code>value</code> The value. The default is <code>50</code> (<code>min + (max - min) / 2</code>).
+              <li><code>dir</code> Directionality. The default is ltr. Allowed options <code>rtl</code>.
+              <li><code>orientation</code> The default is horizontal. Allowed options <code>vertical</code>.
+            </ul>
+          </article>
 
-          <h2>Attributes</h2>
-          <ul>
-            <li><code>min</code> The minimum permitted value. The default is <code>0</code>.
-            <li><code>max</code> The maximum permitted value. The default is <code>100</code>.
-            <li><code>step</code> The stepping interval. The default is <code>1</code>.
-            <li><code>value</code> The value. The default is <code>50</code> (<code>min + (max - min) / 2</code>).
-            <li><code>dir</code> Directionality. The default is ltr. Allowed options <code>rtl</code>.
-            <li><code>orientation</code> The default is horizontal. Allowed options <code>vertical</code>.
-          </ul>
+          <article>
+            <h2>Styling</h2>
+            <h3>CSS custom properties</h3>
+            <p>Exposed CSS custom properties scoped within the <code>range-slider</code> element.</p>
+            <ul>
+              <li>
+                <code>--track-size</code> - The track size. The default is
+                <code>0.2rem</code>. Can be overwritten for customization.
+              </li>
+              <li>
+                <code>--thumb-size</code> - The thumb size, The default is <code>1.2rem</code>.
+                Can be overwritten for customization.
+              </li>
+            </ul>
 
-          <h2>Styling</h2>
-          <h3>CSS custom properties</h3>
-          <p>Exposed CSS custom properties scoped within the <code>range-slider</code> element.</p>
-          <ul>
-            <li>
-              <code>--track-size</code> - The track size. The default is
-              <code>0.2rem</code>. Can be overwritten for customization.
-            </li>
-            <li>
-              <code>--thumb-size</code> - The thumb size, The default is <code>1.2rem</code>.
-              Can be overwritten for customization.
-            </li>
-          </ul>
-
-          <h3>DOM selectors</h3>
-          <div class="copy-code">
-            <syntax-highlight language="css">range-slider {}
+            <h3>DOM selectors</h3>
+            <div class="copy-code">
+              <syntax-highlight language="css">range-slider {}
 range-slider [data-track] {}
 range-slider [data-track-fill] {}
 range-slider [data-thumb] {}
 
 /* Advanced customization */
 range-slider [data-runnable-track] {}</syntax-highlight>
-          </div>
+            </div>
+          </article>
 
-          <h2>Events</h3>
-          <ul>
-            <li><code>input</code> - Pointer move, value changed. Bubbles.</li>
-            <li><code>change</code> - Pointer up, key up, value changed. Bubbles.</li>
-          </ul>
+          <article>
+            <h2>Events</h3>
+            <ul>
+              <li><code>input</code> - Pointer move, value changed. Bubbles.</li>
+              <li><code>change</code> - Pointer up, key up, value changed. Bubbles.</li>
+            </ul>
         </article>
       </section>
       <section data-section="content">
