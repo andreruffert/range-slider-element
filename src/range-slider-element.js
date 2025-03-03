@@ -32,29 +32,9 @@ export default class RangeSliderElement extends HTMLElement {
     // Get access to the internal form control APIs
     this.#internals = this.attachInternals();
 
-    // Template setup
-    if (!this.firstChild) {
-      this.appendChild(TEMPLATE.content.cloneNode(true));
-    }
-
-    // Keyboard setup
-    if (!this.disabled) {
-      this.setAttribute('tabindex', '-1');
-    }
-
-    // Thumb setup
-    this.#thumbs.forEach((thumb, index) => {
-      thumb.dataset.thumb = index;
-      thumb.setAttribute('role', 'slider');
-      setAriaAttribute(thumb, 'min', this.min);
-      setAriaAttribute(thumb, 'max', this.max);
-      if (!this.disabled) {
-        thumb.setAttribute('tabindex', 0);
-      }
-    });
-
-    // Set initial value
-    this.value = this.getAttribute('value') || this.#getDefaultValue();
+    this.addEventListener('focusin', this.#focusHandler);
+    this.addEventListener('pointerdown', this.#startHandler);
+    this.addEventListener('keydown', this.#keyboardHandler);
   }
 
   get min() {
@@ -167,9 +147,29 @@ export default class RangeSliderElement extends HTMLElement {
   }
 
   connectedCallback() {
-    this.addEventListener('focusin', this.#focusHandler);
-    this.addEventListener('pointerdown', this.#startHandler);
-    this.addEventListener('keydown', this.#keyboardHandler);
+    // Template setup
+    if (!this.firstChild) {
+      this.appendChild(TEMPLATE.content.cloneNode(true));
+    }
+
+    // Keyboard setup
+    if (!this.disabled) {
+      this.setAttribute('tabindex', '-1');
+    }
+
+    // Thumb setup
+    this.#thumbs.forEach((thumb, index) => {
+      thumb.dataset.thumb = index;
+      thumb.setAttribute('role', 'slider');
+      setAriaAttribute(thumb, 'min', this.min);
+      setAriaAttribute(thumb, 'max', this.max);
+      if (!this.disabled) {
+        thumb.setAttribute('tabindex', 0);
+      }
+    });
+
+    // Set initial value
+    this.value = this.getAttribute('value') || this.#getDefaultValue();
   }
 
   disconnectedCallback() {
@@ -364,6 +364,7 @@ export default class RangeSliderElement extends HTMLElement {
    * @param {number} value
    */
   #updateThumb(index, value) {
+    if (!this.#thumbs[index]) return;
     this.#thumbs[index].style.setProperty(
       `inset-${this.#isVertical ? 'block' : 'inline'}-${this.#isVertical ? 'end' : 'start'}`,
       `${this.#getPercentFromValue(value)}%`,
@@ -372,6 +373,7 @@ export default class RangeSliderElement extends HTMLElement {
   }
 
   #updateTrackFill() {
+    if (!this.#trackFill) return;
     const trackFillStart = this.#isMultiThumb ? `${this.#valuePercent[0]}%` : 0;
     const trackFillEnd = this.#isMultiThumb
       ? `${100 - this.#valuePercent[this.#valuePercent.length - 1]}%`
