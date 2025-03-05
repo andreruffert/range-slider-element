@@ -1,10 +1,3 @@
-> [!IMPORTANT]  
-> This is the documentation for the **v2 Release Candidate**.
-> 
-> You can install it using the @next tag.
-> 
-> `npm i range-slider-element@next`
-
 # &lt;range-slider&gt; element
 
 > A cross browser customizable and accessible &lt;range-slider&gt; web component.
