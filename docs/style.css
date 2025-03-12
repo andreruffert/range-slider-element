@@ -46,7 +46,7 @@
     border-radius: 0.6em;
     padding: 0.4em 1em;
   }
-  select:hover {
+  select:not([disabled]):hover {
     border-color: light-dark(var(--light-accent), var(--dark-accent));
   }
 
@@ -222,6 +222,7 @@
     gap: var(--spacing-4);
     text-align: center;
     text-wrap: balance;
+    padding-block-end: var(--spacing-24);
 
     .emoji {
       font-size: clamp(2rem, 2vw + 2rem, 5rem);
@@ -269,6 +270,20 @@
     border: 1px solid
       light-dark(var(--light-button-face), var(--dark-button-face));
 
+    .playground-title {
+      background-color: light-dark(
+        var(--light-button-face),
+        var(--dark-button-face)
+      );
+      border-radius: 0.4rem;
+      font-size: 85%;
+      font-weight: 400;
+      line-height: 1;
+      text-align: center;
+      margin: 0;
+      padding: var(--spacing-2);
+    }
+
     .menubar {
       display: flex;
       gap: var(--spacing-4);
@@ -280,6 +295,7 @@
       display: flex;
       gap: var(--spacing-2);
       align-items: center;
+      min-inline-size: 14ch;
     }
 
     .menubar__item select {
@@ -334,6 +350,30 @@
       inline-size: 0;
       display: grid;
       margin: 0;
+      position: relative;
+    }
+    [data-playground="code"] syntax-highlight:has(style:focus-visible) {
+      outline: light-dark(var(--light-accent), var(--dark-accent)) auto 1px;
+    }
+    [data-playground="code"] syntax-highlight:has(style:focus-visible) .hint {
+      display: none;
+    }
+    [data-playground="code"] syntax-highlight:has(style) .hint {
+      background-color: light-dark(
+        var(--light-button-face-muted),
+        var(--dark-button-face-muted)
+      );
+      color: light-dark(var(--light-accent), var(--dark-accent));
+      font-size: 85%;
+      position: absolute;
+      margin: auto;
+      inset-inline-end: var(--spacing-2);
+      inset-block-start: var(--spacing-2);
+      padding: var(--spacing-2);
+      border-radius: calc(1rem - var(--spacing-2));
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
     }
     [data-playground="code"] syntax-highlight style {
       display: block;
@@ -341,6 +381,7 @@
       border-radius: inherit;
       overflow: auto;
       block-size: 400px;
+      outline: 0;
 
       /* prevent iOS zoom on focus */
       @media (hover: none) {
