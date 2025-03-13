@@ -39,7 +39,7 @@ import 'range-slider-element';
 Or via CDN
 
 ```html
-<script type="module" src="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/range-slider-element/+esm"></script>
 ```
 
 ### HTML
@@ -55,7 +55,7 @@ Make sure to load the base styles exported via `range-slider-element/style.css`.
 Or via CDN
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/range-slider-element@latest/dist/range-slider-element.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/range-slider-element/dist/range-slider-element.css">
 ```
 
 ## Attributes
