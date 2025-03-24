@@ -38,7 +38,7 @@
     "@biomejs/biome": "1.9.4",
     "@vitest/browser": "3.0.7",
     "conventional-changelog-cli": "5.0.0",
-    "playwright": "1.51.0",
+    "playwright": "1.51.1",
     "vite": "6.2.2",
     "vitest": "3.0.7"
   },
