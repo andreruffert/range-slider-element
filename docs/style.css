@@ -33,6 +33,10 @@
     text-underline-offset: var(--spacing-1);
   }
 
+  a:not(:is(:hover, :focus)) {
+    text-decoration-color: color-mix(in srgb, currentColor, transparent 75%);
+  }
+
   input {
     accent-color: light-dark(var(--light-accent), var(--dark-accent));
   }
@@ -302,6 +306,10 @@
       font-size: 1rem;
       max-width: 20ch;
       text-overflow: ellipsis;
+    }
+
+    .menubar__item svg {
+      flex-shrink: 0;
     }
 
     .playground {
