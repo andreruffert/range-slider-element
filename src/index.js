@@ -1,8 +1,8 @@
 import './style.css';
 import RangeSliderElement from './range-slider-element';
+
 export { RangeSliderElement as default };
 
-if (!window.customElements.get(RangeSliderElement.tagName)) {
-  window.RangeSliderElement = RangeSliderElement;
-  window.customElements.define(RangeSliderElement.tagName, RangeSliderElement);
+if (!new URL(import.meta.url).searchParams.has('define', 'false')) {
+  window.RangeSliderElement = RangeSliderElement.define();
 }
