@@ -17,7 +17,13 @@ TEMPLATE.innerHTML = `
 `;
 
 export default class RangeSliderElement extends HTMLElement {
-  static tagName = 'range-slider';
+  static define(tagName = 'range-slider', registry = customElements) {
+    if (!registry.get(tagName)) {
+      registry.define(tagName, RangeSliderElement);
+      return RangeSliderElement;
+    }
+  }
+
   static observedAttributes = REFLECTED_ATTRIBUTES;
   static formAssociated = true;
 
