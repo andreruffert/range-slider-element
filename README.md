@@ -6,6 +6,8 @@
 [![npm version](https://img.shields.io/npm/v/range-slider-element?color=4a46e0&labelColor=212121)](https://www.npmjs.com/package/range-slider-element)
 [![gzip size](https://img.shields.io/badge/gzip-2.5kB-4a46e0?labelColor=212121)](https://pkg-size.dev/range-slider-element)
 [![npm downloads](https://img.shields.io/npm/dm/range-slider-element?logo=npm&color=4a46e0&labelColor=212121)](https://www.npmjs.com/package/range-slider-element)
+[![jsDelivr hits (npm)](https://img.shields.io/jsdelivr/npm/hm/range-slider-element?color=4a46e0&labelColor=212121)](https://www.jsdelivr.com/package/npm/range-slider-element)
+
 
 ## Features
 
