@@ -101,12 +101,9 @@ For examples of how to customize the default styling, check out the [docs][docs]
 * `input` - Pointer move, value changed. Bubbles.
 * `change` - Pointer up, key up, value changed. Bubbles.
 
-## Browser support
+## Examples
 
-Browsers without native [custom element support][support] require a [polyfill][].
-
-[support]: https://caniuse.com/#feat=custom-elementsv1
-[polyfill]: https://github.com/webcomponents/custom-elements
+For examples checkout the [CodePen &lt;range-slider&gt; collection](https://codepen.io/collection/XPJJbq).
 
 ## License
 
