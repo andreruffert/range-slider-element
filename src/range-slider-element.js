@@ -16,7 +16,30 @@ TEMPLATE.innerHTML = `
   </div>
 `;
 
-export default class RangeSliderElement extends HTMLElement {
+/**
+ * A custom element that represents a range slider for selecting numerical values within a defined range.
+ * This element supports both single and dual handles for selecting a single value or a range.
+ *
+ * @element RangeSliderElement
+ * @extends HTMLElement
+ * @fires input - Fired when the value of the range slider changes.
+ * @fires change - Fired when the user stops adjusting the value.
+ *
+ * @example
+ * // Example of using RangeSliderElement in HTML
+ * <range-slider min="0" max="100" step="1"></range-slider>
+ */
+export class RangeSliderElement extends HTMLElement {
+  /**
+   * Registers the custom element with the global or provided custom element registry.
+   *
+   * @param {string} [tagName='range-slider'] - The tag name to register the element under.
+   * @param {CustomElementRegistry} [registry=window.customElements] - Optional custom element registry.
+   * @returns {typeof RangeSliderElement | undefined} - Returns the class constructor if successfully defined, otherwise undefined.
+   * @example
+   * RangeSliderElement.define();
+   * RangeSliderElement.define('my-slider', customElements);
+   */
   static define(tagName = 'range-slider', registry = customElements) {
     if (!registry.get(tagName)) {
       registry.define(tagName, RangeSliderElement);
@@ -33,6 +56,11 @@ export default class RangeSliderElement extends HTMLElement {
   #valuePercent = [];
   #thumbIndex = 0;
 
+  /**
+   * Creates a new instance of the RangeSliderElement.
+   *
+   * @constructor
+   */
   constructor() {
     super();
     // Get access to the internal form control APIs
@@ -396,8 +424,8 @@ export default class RangeSliderElement extends HTMLElement {
   }
 
   /**
-   *
-   * @param {number} amount - Amount to step up
+   * Increments the value
+   * @param {number} amount - The amount to increment by.
    */
   stepUp(amount = this.step) {
     const newValue = this.#value[this.#thumbIndex] + amount;
@@ -405,8 +433,8 @@ export default class RangeSliderElement extends HTMLElement {
   }
 
   /**
-   *
-   * @param {number} amount - Amount to step down
+   * Decrements the value
+   * @param {number} amount - The amount to decrement by.
    */
   stepDown(amount = this.step) {
     const newValue = this.#value[this.#thumbIndex] - amount;

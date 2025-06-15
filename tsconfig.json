@@ -1,0 +1,12 @@
+{
+  "include": ["./src/index.ts"],
+  "compilerOptions": {
+    "allowJs": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "lib": ["es2020"]
+  }
+}
