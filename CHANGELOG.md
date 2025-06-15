@@ -1,3 +1,13 @@
+# [2.1.0-rc.0](https://github.com/andreruffert/range-slider-element/compare/v2.0.0...v2.1.0-rc.0) (2025-06-15)
+
+
+### Features
+
+* allow opt-out of define() ([5fe0ca7](https://github.com/andreruffert/range-slider-element/commit/5fe0ca70e6f1f77bb388728839caaf779d9c055a))
+* **dx:** introduce typescript types support ([3191744](https://github.com/andreruffert/range-slider-element/commit/3191744165bb949b96673459038ae07dbb7b0500))
+
+
+
 # [2.0.0](https://github.com/andreruffert/range-slider-element/compare/v1.1.0...v2.0.0) (2025-03-02)
 
 ### Features
