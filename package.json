@@ -10,6 +10,7 @@
     "url": "https://andreruffert.com"
   },
   "type": "module",
+  "types": "./dist/index.d.ts",
   "module": "./dist/range-slider-element.js",
   "main": "./dist/range-slider-element.umd.cjs",
   "exports": {
@@ -31,7 +32,7 @@
     "prebuild": "rm -rf dist",
     "build": "vite build",
     "build:docs": "vite build --config vite.docs.config.js",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build && npx tsc",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "devDependencies": {

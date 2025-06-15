@@ -1,5 +1,5 @@
 import './style.css';
-import RangeSliderElement from './range-slider-element';
+import { RangeSliderElement } from './range-slider-element';
 
 export { RangeSliderElement as default };
 
