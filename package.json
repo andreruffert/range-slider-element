@@ -42,7 +42,7 @@
     "playwright": "1.53.0",
     "typescript": "5.8.3",
     "vite": "6.3.5",
-    "vitest": "3.2.2"
+    "vitest": "3.2.3"
   },
   "volta": {
     "node": "22.13.1",
