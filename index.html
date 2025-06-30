@@ -36,6 +36,7 @@
         margin-block: 1em;
         text-align: center;
         user-select: none;
+        font-variant-numeric: tabular-nums;
       }
 
       /* Debug styles */
@@ -224,12 +225,23 @@
           </div>
         </range-slider>
 
+        <p><code>orientation="vertical"</code></p>
         <range-slider value="10,80" orientation="vertical">
           <div data-track></div>
           <div data-track-fill></div>
           <div data-runnable-track>
             <div data-thumb></div>
             <div data-thumb></div>
+          </div>
+        </range-slider>
+
+        <p><code>min-steps-between-thumbs</code></p>
+        <range-slider value="10,40" step="1" min-steps-between-thumbs="1" name="price-range">
+          <div data-track></div>
+          <div data-track-fill></div>
+          <div data-runnable-track>
+            <div data-thumb aria-label="Minimum Price"></div>
+            <div data-thumb aria-label="Maximum Price"></div>
           </div>
         </range-slider>
       </section>
