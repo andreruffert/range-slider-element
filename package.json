@@ -41,7 +41,7 @@
     "conventional-changelog-cli": "5.0.0",
     "playwright": "1.53.1",
     "typescript": "5.8.3",
-    "vite": "7.0.0",
+    "vite": "7.0.2",
     "vitest": "3.2.3"
   },
   "volta": {
