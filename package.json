@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@vitest/browser": "3.2.3",
+    "@vitest/browser": "3.2.4",
     "conventional-changelog-cli": "5.0.0",
     "playwright": "1.53.2",
     "typescript": "5.8.3",
