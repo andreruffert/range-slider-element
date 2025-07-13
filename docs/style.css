@@ -46,7 +46,6 @@
     background-color: unset;
     border: 1px solid transparent;
     color: inherit;
-    padding: var(--spacing-1\.5) var(--spacing-3);
     border-radius: 0.6em;
     padding: 0.4em 1em;
   }
@@ -253,7 +252,7 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: .5rem;
+      gap: 0.5rem;
       font-size: 0;
       padding-block-start: var(--spacing-6);
     }
@@ -417,7 +416,7 @@
     }
 
     h2 {
-      font-size: clamp(1rem, 2vw + .75rem, 1.5rem);
+      font-size: clamp(1rem, 2vw + 0.75rem, 1.5rem);
       margin-block-start: var(--spacing-6);
       margin-block-end: var(--spacing-4);
     }
@@ -483,8 +482,9 @@
 
     --fonts-sans:
       ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --fonts-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-      "Liberation Mono", "Courier New", monospace;
+    --fonts-mono:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
 
     /* #c1c4ff */
     --dark-accent: #a1a2ff;
