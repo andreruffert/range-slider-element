@@ -1,3 +1,7 @@
+# [2.1.0](https://github.com/andreruffert/range-slider-element/compare/v2.1.0-rc.0...v2.1.0) (2025-07-13)
+
+
+
 # [2.1.0-rc.0](https://github.com/andreruffert/range-slider-element/compare/v2.0.0...v2.1.0-rc.0) (2025-06-15)
 
 
