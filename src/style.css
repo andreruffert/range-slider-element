@@ -99,8 +99,10 @@
 
   /* Track */
   range-slider [data-track] {
+    /* biome-ignore-start lint/suspicious/noDuplicateProperties: reason */
     background-color: lightgray;
     background-color: ButtonFace;
+    /* biome-ignore-end lint/suspicious/noDuplicateProperties: reason */
   }
 
   /* Track fill */
