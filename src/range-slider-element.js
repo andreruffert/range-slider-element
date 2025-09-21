@@ -373,7 +373,9 @@ export class RangeSliderElement extends HTMLElement {
     const safeValue = Math.min(Math.max(value, thumbMinValue), thumbMaxValue);
 
     // Rounding in steps
-    const nearestValue = Math.round(safeValue / this.step) * this.step;
+    const offset = safeValue - this.min;
+    const nearestOffset = Math.round(offset / this.step) * this.step;
+    const nearestValue = this.min + nearestOffset;
 
     // Value precision
     const newValue = Number(
