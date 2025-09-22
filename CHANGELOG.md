@@ -1,3 +1,12 @@
+## [2.1.1](https://github.com/andreruffert/range-slider-element/compare/v2.1.0-rc.0...v2.1.1) (2025-09-22)
+
+
+### Bug Fixes
+
+* html5 compliant step rounding to use min as step base ([98f01b5](https://github.com/andreruffert/range-slider-element/commit/98f01b5106c39399e9dbece03caa225c9d505d28))
+
+
+
 # [2.1.0](https://github.com/andreruffert/range-slider-element/compare/v2.1.0-rc.0...v2.1.0) (2025-07-13)
 
 
