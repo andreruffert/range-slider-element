@@ -168,3 +168,11 @@ test('track click updates the value and sends events', async () => {
   // Should dispatch "change" event
   expect(handleChangeEvent).toHaveBeenCalled();
 });
+
+test('Spec compliant step rounding using the min attribute as step base', async () => {
+  render('<range-slider min="5" step="2" value="5"></range-slider>');
+
+  const element = document.querySelector('range-slider');
+  element.stepUp();
+  expect(element).toHaveValue('7');
+});
