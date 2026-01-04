@@ -89,6 +89,14 @@ export class RangeSliderElement extends HTMLElement {
   get valuePrecision() {
     return this.getAttribute('value-precision') || '';
   }
+  /**
+   * @returns {number}
+   */
+  get minStepsBetweenThumbs() {
+    return this.hasAttribute('min-steps-between-thumbs')
+      ? Number(this.getAttribute('min-steps-between-thumbs'))
+      : 0;
+  }
   get #isVertical() {
     return Boolean(this.getAttribute('orientation') === 'vertical');
   }
@@ -147,6 +155,12 @@ export class RangeSliderElement extends HTMLElement {
   }
   set valuePrecision(precision) {
     this.setAttribute('value-precision', precision);
+  }
+  /**
+   * @param {number} steps
+   */
+  set minStepsBetweenThumbs(steps) {
+    this.setAttribute('min-steps-between-thumbs', steps);
   }
 
   /**
@@ -366,8 +380,21 @@ export class RangeSliderElement extends HTMLElement {
   #updateValue(index, value, dispatchEvents = []) {
     const oldValue = this.#value[index];
     const valuePrecision = Number(this.valuePrecision) || getPrescision(this.step) || 0;
-    const thumbMinValue = this.#value[index - 1] || this.min;
-    const thumbMaxValue = this.#value[index + 1] || this.max;
+
+    let thumbMinValue = this.#value[index - 1] || this.min;
+    let thumbMaxValue = this.#value[index + 1] || this.max;
+
+    // Avoid thumbs with equal values
+    if (this.#isMultiThumb && this.minStepsBetweenThumbs) {
+      // Skip first thumb
+      if (index > 0) {
+        thumbMinValue = thumbMinValue + this.minStepsBetweenThumbs * this.step;
+      }
+      // Skip last thumb
+      if (index < this.#thumbs.length - 1) {
+        thumbMaxValue = thumbMaxValue - this.minStepsBetweenThumbs * this.step;
+      }
+    }
 
     // Thumb min, max constrain
     const safeValue = Math.min(Math.max(value, thumbMinValue), thumbMaxValue);
