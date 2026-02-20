@@ -54,6 +54,13 @@ test('custom attributes', async () => {
   expect(handleEvent).not.toHaveBeenCalled();
 });
 
+test('negative attributes', async () => {
+  render('<range-slider min="-10" max="-80" step="10" value="-30"></range-slider>');
+
+  const element = document.querySelector('range-slider');
+  expect(element).toHaveValue('-30');
+});
+
 test('programmatic value property changes', async () => {
   render('<range-slider></range-slider>');
 

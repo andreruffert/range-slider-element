@@ -385,8 +385,13 @@ export class RangeSliderElement extends HTMLElement {
   #updateValue(index, value, dispatchEvents = []) {
     const oldValue = this.#value[index];
     const valuePrecision = Number(this.valuePrecision) || getPrescision(this.step) || 0;
-    const thumbMinValue = this.#value[index - 1] || this.min;
-    const thumbMaxValue = this.#value[index + 1] || this.max;
+
+    // Normalize bounds for negative attributes
+    const rangeMin = Math.min(this.min, this.max);
+    const rangeMax = Math.max(this.min, this.max);
+
+    const thumbMinValue = this.#value[index - 1] ?? rangeMin;
+    const thumbMaxValue = this.#value[index + 1] ?? rangeMax;
 
     // Thumb min, max constrain
     const safeValue = Math.min(Math.max(value, thumbMinValue), thumbMaxValue);
