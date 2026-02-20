@@ -1,3 +1,14 @@
+## [2.1.2](https://github.com/andreruffert/range-slider-element/compare/v2.1.0-rc.0...v2.1.2) (2026-02-20)
+
+
+### Bug Fixes
+
+* correctly sync value attributes ([ea499a1](https://github.com/andreruffert/range-slider-element/commit/ea499a10afdf199d0149515306a991c5ef5f63ca))
+* normalize min/max bounds when min > max ([6329d00](https://github.com/andreruffert/range-slider-element/commit/6329d0078525bb4962d73c21ba423f40c214133d))
+* use hasAttribute() for disabled getter ([013e023](https://github.com/andreruffert/range-slider-element/commit/013e02387504cd0d4e2ee483650a7c0dd12250df))
+
+
+
 ## [2.1.1](https://github.com/andreruffert/range-slider-element/compare/v2.1.0-rc.0...v2.1.1) (2025-09-22)
 
 
