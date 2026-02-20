@@ -2,6 +2,15 @@ import { getPrescision, setAriaAttribute } from './utils';
 
 const REFLECTED_ATTRIBUTES = ['min', 'max', 'step', 'value', 'disabled', 'value-precision'];
 
+const ATTRIBUTE_TO_PROPERTY = {
+  min: 'min',
+  max: 'max',
+  step: 'step',
+  value: 'value',
+  disabled: 'disabled',
+  'value-precision': 'valuePrecision',
+};
+
 const KEY_CODE_ACTIONS = {
   stepUp: ['ArrowUp', 'ArrowRight'],
   stepDown: ['ArrowDown', 'ArrowLeft'],
@@ -124,11 +133,19 @@ export class RangeSliderElement extends HTMLElement {
     this.setAttribute('step', step);
   }
   set value(values) {
-    String(values)
+    // Parse and sanitize
+    const parsed = String(values)
       .split(',')
-      .map((value, index) => {
-        this.#updateValue(index, value);
-      });
+      .map((v) => Number(v.trim()))
+      .filter((v) => !Number.isNaN(v));
+
+    // Clear old indices
+    this.#value = [];
+    this.#valuePercent = [];
+
+    parsed.forEach((value, index) => {
+      this.#updateValue(index, value);
+    });
   }
   set disabled(disabled) {
     if (disabled) {
@@ -215,13 +232,15 @@ export class RangeSliderElement extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue === newValue) return;
 
-    // Value update
-    if (name === 'value') {
-      this.value = newValue;
+    // Handle boolean attributes separately.
+    if (name === 'disabled') {
+      this.disabled = newValue !== null;
+      return;
     }
-    // General update
-    else {
-      this.value = this.value;
+
+    const prop = ATTRIBUTE_TO_PROPERTY[name];
+    if (prop) {
+      this[prop] = newValue;
     }
   }
 
