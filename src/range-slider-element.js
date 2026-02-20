@@ -93,7 +93,7 @@ export class RangeSliderElement extends HTMLElement {
     return this.#value.join(',');
   }
   get disabled() {
-    return this.getAttribute('disabled') === '' || false;
+    return this.hasAttribute('disabled');
   }
   get valuePrecision() {
     return this.getAttribute('value-precision') || '';
