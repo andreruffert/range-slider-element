@@ -39,8 +39,8 @@ test('HTML form support', async () => {
   expect(element).toHaveValue('50');
 });
 
-test('value attribute', async () => {
-  render('<range-slider value="20"></range-slider>');
+test('custom attributes', async () => {
+  render('<range-slider min="10" max="60" step="5" value="20"></range-slider>');
 
   const element = document.querySelector('range-slider');
   const handleEvent = vi.fn();
@@ -54,7 +54,7 @@ test('value attribute', async () => {
   expect(handleEvent).not.toHaveBeenCalled();
 });
 
-test('programmatic value changes', async () => {
+test('programmatic value property changes', async () => {
   render('<range-slider></range-slider>');
 
   const element = document.querySelector('range-slider');
@@ -65,6 +65,20 @@ test('programmatic value changes', async () => {
 
   element.value = 20;
   expect(element).toHaveValue('20');
+
+  // Ensure that no events are dispatched for programmatic value changes.
+  // Matching the default browser behavior.
+  expect(handleEvent).not.toHaveBeenCalled();
+});
+
+test('programmatic value attribute changes', async () => {
+  render('<range-slider></range-slider>');
+
+  const element = document.querySelector('range-slider');
+  const handleEvent = vi.fn();
+
+  element.addEventListener('input', handleEvent);
+  element.addEventListener('change', handleEvent);
 
   element.setAttribute('value', 10);
   expect(element).toHaveValue('10');
