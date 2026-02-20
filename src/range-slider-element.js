@@ -412,9 +412,9 @@ export class RangeSliderElement extends HTMLElement {
       this.#internals.setFormValue(this.#value.join(','));
       this.#updateThumb(index, newValue);
       this.#updateTrackFill();
-      dispatchEvents.map((event) => {
-        this.dispatchEvent(new Event(event, { bubbles: true }));
-      });
+      for (const eventName of dispatchEvents) {
+        this.dispatchEvent(new Event(eventName, { bubbles: true }));
+      }
     }
   }
 
