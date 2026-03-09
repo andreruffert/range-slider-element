@@ -289,9 +289,21 @@ range-slider [data-runnable-track] {}</syntax-highlight>
         // Enhance content-editable functionality
         playgroundCss.addEventListener('keydown', (event) => {
           // The tab key should insert a tab character
-          if (event.keyCode === 9) {
-            document.execCommand('insertHTML', false, '  ');
+          if (event.key === 'Tab') {
             event.preventDefault();
+
+            const selection = window.getSelection();
+            if (!selection.rangeCount) return;
+
+            const range = selection.getRangeAt(0);
+            const tabNode = document.createTextNode('  '); // two spaces
+            range.insertNode(tabNode);
+
+            // Move the caret after the inserted spaces
+            range.setStartAfter(tabNode);
+            range.setEndAfter(tabNode);
+            selection.removeAllRanges();
+            selection.addRange(range);
           }
         });
 
