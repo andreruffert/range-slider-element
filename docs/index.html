@@ -278,11 +278,11 @@ range-slider [data-runnable-track] {}</syntax-highlight>
           playgroundCss.setAttribute('contenteditable', 'true');
         }
 
-        document.addEventListener('keyup', event => {
-          if (event.target !== playgroundCss) return;
+        // Update syntax highlighting on input
+        playgroundCss.addEventListener('input', event => {
           if (SUPPORTS_CSS_HIGHLIGHTS) {
             event.target.normalize();
-            event.target.closest('syntax-highlight').update();
+            event.target.closest('syntax-highlight')?.update();
           }
         });
 
