@@ -29,7 +29,7 @@ test('default attributes', async () => {
   expect(thumb).toHaveAttribute('aria-valuemax', '100');
 });
 
-test('HTML form support', async () => {
+test('form-associated value state', async () => {
   render('<form><range-slider name="range-slider"></range-slider></form>');
 
   const form = document.querySelector('form');
@@ -37,6 +37,31 @@ test('HTML form support', async () => {
 
   expect(form).toHaveFormValues({ 'range-slider': '50' });
   expect(element).toHaveValue('50');
+});
+
+test('form-associated disabled state', async () => {
+  render('<form><fieldset disabled><range-slider></range-slider></fieldset></form');
+
+  const form = document.querySelector('form');
+  const fieldset = document.querySelector('fieldset');
+  const element = document.querySelector('range-slider');
+  const thumb = element.querySelector('[data-runnable-track] [data-thumb]');
+
+  // Initial disabled
+  expect(element).not.toHaveAttribute('tabindex', '-1');
+  expect(thumb).not.toHaveAttribute('tabindex', '0');
+  // Ensure form values are empty when disabeld
+  expect(Object.fromEntries(new FormData(form).entries())).toStrictEqual({});
+
+  // Programmatic enabled
+  fieldset.removeAttribute('disabled');
+  expect(element).toHaveAttribute('tabindex', '-1');
+  expect(thumb).toHaveAttribute('tabindex', '0');
+
+  // Programmatic disabled
+  fieldset.setAttribute('disabled', '');
+  expect(element).not.toHaveAttribute('tabindex', '-1');
+  expect(thumb).not.toHaveAttribute('tabindex', '0');
 });
 
 test('custom attributes', async () => {

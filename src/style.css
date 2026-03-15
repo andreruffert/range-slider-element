@@ -92,7 +92,7 @@
   range-slider:active {
     opacity: 0.8;
   }
-  range-slider[disabled] {
+  range-slider:disabled {
     filter: grayscale(1);
     opacity: 0.4;
   }

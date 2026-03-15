@@ -249,11 +249,12 @@
       </section>
 
       <section>
-        <h1>Form data support</h1>
+        <h1>Form support</h1>
         <form>
-          <fieldset>
+          <fieldset disabled>
             <range-slider name="range-slider"></range-slider>
           </fieldset>
+          <button type="button" data-action="toggle-disabled-fieldset">Toggle disabled</button>
           <button type="submit">Submit</button>
           <pre class="form-data"></pre>
         </form>
@@ -316,6 +317,10 @@
         // Toggle debug mode
         if (event.target.closest('[data-debug="toggle"]')) {
           document.documentElement.classList.toggle('debug');
+        }
+        // Toggle form fieldset disabled
+        if (event.target.closest('[data-action="toggle-disabled-fieldset"]')) {
+          document.querySelector('form fieldset').toggleAttribute('disabled');
         }
       }
 
