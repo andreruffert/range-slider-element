@@ -1,3 +1,12 @@
+# [2.2.0](https://github.com/andreruffert/range-slider-element/compare/v2.1.0-rc.0...v2.2.0) (2026-03-15)
+
+
+### Features
+
+* reflect form-associated disabled state ([85d26d3](https://github.com/andreruffert/range-slider-element/commit/85d26d347ce2b406683ca9f7f8f4f91e7e77fe28)), closes [#276](https://github.com/andreruffert/range-slider-element/issues/276)
+
+
+
 ## [2.1.2](https://github.com/andreruffert/range-slider-element/compare/v2.1.0-rc.0...v2.1.2) (2026-02-20)
 
 
@@ -14,7 +23,7 @@
 
 ### Bug Fixes
 
-* Spec compliant step rounding to use min as step base ([98f01b5](https://github.com/andreruffert/range-slider-element/commit/98f01b5106c39399e9dbece03caa225c9d505d28))
+* html5 compliant step rounding to use min as step base ([98f01b5](https://github.com/andreruffert/range-slider-element/commit/98f01b5106c39399e9dbece03caa225c9d505d28))
 
 
 
