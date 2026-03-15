@@ -64,6 +64,7 @@ export class RangeSliderElement extends HTMLElement {
   #value = [];
   #valuePercent = [];
   #thumbIndex = 0;
+  #formDisabled = false;
 
   /**
    * Creates a new instance of the RangeSliderElement.
@@ -147,20 +148,9 @@ export class RangeSliderElement extends HTMLElement {
       this.#updateValue(index, value);
     });
   }
-  set disabled(disabled) {
-    if (disabled) {
-      this.setAttribute('disabled', '');
-      this.removeAttribute('tabindex');
-      for (const thumb of this.#thumbs) {
-        thumb.removeAttribute('tabindex');
-      }
-    } else {
-      this.removeAttribute('disabled');
-      this.setAttribute('tabindex', '-1');
-      for (const thumb of this.#thumbs) {
-        thumb.setAttribute('tabindex', 0);
-      }
-    }
+  set disabled(value) {
+    this.toggleAttribute('disabled', Boolean(value));
+    this.#updateDisabledState();
   }
   set valuePrecision(precision) {
     this.setAttribute('value-precision', precision);
@@ -196,6 +186,10 @@ export class RangeSliderElement extends HTMLElement {
   reportValidity() {
     return this.#internals.reportValidity();
   }
+  formDisabledCallback(value) {
+    this.#formDisabled = value; // Sync internal state
+    this.#updateDisabledState();
+  }
 
   connectedCallback() {
     // Template setup
@@ -204,7 +198,7 @@ export class RangeSliderElement extends HTMLElement {
     }
 
     // Keyboard setup
-    if (!this.disabled) {
+    if (!this.disabled && !this.#formDisabled) {
       this.setAttribute('tabindex', '-1');
     }
 
@@ -214,7 +208,7 @@ export class RangeSliderElement extends HTMLElement {
       thumb.setAttribute('role', 'slider');
       setAriaAttribute(thumb, 'min', this.min);
       setAriaAttribute(thumb, 'max', this.max);
-      if (!this.disabled) {
+      if (!this.disabled && !this.#formDisabled) {
         thumb.setAttribute('tabindex', 0);
       }
     });
@@ -250,7 +244,7 @@ export class RangeSliderElement extends HTMLElement {
   };
 
   #startHandler = (event) => {
-    if (this.disabled) return;
+    if (this.disabled || this.#formDisabled) return;
 
     this.setPointerCapture(event.pointerId);
     this.addEventListener('pointermove', this.#moveHandler);
@@ -447,6 +441,20 @@ export class RangeSliderElement extends HTMLElement {
         ? `${trackFillEndClamp} ${trackFillStart}`
         : `${trackFillStart} ${trackFillEndClamp}`,
     );
+  }
+
+  #updateDisabledState() {
+    if (this.disabled || this.#formDisabled) {
+      this.removeAttribute('tabindex');
+      for (const thumb of this.#thumbs) {
+        thumb.removeAttribute('tabindex');
+      }
+    } else {
+      this.setAttribute('tabindex', '-1');
+      for (const thumb of this.#thumbs) {
+        thumb.setAttribute('tabindex', '0');
+      }
+    }
   }
 
   /**
