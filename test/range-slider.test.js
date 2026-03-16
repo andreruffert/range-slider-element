@@ -171,6 +171,13 @@ describe('range-slider', () => {
       expect(input).not.toHaveBeenCalled();
       expect(change).not.toHaveBeenCalled();
     });
+
+    test('aria-valuenow updates when value changes', () => {
+      const { element, thumb } = setup();
+
+      element.value = 20;
+      expect(thumb).toHaveAttribute('aria-valuenow', '20');
+    });
   });
 
   describe('interaction', () => {
