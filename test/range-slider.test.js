@@ -22,6 +22,17 @@ function setup(html = '<range-slider></range-slider>') {
   };
 }
 
+function listenToEvents(element, events) {
+  const handlers = {};
+
+  for (const event of events) {
+    handlers[event] = vi.fn();
+    element.addEventListener(event, handlers[event]);
+  }
+
+  return handlers;
+}
+
 beforeEach(() => {
   document.body.innerHTML = '';
 });
@@ -92,15 +103,13 @@ describe('range-slider', () => {
         '<range-slider min="10" max="60" step="5" value="20"></range-slider>',
       );
 
-      const handleEvent = vi.fn();
-
-      element.addEventListener('input', handleEvent);
-      element.addEventListener('change', handleEvent);
+      const { input, change } = listenToEvents(element, ['input', 'change']);
 
       expect(element).toHaveValue('20');
 
-      // Make sure that no events have been dispatched for initial value attribute
-      expect(handleEvent).not.toHaveBeenCalled();
+      // Ensure no events fire for initial value attribute
+      expect(input).not.toHaveBeenCalled();
+      expect(change).not.toHaveBeenCalled();
     });
 
     test('negative attributes', async () => {
@@ -129,34 +138,26 @@ describe('range-slider', () => {
   describe('value updates', () => {
     test('programmatic value property changes', async () => {
       const { element } = setup();
-
-      const handleEvent = vi.fn();
-
-      element.addEventListener('input', handleEvent);
-      element.addEventListener('change', handleEvent);
+      const { input, change } = listenToEvents(element, ['input', 'change']);
 
       element.value = 20;
       expect(element).toHaveValue('20');
 
-      // Ensure that no events are dispatched for programmatic value changes.
-      // Matching the default browser behavior.
-      expect(handleEvent).not.toHaveBeenCalled();
+      // Programmatic updates should not fire events (matching the default browser behavior).
+      expect(input).not.toHaveBeenCalled();
+      expect(change).not.toHaveBeenCalled();
     });
 
     test('programmatic value attribute changes', async () => {
       const { element } = setup();
-
-      const handleEvent = vi.fn();
-
-      element.addEventListener('input', handleEvent);
-      element.addEventListener('change', handleEvent);
+      const { input, change } = listenToEvents(element, ['input', 'change']);
 
       element.setAttribute('value', 10);
       expect(element).toHaveValue('10');
 
-      // Ensure that no events are dispatched for programmatic value changes.
-      // Matching the default browser behavior.
-      expect(handleEvent).not.toHaveBeenCalled();
+      // Programmatic attribute changes should not fire events ((matching the default browser behavior).
+      expect(input).not.toHaveBeenCalled();
+      expect(change).not.toHaveBeenCalled();
     });
   });
 
@@ -172,35 +173,29 @@ describe('range-slider', () => {
       const { element, thumb } = setup();
 
       const value = element.value;
-      const handleEvent = vi.fn();
 
-      element.addEventListener('input', handleEvent);
-      element.addEventListener('change', handleEvent);
+      const { input, change } = listenToEvents(element, ['input', 'change']);
 
       await userEvent.click(thumb);
       expect(element).toHaveValue(String(value));
 
       // Make sure that no events have been dispatched
-      expect(handleEvent).not.toHaveBeenCalled();
+      expect(input).not.toHaveBeenCalled();
+      expect(change).not.toHaveBeenCalled();
     });
 
     test('track click updates the value and sends events', async () => {
       const { element } = setup('<range-slider max="42"></range-slider>');
-
-      const handleInputEvent = vi.fn();
-      const handleChangeEvent = vi.fn();
-
-      element.addEventListener('input', handleInputEvent);
-      element.addEventListener('change', handleChangeEvent);
+      const { input, change } = listenToEvents(element, ['input', 'change']);
 
       await userEvent.click(element, { position: { x: element.offsetWidth - 1, y: 5 } });
       expect(element).toHaveValue(String(42));
 
       // Should dispatch "input" event
-      expect(handleInputEvent).toHaveBeenCalled();
+      expect(input).toHaveBeenCalled();
 
       // Should dispatch "change" event
-      expect(handleChangeEvent).toHaveBeenCalled();
+      expect(change).toHaveBeenCalled();
     });
   });
 
