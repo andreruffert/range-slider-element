@@ -9,7 +9,7 @@ function setup(html = '<range-slider></range-slider>') {
   const track = element?.querySelector('[data-track]');
   const trackFill = element?.querySelector('[data-track-fill]');
   const runnableTrack = element?.querySelector('[data-runnable-track]');
-  const thumbs = element ? [...element.querySelectorAll('[data-thumb]')] : [];
+  const thumbs = element ? [...element.querySelectorAll('[role="slider"]')] : [];
   const thumb = thumbs[0];
 
   return {
