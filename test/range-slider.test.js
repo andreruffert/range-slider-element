@@ -1,5 +1,5 @@
 import { userEvent } from '@vitest/browser/context';
-import { expect, test, vi } from 'vitest';
+import { beforeEach, expect, test, vi } from 'vitest';
 import '../src/index.js';
 
 function setup(html = '<range-slider></range-slider>') {
@@ -21,6 +21,10 @@ function setup(html = '<range-slider></range-slider>') {
     thumb,
   };
 }
+
+beforeEach(() => {
+  document.body.innerHTML = '';
+});
 
 test('default attributes', async () => {
   const { element, track, trackFill, runnableTrack, thumb } = setup();
