@@ -163,6 +163,13 @@ describe('range-slider', () => {
       element.value = 100;
       expect(element).toHaveValue('20');
     });
+
+    test('value snaps to step', () => {
+      const { element } = setup('<range-slider step="10"></range-slider>');
+
+      element.value = 24.5;
+      expect(element).toHaveValue('20');
+    });
   });
 
   describe('interaction', () => {
