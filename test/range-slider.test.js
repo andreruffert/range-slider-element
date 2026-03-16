@@ -1,5 +1,5 @@
 import { userEvent } from '@vitest/browser/context';
-import { beforeEach, expect, test, vi } from 'vitest';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 import '../src/index.js';
 
 function setup(html = '<range-slider></range-slider>') {
@@ -26,131 +26,187 @@ beforeEach(() => {
   document.body.innerHTML = '';
 });
 
-test('default attributes', async () => {
-  const { element, track, trackFill, runnableTrack, thumb } = setup();
+describe('range-slider', () => {
+  describe('rendering', () => {
+    test('default attributes', async () => {
+      const { element, track, trackFill, runnableTrack, thumb } = setup();
 
-  await expect.element(element).toBeInTheDocument();
-  await expect.element(track).toBeInTheDocument();
-  await expect.element(trackFill).toBeInTheDocument();
-  await expect.element(runnableTrack).toBeInTheDocument();
-  await expect.element(thumb).toBeInTheDocument();
+      await expect.element(element).toBeInTheDocument();
+      await expect.element(track).toBeInTheDocument();
+      await expect.element(trackFill).toBeInTheDocument();
+      await expect.element(runnableTrack).toBeInTheDocument();
+      await expect.element(thumb).toBeInTheDocument();
 
-  expect(element).toHaveAttribute('tabindex', '-1');
-  expect(thumb).toHaveAttribute('tabindex', '0');
-  expect(thumb).toHaveRole('slider');
+      expect(element).toHaveAttribute('tabindex', '-1');
+      expect(thumb).toHaveAttribute('tabindex', '0');
+      expect(thumb).toHaveRole('slider');
 
-  expect(thumb).toHaveAttribute('aria-valuenow', '50');
-  expect(thumb).toHaveAttribute('aria-valuemin', '0');
-  expect(thumb).toHaveAttribute('aria-valuemax', '100');
-});
+      expect(thumb).toHaveAttribute('aria-valuenow', '50');
+      expect(thumb).toHaveAttribute('aria-valuemin', '0');
+      expect(thumb).toHaveAttribute('aria-valuemax', '100');
+    });
+  });
 
-test('form-associated value state', async () => {
-  const { element } = setup('<form><range-slider name="range-slider"></range-slider></form>');
+  describe('form association', () => {
+    test('form-associated value state', async () => {
+      const { element } = setup('<form><range-slider name="range-slider"></range-slider></form>');
 
-  const form = document.querySelector('form');
+      const form = document.querySelector('form');
 
-  expect(form).toHaveFormValues({ 'range-slider': '50' });
-  expect(element).toHaveValue('50');
-});
+      expect(form).toHaveFormValues({ 'range-slider': '50' });
+      expect(element).toHaveValue('50');
+    });
 
-test('form-associated disabled state', async () => {
-  const { element, thumb } = setup(
-    '<form><fieldset disabled><range-slider></range-slider></fieldset></form>',
-  );
+    test('form-associated disabled state', async () => {
+      const { element, thumb } = setup(
+        '<form><fieldset disabled><range-slider></range-slider></fieldset></form>',
+      );
 
-  const form = document.querySelector('form');
-  const fieldset = document.querySelector('fieldset');
+      const form = document.querySelector('form');
+      const fieldset = document.querySelector('fieldset');
 
-  // Initial disabled
-  expect(element).not.toHaveAttribute('tabindex', '-1');
-  expect(thumb).not.toHaveAttribute('tabindex', '0');
-  expect(thumb).toHaveAttribute('aria-disabled', 'true'); // expose disabled state semantically
-  // Ensure form values are empty when disabeld
-  expect(Object.fromEntries(new FormData(form).entries())).toStrictEqual({});
+      // Initial disabled
+      expect(element).not.toHaveAttribute('tabindex', '-1');
+      expect(thumb).not.toHaveAttribute('tabindex', '0');
+      expect(thumb).toHaveAttribute('aria-disabled', 'true'); // expose disabled state semantically
+      // Ensure form values are empty when disabeld
+      expect(Object.fromEntries(new FormData(form).entries())).toStrictEqual({});
 
-  // Programmatic enabled
-  fieldset.removeAttribute('disabled');
-  expect(element).toHaveAttribute('tabindex', '-1');
-  expect(thumb).toHaveAttribute('tabindex', '0');
-  expect(thumb).not.toHaveAttribute('aria-disabled');
+      // Programmatic enabled
+      fieldset.removeAttribute('disabled');
+      expect(element).toHaveAttribute('tabindex', '-1');
+      expect(thumb).toHaveAttribute('tabindex', '0');
+      expect(thumb).not.toHaveAttribute('aria-disabled');
 
-  // Programmatic disabled
-  fieldset.setAttribute('disabled', '');
-  expect(element).not.toHaveAttribute('tabindex', '-1');
-  expect(thumb).not.toHaveAttribute('tabindex', '0');
-  expect(thumb).toHaveAttribute('aria-disabled', 'true'); // expose disabled state semantically
-});
+      // Programmatic disabled
+      fieldset.setAttribute('disabled', '');
+      expect(element).not.toHaveAttribute('tabindex', '-1');
+      expect(thumb).not.toHaveAttribute('tabindex', '0');
+      expect(thumb).toHaveAttribute('aria-disabled', 'true'); // expose disabled state semantically
+    });
+  });
 
-test('custom attributes', async () => {
-  const { element } = setup('<range-slider min="10" max="60" step="5" value="20"></range-slider>');
+  describe('attributes', () => {
+    test('custom attributes', async () => {
+      const { element } = setup(
+        '<range-slider min="10" max="60" step="5" value="20"></range-slider>',
+      );
 
-  const handleEvent = vi.fn();
+      const handleEvent = vi.fn();
 
-  element.addEventListener('input', handleEvent);
-  element.addEventListener('change', handleEvent);
+      element.addEventListener('input', handleEvent);
+      element.addEventListener('change', handleEvent);
 
-  expect(element).toHaveValue('20');
+      expect(element).toHaveValue('20');
 
-  // Make sure that no events have been dispatched for initial value attribute
-  expect(handleEvent).not.toHaveBeenCalled();
-});
+      // Make sure that no events have been dispatched for initial value attribute
+      expect(handleEvent).not.toHaveBeenCalled();
+    });
 
-test('negative attributes', async () => {
-  const { element } = setup(
-    '<range-slider min="-10" max="-80" step="10" value="-30"></range-slider>',
-  );
+    test('negative attributes', async () => {
+      const { element } = setup(
+        '<range-slider min="-10" max="-80" step="10" value="-30"></range-slider>',
+      );
 
-  expect(element).toHaveValue('-30');
-});
+      expect(element).toHaveValue('-30');
+    });
 
-test('programmatic value property changes', async () => {
-  const { element } = setup();
+    test('disabled attribute', async () => {
+      const { element, thumb } = setup('<range-slider disabled></range-slider>');
 
-  const handleEvent = vi.fn();
+      expect(element).not.toHaveAttribute('tabindex', '-1');
+      expect(thumb).not.toHaveAttribute('tabindex', '0');
+      expect(thumb).toHaveAttribute('aria-disabled', 'true'); // expose disabled state semantically
 
-  element.addEventListener('input', handleEvent);
-  element.addEventListener('change', handleEvent);
+      // Programmatic change
+      element.disabled = false;
+      expect(element).toHaveAttribute('tabindex', '-1');
+      expect(thumb).toHaveAttribute('tabindex', '0');
+      expect(thumb).not.toHaveAttribute('aria-disabled');
+    });
+  });
 
-  element.value = 20;
-  expect(element).toHaveValue('20');
+  describe('value updates', () => {
+    test('programmatic value property changes', async () => {
+      const { element } = setup();
 
-  // Ensure that no events are dispatched for programmatic value changes.
-  // Matching the default browser behavior.
-  expect(handleEvent).not.toHaveBeenCalled();
-});
+      const handleEvent = vi.fn();
 
-test('programmatic value attribute changes', async () => {
-  const { element } = setup();
+      element.addEventListener('input', handleEvent);
+      element.addEventListener('change', handleEvent);
 
-  const handleEvent = vi.fn();
+      element.value = 20;
+      expect(element).toHaveValue('20');
 
-  element.addEventListener('input', handleEvent);
-  element.addEventListener('change', handleEvent);
+      // Ensure that no events are dispatched for programmatic value changes.
+      // Matching the default browser behavior.
+      expect(handleEvent).not.toHaveBeenCalled();
+    });
 
-  element.setAttribute('value', 10);
-  expect(element).toHaveValue('10');
+    test('programmatic value attribute changes', async () => {
+      const { element } = setup();
 
-  // Ensure that no events are dispatched for programmatic value changes.
-  // Matching the default browser behavior.
-  expect(handleEvent).not.toHaveBeenCalled();
-});
+      const handleEvent = vi.fn();
 
-test('disabled attribute', async () => {
-  const { element, thumb } = setup('<range-slider disabled></range-slider>');
+      element.addEventListener('input', handleEvent);
+      element.addEventListener('change', handleEvent);
 
-  expect(element).not.toHaveAttribute('tabindex', '-1');
-  expect(thumb).not.toHaveAttribute('tabindex', '0');
-  expect(thumb).toHaveAttribute('aria-disabled', 'true'); // expose disabled state semantically
+      element.setAttribute('value', 10);
+      expect(element).toHaveValue('10');
 
-  // Programmatic change
-  element.disabled = false;
-  expect(element).toHaveAttribute('tabindex', '-1');
-  expect(thumb).toHaveAttribute('tabindex', '0');
-  expect(thumb).not.toHaveAttribute('aria-disabled');
-});
+      // Ensure that no events are dispatched for programmatic value changes.
+      // Matching the default browser behavior.
+      expect(handleEvent).not.toHaveBeenCalled();
+    });
+  });
 
-test('multi thumb support', async () => {
-  const { element, thumbs } = setup(`
+  describe('interaction', () => {
+    test('focus behaviour', async () => {
+      const { thumb } = setup();
+
+      await userEvent.keyboard('{Tab}');
+      expect(thumb).toHaveFocus();
+    });
+
+    test('thumb click does not update the value', async () => {
+      const { element, thumb } = setup();
+
+      const value = element.value;
+      const handleEvent = vi.fn();
+
+      element.addEventListener('input', handleEvent);
+      element.addEventListener('change', handleEvent);
+
+      await userEvent.click(thumb);
+      expect(element).toHaveValue(String(value));
+
+      // Make sure that no events have been dispatched
+      expect(handleEvent).not.toHaveBeenCalled();
+    });
+
+    test('track click updates the value and sends events', async () => {
+      const { element } = setup('<range-slider max="42"></range-slider>');
+
+      const handleInputEvent = vi.fn();
+      const handleChangeEvent = vi.fn();
+
+      element.addEventListener('input', handleInputEvent);
+      element.addEventListener('change', handleChangeEvent);
+
+      await userEvent.click(element, { position: { x: element.offsetWidth - 1, y: 5 } });
+      expect(element).toHaveValue(String(42));
+
+      // Should dispatch "input" event
+      expect(handleInputEvent).toHaveBeenCalled();
+
+      // Should dispatch "change" event
+      expect(handleChangeEvent).toHaveBeenCalled();
+    });
+  });
+
+  describe('multi thumb', () => {
+    test('multi thumb support', async () => {
+      const { element, thumbs } = setup(`
     <form>
       <range-slider value="10,40" name="price-range">
         <div data-track></div>
@@ -163,68 +219,30 @@ test('multi thumb support', async () => {
     </form>
   `);
 
-  const [thumb0, thumb1] = thumbs;
-  const form = document.querySelector('form');
+      const [thumb0, thumb1] = thumbs;
+      const form = document.querySelector('form');
 
-  for (const thumb of thumbs) {
-    expect(thumb).toHaveRole('slider');
-    expect(thumb).toHaveAttribute('tabindex', '0');
-    expect(thumb).toHaveAttribute('aria-valuemin', '0');
-    expect(thumb).toHaveAttribute('aria-valuemax', '100');
-  }
+      for (const thumb of thumbs) {
+        expect(thumb).toHaveRole('slider');
+        expect(thumb).toHaveAttribute('tabindex', '0');
+        expect(thumb).toHaveAttribute('aria-valuemin', '0');
+        expect(thumb).toHaveAttribute('aria-valuemax', '100');
+      }
 
-  expect(thumb0).toHaveAttribute('aria-valuenow', '10');
-  expect(thumb1).toHaveAttribute('aria-valuenow', '40');
+      expect(thumb0).toHaveAttribute('aria-valuenow', '10');
+      expect(thumb1).toHaveAttribute('aria-valuenow', '40');
 
-  expect(element).toHaveValue('10,40');
-  expect(form).toHaveFormValues({ 'price-range': '10,40' });
-});
+      expect(element).toHaveValue('10,40');
+      expect(form).toHaveFormValues({ 'price-range': '10,40' });
+    });
+  });
 
-test('focus behaviour', async () => {
-  const { thumb } = setup();
+  describe('api', () => {
+    test('Spec compliant step rounding using the min attribute as step base', async () => {
+      const { element } = setup('<range-slider min="5" step="2" value="5"></range-slider>');
 
-  await userEvent.keyboard('{Tab}');
-  expect(thumb).toHaveFocus();
-});
-
-test('thumb click does not update the value', async () => {
-  const { element, thumb } = setup();
-
-  const value = element.value;
-  const handleEvent = vi.fn();
-
-  element.addEventListener('input', handleEvent);
-  element.addEventListener('change', handleEvent);
-
-  await userEvent.click(thumb);
-  expect(element).toHaveValue(String(value));
-
-  // Make sure that no events have been dispatched
-  expect(handleEvent).not.toHaveBeenCalled();
-});
-
-test('track click updates the value and sends events', async () => {
-  const { element } = setup('<range-slider max="42"></range-slider>');
-
-  const handleInputEvent = vi.fn();
-  const handleChangeEvent = vi.fn();
-
-  element.addEventListener('input', handleInputEvent);
-  element.addEventListener('change', handleChangeEvent);
-
-  await userEvent.click(element, { position: { x: element.offsetWidth - 1, y: 5 } });
-  expect(element).toHaveValue(String(42));
-
-  // Should dispatch "input" event
-  expect(handleInputEvent).toHaveBeenCalled();
-
-  // Should dispatch "change" event
-  expect(handleChangeEvent).toHaveBeenCalled();
-});
-
-test('Spec compliant step rounding using the min attribute as step base', async () => {
-  const { element } = setup('<range-slider min="5" step="2" value="5"></range-slider>');
-
-  element.stepUp();
-  expect(element).toHaveValue('7');
+      element.stepUp();
+      expect(element).toHaveValue('7');
+    });
+  });
 });
