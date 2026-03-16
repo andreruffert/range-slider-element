@@ -33,6 +33,18 @@ function listenToEvents(element, events) {
   return handlers;
 }
 
+async function clickTrackEnd(element) {
+  await userEvent.click(element, {
+    position: { x: element.offsetWidth - 1, y: 1 },
+  });
+}
+
+async function clickTrackStart(element) {
+  await userEvent.click(element, {
+    position: { x: 1, y: 1 },
+  });
+}
+
 beforeEach(() => {
   document.body.innerHTML = '';
 });
@@ -184,18 +196,25 @@ describe('range-slider', () => {
       expect(change).not.toHaveBeenCalled();
     });
 
-    test('track click updates the value and sends events', async () => {
-      const { element } = setup('<range-slider max="42"></range-slider>');
+    test('track clicks update the value and dispatch events', async () => {
+      const { element } = setup('<range-slider min="10" max="42"></range-slider>');
       const { input, change } = listenToEvents(element, ['input', 'change']);
 
-      await userEvent.click(element, { position: { x: element.offsetWidth - 1, y: 5 } });
-      expect(element).toHaveValue(String(42));
+      // Click start → should go to min
+      await clickTrackStart(element);
+      expect(element).toHaveValue('10');
+      expect(input).toHaveBeenCalledTimes(1);
+      expect(change).toHaveBeenCalledTimes(1);
 
-      // Should dispatch "input" event
-      expect(input).toHaveBeenCalled();
+      // Reset spies for next action
+      input.mockReset();
+      change.mockReset();
 
-      // Should dispatch "change" event
-      expect(change).toHaveBeenCalled();
+      // Click end → should go to max
+      await clickTrackEnd(element);
+      expect(element).toHaveValue('42');
+      expect(input).toHaveBeenCalledTimes(1);
+      expect(change).toHaveBeenCalledTimes(1);
     });
   });
 
