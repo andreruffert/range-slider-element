@@ -448,11 +448,13 @@ export class RangeSliderElement extends HTMLElement {
       this.removeAttribute('tabindex');
       for (const thumb of this.#thumbs) {
         thumb.removeAttribute('tabindex');
+        thumb.setAttribute('aria-disabled', 'true');
       }
     } else {
       this.setAttribute('tabindex', '-1');
       for (const thumb of this.#thumbs) {
         thumb.setAttribute('tabindex', '0');
+        thumb.removeAttribute('aria-disabled');
       }
     }
   }

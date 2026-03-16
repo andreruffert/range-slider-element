@@ -50,6 +50,7 @@ test('form-associated disabled state', async () => {
   // Initial disabled
   expect(element).not.toHaveAttribute('tabindex', '-1');
   expect(thumb).not.toHaveAttribute('tabindex', '0');
+  expect(thumb).toHaveAttribute('aria-disabled', 'true'); // expose disabled state semantically
   // Ensure form values are empty when disabeld
   expect(Object.fromEntries(new FormData(form).entries())).toStrictEqual({});
 
@@ -57,11 +58,13 @@ test('form-associated disabled state', async () => {
   fieldset.removeAttribute('disabled');
   expect(element).toHaveAttribute('tabindex', '-1');
   expect(thumb).toHaveAttribute('tabindex', '0');
+  expect(thumb).not.toHaveAttribute('aria-disabled');
 
   // Programmatic disabled
   fieldset.setAttribute('disabled', '');
   expect(element).not.toHaveAttribute('tabindex', '-1');
   expect(thumb).not.toHaveAttribute('tabindex', '0');
+  expect(thumb).toHaveAttribute('aria-disabled', 'true'); // expose disabled state semantically
 });
 
 test('custom attributes', async () => {
@@ -128,11 +131,13 @@ test('disabled attribute', async () => {
 
   expect(element).not.toHaveAttribute('tabindex', '-1');
   expect(thumb).not.toHaveAttribute('tabindex', '0');
+  expect(thumb).toHaveAttribute('aria-disabled', 'true'); // expose disabled state semantically
 
   // Programmatic change
   element.disabled = false;
   expect(element).toHaveAttribute('tabindex', '-1');
   expect(thumb).toHaveAttribute('tabindex', '0');
+  expect(thumb).not.toHaveAttribute('aria-disabled');
 });
 
 test('multi thumb support', async () => {
