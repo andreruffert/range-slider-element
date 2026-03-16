@@ -151,6 +151,18 @@ describe('range-slider', () => {
       element.value = 20;
       expect(thumb).toHaveAttribute('aria-valuenow', '20');
     });
+
+    test('value clamps to min/max', () => {
+      const { element } = setup('<range-slider min="10" max="20"></range-slider>');
+
+      // min
+      element.value = -100;
+      expect(element).toHaveValue('10');
+
+      // max
+      element.value = 100;
+      expect(element).toHaveValue('20');
+    });
   });
 
   describe('interaction', () => {
