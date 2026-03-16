@@ -216,6 +216,38 @@ describe('range-slider', () => {
       expect(input).toHaveBeenCalledTimes(1);
       expect(change).toHaveBeenCalledTimes(1);
     });
+
+    test('dragging thumb updates value and dispatches events', async () => {
+      const { element, thumb } = setup();
+      const { input, change } = listenToEvents(element, ['input', 'change']);
+      const pointerId = 1;
+
+      thumb.dispatchEvent(
+        new PointerEvent('pointerdown', {
+          bubbles: true,
+          clientX: 10,
+          pointerId,
+        }),
+      );
+
+      element.dispatchEvent(
+        new PointerEvent('pointermove', {
+          bubbles: true,
+          clientX: 150,
+          pointerId,
+        }),
+      );
+
+      window.dispatchEvent(
+        new PointerEvent('pointerup', {
+          bubbles: true,
+          pointerId,
+        }),
+      );
+
+      expect(input).toHaveBeenCalled();
+      expect(change).toHaveBeenCalled();
+    });
   });
 
   describe('multi thumb', () => {
