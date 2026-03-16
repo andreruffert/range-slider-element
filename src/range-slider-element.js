@@ -190,6 +190,9 @@ export class RangeSliderElement extends HTMLElement {
     this.#formDisabled = value; // Sync internal state
     this.#updateDisabledState();
   }
+  formResetCallback() {
+    this.value = this.getAttribute('value') || this.#getDefaultValue();
+  }
 
   connectedCallback() {
     // Template setup

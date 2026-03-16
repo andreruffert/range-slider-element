@@ -65,6 +65,21 @@ describe('range-slider', () => {
       expect(thumb).not.toHaveAttribute('tabindex', '0');
       expect(thumb).toHaveAttribute('aria-disabled', 'true'); // expose disabled state semantically
     });
+
+    test('form reset restores default value', () => {
+      const { element } = setup(`
+        <form>
+          <range-slider name="slider" value="30"></range-slider>
+        </form>
+      `);
+
+      const form = document.querySelector('form');
+
+      element.value = 80;
+      form.reset();
+
+      expect(element).toHaveValue('30');
+    });
   });
 
   describe('attributes', () => {
