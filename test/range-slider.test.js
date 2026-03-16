@@ -1,49 +1,7 @@
 import { userEvent } from '@vitest/browser/context';
-import { beforeEach, describe, expect, test, vi } from 'vitest';
+import { beforeEach, describe, expect, test } from 'vitest';
+import { clickTrackEnd, clickTrackStart, listenToEvents, setup } from './utils.js';
 import '../src/index.js';
-
-function setup(html = '<range-slider></range-slider>') {
-  document.body.innerHTML = html;
-
-  const element = document.querySelector('range-slider');
-  const track = element?.querySelector('[data-track]');
-  const trackFill = element?.querySelector('[data-track-fill]');
-  const runnableTrack = element?.querySelector('[data-runnable-track]');
-  const thumbs = element ? [...element.querySelectorAll('[role="slider"]')] : [];
-  const thumb = thumbs[0];
-
-  return {
-    element,
-    track,
-    trackFill,
-    runnableTrack,
-    thumbs,
-    thumb,
-  };
-}
-
-function listenToEvents(element, events) {
-  const handlers = {};
-
-  for (const event of events) {
-    handlers[event] = vi.fn();
-    element.addEventListener(event, handlers[event]);
-  }
-
-  return handlers;
-}
-
-async function clickTrackEnd(element) {
-  await userEvent.click(element, {
-    position: { x: element.offsetWidth - 1, y: 1 },
-  });
-}
-
-async function clickTrackStart(element) {
-  await userEvent.click(element, {
-    position: { x: 1, y: 1 },
-  });
-}
 
 beforeEach(() => {
   document.body.innerHTML = '';
