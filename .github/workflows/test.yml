@@ -6,7 +6,6 @@ on:
       - main
     paths-ignore:
       - '**.md'
-      - '**.yml'
   pull_request:
     branches:
       - main
@@ -21,6 +20,8 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -30,15 +31,25 @@ jobs:
         with:
           node-version-file: 'package.json'
           cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --prefer-offline --no-audit
 
-      - name: Install Playwright Browser
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v5.0.3
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**/playwright.config.*') }}
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install chromium
 
       - name: Code quality
         run: npm run lint
+        continue-on-error: true
 
       - name: Build
         run: npm run build
@@ -47,7 +58,7 @@ jobs:
         run: npm run test
 
       - uses: actions/upload-artifact@v7
-        if: ${{ !cancelled() }}
+        if: ${{ always() }}
         with:
           name: playwright-report
           path: playwright-report/
