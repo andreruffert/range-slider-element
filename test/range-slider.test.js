@@ -80,6 +80,26 @@ describe('range-slider', () => {
 
       expect(element).toHaveValue('30');
     });
+
+    test('restores form state and does not dispatch events', async () => {
+      const { element } = setup('<form><range-slider name="slider"></range-slider></form>');
+      const { input, change } = listenToEvents(element, ['input', 'change']);
+      const form = document.querySelector('form');
+
+      // Simulate browser session/BFCache restore (value, mode)
+      element.formStateRestoreCallback('25', 'restore');
+      expect(element).toHaveValue('25');
+      expect(form).toHaveFormValues({ slider: '25' });
+
+      // Simulate browser autofill (value, mode)
+      element.formStateRestoreCallback('70', 'autocomplete');
+      expect(element).toHaveValue('70');
+      expect(form).toHaveFormValues({ slider: '70' });
+
+      // Should not dispatch events (matches native input restore)
+      expect(input).not.toHaveBeenCalled();
+      expect(change).not.toHaveBeenCalled();
+    });
   });
 
   describe('attributes', () => {
