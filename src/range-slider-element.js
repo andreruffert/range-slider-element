@@ -193,6 +193,9 @@ export class RangeSliderElement extends HTMLElement {
   formResetCallback() {
     this.value = this.getAttribute('value') || this.#getDefaultValue();
   }
+  formStateRestoreCallback(state) {
+    this.value = state; // Restore slider position
+  }
 
   connectedCallback() {
     // Template setup
@@ -406,7 +409,7 @@ export class RangeSliderElement extends HTMLElement {
     if (oldValue !== newValue) {
       this.#value[index] = newValue;
       this.#valuePercent[index] = this.#getPercentFromValue(newValue);
-      this.#internals.setFormValue(this.#value.join(','));
+      this.#internals.setFormValue(this.value, this.value); // value, state
       this.#updateThumb(index, newValue);
       this.#updateTrackFill();
       for (const eventName of dispatchEvents) {
