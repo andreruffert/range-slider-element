@@ -1,5 +1,5 @@
-import { userEvent } from '@vitest/browser/context';
 import { beforeEach, describe, expect, test } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import { clickTrackEnd, clickTrackStart, listenToEvents, setup } from './utils.js';
 import '../src/index.js';
 

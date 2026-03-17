@@ -1,5 +1,5 @@
-import { userEvent } from '@vitest/browser/context';
 import { vi } from 'vitest';
+import { userEvent } from 'vitest/browser';
 
 export function setup(html = '<range-slider></range-slider>') {
   document.body.innerHTML = html;
