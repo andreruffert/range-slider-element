@@ -241,6 +241,10 @@ export class RangeSliderElement extends HTMLElement {
     const prop = ATTRIBUTE_TO_PROPERTY[name];
     if (prop) {
       this[prop] = newValue;
+      if ((name === 'min' || name === 'max') && this.#value.length) {
+        // Revalidate stored values against the new bounds.
+        this.value = this.value;
+      }
     }
   }
 
